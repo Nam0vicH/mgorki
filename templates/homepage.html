@@ -1,0 +1,307 @@
+{% extends "base.html" %}
+
+{% block title %}Горки Ленинские{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/homepage.css') }}">
+{% endblock %}
+
+{% block content %}
+
+
+    <!-- Homepage -->
+    <homepage class="homepage">
+        <!-- Heroe section -->
+        <section class="hero-section">
+            <!-- Background Rectangle -->
+            <div class="hero-background" id="heroBackground"></div>
+
+            <!-- Left Navigation Button -->
+            <button class="hero-button-left" id="heroPrev">
+                <span class="chevron-left">←</span>
+            </button>
+
+            <!-- Right Navigation Button -->
+            <button class="hero-button-right" id="heroNext">
+                <span class="chevron-right">→</span>
+            </button>
+
+            <!-- Slide Indicators -->
+            <div class="hero-indicators">
+                <span class="hero-indicator active" data-slide="0"></span>
+                <span class="hero-indicator" data-slide="1"></span>
+            </div>
+        </section>
+
+
+        <!-- Museum section -->
+        <section class="museum-section">
+            <!-- Section Title -->
+            <h2 class="museum-title">Музеи</h2>
+
+            <!-- Museum Cards -->
+            <div class="museum-cards">
+                <!-- Card 1: Усадьба -->
+                <div class="museum-card">
+                    <img src="../static/images/img/Усадьба_5.jpeg" alt="Музей-усадьба Горки" class="museum-card-image">
+                    <h3 class="museum-card-title">Музей-усадьба «Горки»</h3>
+                    <p class="museum-card-description">
+                        Единственная сохранившаяся усадьба в России в неоклассическом стиле. После революции, ей удалось
+                        избежать не только разрушения архитектурно – паркового...
+                    </p>
+                    <div class="museum-card-buttons">
+                        <a href="about_us.html" class="museum-card-button">Подробнее</a>
+                        <a href="order.html" class="museum-card-button">Купить билет</a>
+                    </div>
+                </div>
+
+                <!-- Card 2: НКЦ -->
+                <div class="museum-card">
+                    <img src="../static/images/img/НКЦ_4.jpeg" alt="Музей В.И. Ленина" class="museum-card-image">
+                    <h3 class="museum-card-title">Научно-культурный центр «Музей В.И. Ленина»</h3>
+                    <p class="museum-card-description">
+                        Отличительная особенность этой экспозиции – наличие «идейно-эмоциональных центров»
+                        (аудиовизуальных комплексов или «кубов»)...
+                    </p>
+                    <div class="museum-card-buttons">
+                        <a href="about_us.html" class="museum-card-button">Подробнее</a>
+                        <a href="order.html" class="museum-card-button">Купить билет</a>
+                    </div>
+                </div>
+
+                <!-- Card 3: Кабинет -->
+                <div class="museum-card">
+                    <img src="../static/images/img/кабинет_3.png" alt="Кабинет и квартира В.И. Ленина"
+                        class="museum-card-image">
+                    <h3 class="museum-card-title">Музей «Кабинет и квартира В.И. Ленина в кремле»</h3>
+                    <p class="museum-card-description">
+                        1994 год - год переезда Кремля в Горки. Поле последней реконструкции музея 2017-2018 гг.,
+                        интерьеры максимально приближены к кремлевским...
+                    </p>
+                    <div class="museum-card-buttons">
+                        <a href="about_us.html" class="museum-card-button">Подробнее</a>
+                        <a href="order.html" class="museum-card-button">Купить билет</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="museum-navigation">
+                <button class="museum-nav-button prev">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18L9 12L15 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+                <span class="museum-nav-counter">1 / 2</span>
+                <button class="museum-nav-button next">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M9 18L15 12L9 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
+        </section>
+
+
+        <!-- Virtual exhibitions section -->
+        <section class="virtual-exhibitions">
+            <!-- Section Title -->
+            <h2 class="virtual-exhibitions-title">Виртуальные выставки</h2>
+
+            <!-- Virtual Exhibition Cards -->
+            <div class="virtual-exhibitions-cards">
+                <!-- Card 1 -->
+                <div class="virtual-exhibition-card">
+                    <img src="../static/images/img/shat1.jpeg" alt="Виртуальная выставка"
+                        class="virtual-exhibition-card-image">
+                    <a href="virtual-exhi.html" class="virtual-exhibition-card-button">Подробнее</a>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="virtual-exhibition-card">
+                    <img src="../static/images/img/pl4.jpg" alt="Виртуальная выставка"
+                        class="virtual-exhibition-card-image">
+                    <a href="virtual-exhi.html" class="virtual-exhibition-card-button">Подробнее</a>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="virtual-exhibition-card">
+                    <img src="../static/images/img/Симбирск_в_XIX_веке.jpg" alt="Виртуальная выставка"
+                        class="virtual-exhibition-card-image">
+                    <a href="virtual-exhi.html" class="virtual-exhibition-card-button">Подробнее</a>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="virtual-exhibitions-navigation">
+                <button class="virtual-exhibitions-nav-button prev">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18L9 12L15 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+                <span class="virtual-exhibitions-nav-counter">1 / 2</span>
+                <button class="virtual-exhibitions-nav-button next">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M9 18L15 12L9 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- Poster section -->
+        <section class="poster-section">
+            <!-- Section Title -->
+            <h2 class="poster-title">Афиша</h2>
+
+            <!-- Poster Cards -->
+            <div class="poster-cards">
+                <!-- Card 1 -->
+                <div class="poster-card">
+                    <img src="../static/images/img/Утро_ЛЕС.jpg" alt="Афиша" class="poster-card-image">
+                    <a href="Poster.html" class="poster-card-button">Подробнее</a>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="poster-card">
+                    <img src="../static/images/img/заповедное_А3_арка.jpg" alt="Афиша" class="poster-card-image">
+                    <a href="Poster.html" class="poster-card-button">Подробнее</a>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="poster-card">
+                    <img src="../static/images/img/сатира.jpg" alt="Афиша" class="poster-card-image">
+                    <a href="Poster.html" class="poster-card-button">Подробнее</a>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="poster-navigation">
+                <button class="poster-nav-button prev">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18L9 12L15 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+                <span class="poster-nav-counter">1 / 2</span>
+                <button class="poster-nav-button next">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M9 18L15 12L9 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
+        </section>
+
+
+        <!-- Map section -->
+        <section class="map-section">
+            <!-- Section Title -->
+            <h2 class="map-title">Как добраться</h2>
+
+            <!-- Map Container -->
+            <div class="map-container">
+                <!-- Contact Information -->
+                <div class="map-contact-info">
+                    <p><strong>По общим вопросам</strong></p>
+                    <p>+7 (495) 957 07 27</p>
+                    <p>+7 (495) 957 07 00</p>
+                    <p>ВТ, СР, ВС: 10:00 — 18:00</p>
+                    <p>ЧТ, ПТ, СБ: 10:00 — 21:00</p>
+                </div>
+
+                <!-- Excursions Information -->
+                <div class="map-excursions-info">
+                    <p><strong>Экскурсии</strong></p>
+                    <p>+7 (495) 957-07-27, доб.4</p>
+                    <p>ВТ, СР: 10:00 — 17:00</p>
+                    <p>ЧТ, ПТ, СБ: 10:00 —19:00</p>
+                </div>
+
+                <!-- Address -->
+                <div class="map-address">
+                    <p>142712, Московская область, городской округ Ленинский, посёлок городского типа Горки Ленинские,
+                        улица Центральная, дом 1</p>
+                </div>
+
+                <!-- Map Image -->
+                <img src="../static/images/img/888.jpg" alt="Карта расположения" class="map-image">
+            </div>
+        </section>
+
+
+    <!-- Hero Slider Script -->
+    <script>
+        // Hero slider functionality
+        const heroBackground = document.getElementById('heroBackground');
+        const heroPrev = document.getElementById('heroPrev');
+        const heroNext = document.getElementById('heroNext');
+        const heroIndicators = document.querySelectorAll('.hero-indicator');
+
+        const heroImages = [
+            '../static/images/hero/Page 1.jpg',
+            '../static/images/hero/Page 2.jpg'
+        ];
+
+        let currentSlide = 0;
+
+        function updateSlide(index) {
+            // Update background image
+            heroBackground.style.opacity = '0';
+
+            setTimeout(() => {
+                heroBackground.style.backgroundImage = `url('${heroImages[index]}')`;
+                heroBackground.style.opacity = '1';
+                currentSlide = index;
+
+                // Update indicators
+                heroIndicators.forEach((indicator, i) => {
+                    if (i === index) {
+                        indicator.classList.add('active');
+                    } else {
+                        indicator.classList.remove('active');
+                    }
+                });
+            }, 250);
+        }
+
+        function nextSlide() {
+            const next = (currentSlide + 1) % heroImages.length;
+            updateSlide(next);
+        }
+
+        function prevSlide() {
+            const prev = (currentSlide - 1 + heroImages.length) % heroImages.length;
+            updateSlide(prev);
+        }
+
+        // Event listeners
+        heroNext.addEventListener('click', nextSlide);
+        heroPrev.addEventListener('click', prevSlide);
+
+        heroIndicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                updateSlide(index);
+            });
+        });
+
+        // Auto-play (optional - every 5 seconds)
+        let autoPlayInterval = setInterval(nextSlide, 5000);
+
+        // Pause auto-play on hover
+        const heroSection = document.querySelector('.hero-section');
+        heroSection.addEventListener('mouseenter', () => {
+            clearInterval(autoPlayInterval);
+        });
+
+        heroSection.addEventListener('mouseleave', () => {
+            autoPlayInterval = setInterval(nextSlide, 5000);
+        });
+    </script>
+
+
+    </homepage>
+
+{% endblock %}

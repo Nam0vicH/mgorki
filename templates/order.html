@@ -1,0 +1,276 @@
+{% extends "base.html" %}
+
+{% block title %}Покупка билетов - Горки Ленинские{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/homepage.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/order.css') }}">
+{% endblock %}
+
+{% block content %}
+
+    <!-- Order Page Container -->
+    <div class="order-page-container">
+        <!-- Page Title -->
+        <h1 class="title">Покупка билетов</h1>
+
+        <!-- Main Content -->
+        <div class="main-content">
+        <!-- Left Section -->
+        <div class="left-section">
+            <!-- Museum Info -->
+            <div class="museum-info">
+                <div class="museum-title">«Музей Усадьба Горки» (включает в себя экскурсионное обслуживание
+                    продолжительность 60-75 мин.) (6+)</div>
+                <div class="museum-description">
+                    Для посещения музеев, необходимо приобрести входной билет на уличные экспозиции и выставки.
+                </div>
+            </div>
+
+            <!-- Calendar -->
+            <div class="calendar-section">
+                <div class="calendar-grid">
+                    <div class="calendar-day-header">ПН</div>
+                    <div class="calendar-day-header">ВТ</div>
+                    <div class="calendar-day-header">СР</div>
+                    <div class="calendar-day-header">ЧТ</div>
+                    <div class="calendar-day-header">ПТ</div>
+                    <div class="calendar-day-header weekend">СБ</div>
+                    <div class="calendar-day-header weekend">ВС</div>
+
+                    <div class="calendar-day">22<br><small>Сентябрь</small></div>
+                    <div class="calendar-day">23<br><small>Сентябрь</small></div>
+                    <div class="calendar-day selected">24<br><small>Сентябрь</small></div>
+                    <div class="calendar-day">25<br><small>Сентябрь</small></div>
+                    <div class="calendar-day">26<br><small>Сентябрь</small></div>
+                    <div class="calendar-day">27<br><small>Сентябрь</small></div>
+                    <div class="calendar-day">28<br><small>Сентябрь</small></div>
+                </div>
+
+                <div class="time-slots">
+                    <div class="time-slot">10:00</div>
+                    <div class="time-slot">10:30</div>
+                    <div class="time-slot">11:00</div>
+                    <div class="time-slot selected">11:30</div>
+                    <div class="time-slot">12:00</div>
+                    <div class="time-slot">12:30</div>
+                    <div class="time-slot">13:00</div>
+                    <div class="time-slot">13:30</div>
+                    <div class="time-slot">14:00</div>
+                    <div class="time-slot">14:30</div>
+                    <div class="time-slot">15:00</div>
+                    <div class="time-slot">15:30</div>
+                    <div class="time-slot">16:00</div>
+                    <div class="time-slot">16:30</div>
+                </div>
+            </div>
+
+            <!-- Tickets Section -->
+            <div class="tickets-section">
+                <!-- Table Header -->
+                <div class="tickets-header">
+                    <div class="header-category">КАТЕГОРИЯ</div>
+                    <div class="header-price">СТОИМОСТЬ</div>
+                    <div class="header-quantity">КОЛИЧЕСТВО</div>
+                </div>
+
+                <div class="ticket-row">
+                    <div class="ticket-info">
+                        <div class="ticket-title">Взрослые (РФ и другие страны ЕАЭС) <img src="../static/images/icon/pushkin-icon.png" alt="Пушкинская карта" class="pushkin-icon"></div>
+                    </div>
+                    <div class="ticket-price">700 ₽</div>
+                    <div class="quantity-control">
+                        <button class="quantity-btn">−</button>
+                        <span class="quantity">1</span>
+                        <button class="quantity-btn">+</button>
+                    </div>
+                </div>
+
+                <div class="ticket-row">
+                    <div class="ticket-info">
+                        <div class="ticket-title">Пенсионеры (РФ и другие страны ЕАЭС)</div>
+                    </div>
+                    <div class="ticket-price">400 ₽</div>
+                    <div class="quantity-control">
+                        <button class="quantity-btn">−</button>
+                        <span class="quantity">0</span>
+                        <button class="quantity-btn">+</button>
+                    </div>
+                </div>
+
+                <div class="ticket-row">
+                    <div class="ticket-info">
+                        <div class="ticket-title">Дети и взрослые от 7 до 17 лет включительно (РФ и другие страны
+                            ЕАЭС) <img src="../static/images/icon/pushkin-icon.png" alt="Пушкинская карта" class="pushkin-icon"></div>
+                    </div>
+                    <div class="ticket-price">350 ₽</div>
+                    <div class="quantity-control">
+                        <button class="quantity-btn">−</button>
+                        <span class="quantity">0</span>
+                        <button class="quantity-btn">+</button>
+                    </div>
+                </div>
+
+                <div class="ticket-row">
+                    <div class="ticket-info">
+                        <div class="ticket-title">Студенты высших учебных заведений России <img src="../static/images/icon/pushkin-icon.png" alt="Пушкинская карта" class="pushkin-icon"></div>
+                    </div>
+                    <div class="ticket-price">400 ₽</div>
+                    <div class="quantity-control">
+                        <button class="quantity-btn">−</button>
+                        <span class="quantity">0</span>
+                        <button class="quantity-btn">+</button>
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <a href="#" style="color: #D4AF37; text-decoration: none; font-size: 14px;">+ Открыть все
+                        категории</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Section -->
+        <div class="right-section">
+            <div class="booking-panel">
+                <div class="booking-info">
+                    <div class="booking-header">Входной билет</div>
+                    <div class="museum-name">«Музей Усадьба Горки» (включает в себя экскурсионное обслуживание
+                        продолжительность 60-75 мин.)</div>
+                    <div class="booking-date">27.09.2025, 15:00</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                        <span style="color: #333; font-size: 14px;">1 билет</span>
+                    </div>
+                    <div class="additional-option">+ 1 дополнительная опция</div>
+                    <div class="price-display">= 600 ₽</div>
+                </div>
+
+                <button class="show-all-tickets">▼ ПОКАЗАТЬ ВСЕ БИЛЕТЫ</button>
+
+                <div class="total-section">
+                    <span>ИТОГО:</span>
+                    <span>600 ₽</span>
+                </div>
+
+                <div style="font-size: 12px; color: #666; margin-bottom: 15px;">У вас есть промокод?</div>
+
+                <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                    <input type="text" placeholder="Введите промокод" class="form-input" style="flex: 1;">
+                    <button
+                        style="background: #666; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer;">Активировать</button>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">ФАМИЛИЯ ИМЯ ОТЧЕСТВО</label>
+                    <input type="text" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">E-mail</label>
+                    <input type="email" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Телефон</label>
+                    <div
+                        style="display: flex; align-items: center; border: 1px solid #e0e0e0; border-radius: 4px; padding: 10px;">
+                        <span style="margin-right: 10px;">🇷🇺 ▼</span>
+                        <input type="tel" style="border: none; outline: none; flex: 1;" placeholder="+7">
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" class="checkbox" id="subscribe">
+                    <label for="subscribe" class="checkbox-label">Подписаться на новости музея</label>
+                </div>
+
+                <div class="checkbox-group" style="margin-bottom: 20px;">
+                    <input type="checkbox" class="checkbox" id="agreement" checked>
+                    <label for="agreement" class="checkbox-label">
+                        Покупкой билетов я выражаю свое согласие с пользовательским соглашением и подтверждение
+                        получения Билета на указанную почту
+                    </label>
+                </div>
+
+                <button class="pay-button">ОПЛАТИТЬ</button>
+
+                <div class="payment-info">
+                    ОПЛАТА ПУШКИНСКОЙ КАРТОЙ<br>НЕДОСТУПНА
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Order Page Container -->
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <!-- Separator Lines -->
+            <div class="footer-separator"></div>
+            <div class="footer-separator"></div>
+            <div class="footer-separator"></div>
+            <div class="footer-separator"></div>
+            <div class="footer-separator"></div>
+            <div class="footer-separator"></div>
+            <div class="footer-separator"></div>
+            <div class="footer-separator"></div>
+            <div class="footer-separator"></div>
+
+            <!-- Footer Columns -->
+            <div class="footer-columns">
+                <!-- Column 1: Посетителям -->
+                <div class="footer-column">
+                    <h3 class="footer-title">Посетителям</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://mgorki.ru/visitors/" class="footer-link">Информация для посетителей</a>
+                        </li>
+                        <li><a href="https://mgorki.ru/visitors/info/" class="footer-link">Общая информация о
+                                музее</a></li>
+                        <li><a href="https://mgorki.ru/visitors/karta-skhema/" class="footer-link">Карта-схема
+                                музея</a></li>
+                        <li><a href="https://mgorki.ru/visitors/realization-of-action/" class="footer-link">Реализация
+                                входных билетов на экскурсии</a></li>
+                        <li><a href="https://mgorki.ru/visitors/kafe/" class="footer-link">Кафе</a></li>
+                        <li><a href="https://mgorki.ru/visitors/hotel/" class="footer-link">Гостиница</a></li>
+                        <li><a href="https://mgorki.ru/visitors/dostupnaya-sreda/" class="footer-link">Доступная
+                                среда</a></li>
+                        <li><a href="https://mgorki.ru/visitors/chavo/" class="footer-link">Часто задаваемые
+                                вопросы</a></li>
+                        <li><a href="https://mgorki.ru/visitors/visiting-rules/" class="footer-link">Правила
+                                посещения</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 2: О музее -->
+                <div class="footer-column">
+                    <h3 class="footer-title">О музее</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://mgorki.ru/about/" class="footer-link">О музее</a></li>
+                        <li><a href="https://mgorki.ru/about/press-sluzhba/" class="footer-link">Пресс-служба</a>
+                        </li>
+                        <li><a href="https://mgorki.ru/about/dokumenty/" class="footer-link">Документы</a></li>
+                        <li><a href="https://mgorki.ru/about/struktura-muzeya/" class="footer-link">Структура
+                                музея</a></li>
+                        <li><a href="https://mgorki.ru/about/contacts/" class="footer-link">Контакты</a></li>
+                        <li><a href="https://mgorki.ru/about/protivodeystvie-korruptsii/"
+                                class="footer-link">Противодействие коррупции</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Контакты -->
+                <div class="footer-column">
+                    <h3 class="footer-title">Контакты</h3>
+                    <div class="footer-contact">
+                        <p><a href="tel:+74955489309">+7 (495) 548 93 09</a></p>
+                        <p><a href="mailto:info@mgorki.ru">info@mgorki.ru</a></p>
+                        <p><a href="mailto:5489309@mgorki.ru">5489309@mgorki.ru</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

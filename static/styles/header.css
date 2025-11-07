@@ -1,0 +1,102 @@
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Gerbera-Regular', Arial, sans-serif;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Header */
+.header {
+  position: relative;
+  width: 1440px;
+  height: 89px;
+  margin: 0 auto;
+  background: #FFFFFF;
+}
+
+/* Logo */
+.logo {
+  position: absolute;
+  width: 200px;
+  height: 83px;
+  left: 154px;
+  top: 4px;
+  background: url('../images/logo/logo.png') no-repeat center;
+  background-size: contain;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  display: block;
+}
+
+.logo:hover {
+  opacity: 0.8;
+}
+
+/* List Icon */
+.list-icon {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  left: 1030px;
+  top: 36px;
+  background: url('../images/icon/lisr-icon.png') no-repeat center;
+  background-size: contain;
+}
+
+/* Search Icon */
+.search-icon {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  left: 1180px;
+  top: 35px;
+  background: url('../images/icon/search-icon.png') no-repeat center;
+  background-size: contain;
+}
+
+/* Chevron Icon */
+.chevron-icon {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 1270px;
+  top: 35px;
+  background: url('../images/icon/chevron-icon.png') no-repeat center;
+  background-size: contain;
+}
+
+/* RU Language Selector */
+.language-ru {
+  position: absolute;
+  width: 20px;
+  height: 17px;
+  left: 1247px;
+  top: 36px;
+  font-family: 'Gerbera-Regular';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+}
+
+/* Купить билет (Buy Ticket Button) */
+.buy-ticket {
+  position: absolute;
+  width: 98px;
+  height: 15px;
+  left: 1054px;
+  top: 38px;
+  font-family: 'Gerbera-Regular';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+}

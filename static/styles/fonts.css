@@ -1,0 +1,72 @@
+/* Gerbera Font Family */
+
+@font-face {
+  font-family: 'Gerbera-Regular';
+  src: url('../font/gerbera/Gerbera-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gerbera-Regular';
+  src: url('../font/gerbera/Gerbera-Regular-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Gerbera-Light';
+  src: url('../font/gerbera/Gerbera-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gerbera-Light';
+  src: url('../font/gerbera/Gerbera-Lightitalic.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Gerbera-Medium';
+  src: url('../font/gerbera/Gerbera-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gerbera-Medium';
+  src: url('../font/gerbera/Gerbera-Medium-italic.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Gerbera-Bold';
+  src: url('../font/gerbera/Gerbera-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gerbera-Bold';
+  src: url('../font/gerbera/Gerbera-Bold-Italic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Gerbera-Black';
+  src: url('../font/gerbera/Gerbera-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gerbera-Black';
+  src: url('../font/gerbera/Gerbera-Black-italic.otf') format('opentype');
+  font-weight: 900;
+  font-style: italic;
+}
+

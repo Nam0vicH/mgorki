@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}Афиша - Горки Ленинские{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/Poster.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/footer.css') }}">
+{% endblock %}
+
+{% block content %}
+
+    <!-- Main Content -->
+    <main class="poster-page">
+        <!-- Page Title -->
+        <h1 class="afisha-title">Афиша</h1>
+
+        <!-- Group 13 - Левая верхняя карточка -->
+        <div class="group-13">
+            <div class="rectangle-12"></div>
+            <div class="image" style="background-image: url('../static/images/img/Король_и_звезда_09.jpg');"></div>
+            <div class="button">
+                <div class="button-text">Подробнее</div>
+            </div>
+        </div>
+
+        <!-- Group 12 - Правая верхняя карточка -->
+        <div class="group-12">
+            <div class="rectangle-8"></div>  
+            <div class="image" style="background-image: url('../static/images/img/заповедное_А3_арка.jpg');">
+            </div>
+            <div class="button">
+                <div class="button-text">Подробнее</div>
+            </div>
+        </div>
+
+        <!-- Group 14 - Левая нижняя карточка -->
+        <div class="group-14">
+            <div class="rectangle-15"></div>
+            <div class="image" style="background-image: url('../static/images/img/Утро_ЛЕС.jpg');"></div>
+            <div class="button">
+                <div class="button-text">Подробнее</div>
+            </div>
+        </div>
+
+        <!-- Group 15 - Правая нижняя карточка -->
+        <div class="group-15">
+            <div class="rectangle-14"></div>
+            <div class="image" style="background-image: url('../static/images/img/повседневная_жизнь.jpg');"></div>
+            <div class="button">
+                <div class="button-text">Подробнее</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <!-- Separator Lines -->
+            <div class="footer-separator"></div>
+            <div class="footer-separator"></div>
+            <div class="footer-separator"></div>
+            <div class="footer-separator"></div>
+            <div class="footer-separator"></div>
+            <div class="footer-separator"></div>
+            <div class="footer-separator"></div>
+            <div class="footer-separator"></div>
+            <div class="footer-separator"></div>
+
+            <!-- Footer Columns -->
+            <div class="footer-columns">
+                <!-- Column 1: Посетителям -->
+                <div class="footer-column">
+                    <h3 class="footer-title">Посетителям</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://mgorki.ru/visitors/" class="footer-link">Информация для посетителей</a>
+                        </li>
+                        <li><a href="https://mgorki.ru/visitors/info/" class="footer-link">Общая информация о
+                                музее</a></li>
+                        <li><a href="https://mgorki.ru/visitors/karta-skhema/" class="footer-link">Карта-схема
+                                музея</a></li>
+                        <li><a href="https://mgorki.ru/visitors/realization-of-action/" class="footer-link">Реализация
+                                входных билетов на экскурсии</a></li>
+                        <li><a href="https://mgorki.ru/visitors/kafe/" class="footer-link">Кафе</a></li>
+                        <li><a href="https://mgorki.ru/visitors/hotel/" class="footer-link">Гостиница</a></li>
+                        <li><a href="https://mgorki.ru/visitors/dostupnaya-sreda/" class="footer-link">Доступная
+                                среда</a></li>
+                        <li><a href="https://mgorki.ru/visitors/chavo/" class="footer-link">Часто задаваемые
+                                вопросы</a></li>
+                        <li><a href="https://mgorki.ru/visitors/visiting-rules/" class="footer-link">Правила
+                                посещения</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 2: О музее -->
+                <div class="footer-column">
+                    <h3 class="footer-title">О музее</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://mgorki.ru/about/" class="footer-link">О музее</a></li>
+                        <li><a href="https://mgorki.ru/about/press-sluzhba/" class="footer-link">Пресс-служба</a>
+                        </li>
+                        <li><a href="https://mgorki.ru/about/dokumenty/" class="footer-link">Документы</a></li>
+                        <li><a href="https://mgorki.ru/about/struktura-muzeya/" class="footer-link">Структура
+                                музея</a></li>
+                        <li><a href="https://mgorki.ru/about/contacts/" class="footer-link">Контакты</a></li>
+                        <li><a href="https://mgorki.ru/about/protivodeystvie-korruptsii/"
+                                class="footer-link">Противодействие коррупции</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Контакты -->
+                <div class="footer-column">
+                    <h3 class="footer-title">Контакты</h3>
+                    <div class="footer-contact">
+                        <p><a href="tel:+74955489309">+7 (495) 548 93 09</a></p>
+                        <p><a href="mailto:info@mgorki.ru">info@mgorki.ru</a></p>
+                        <p><a href="mailto:5489309@mgorki.ru">5489309@mgorki.ru</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
