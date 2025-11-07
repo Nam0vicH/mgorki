@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
 import os
 
 # Получаем абсолютный путь к текущей директории
@@ -8,6 +9,12 @@ static_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'static'))
 app = Flask(__name__,
             template_folder=os.path.join(template_dir, 'templates'),
             static_folder=static_dir)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost/db_museum'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = 'your-secret-key-here'
+
+db = SQLAlchemy(app)
 
 @app.route('/')
 def homepage():
