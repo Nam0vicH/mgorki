@@ -50,7 +50,7 @@
                     </p>
                     <div class="museum-card-buttons">
                         <a href="{{ url_for('about_us', museum_id=museum.id) }}" class="museum-card-button">Подробнее</a>
-                        <a href="{{ url_for('order') }}" class="museum-card-button">Купить билет</a>
+                        <a href="{{ url_for('order', museum_id=museum.id) }}" class="museum-card-button">Купить билет</a>
                     </div>
                 </div>
                 {% endfor %}

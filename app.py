@@ -70,19 +70,87 @@ class TicketPrice(db.Model):
         return f'<TicketPrice {self.category_name}: {self.price}>'
 
 
+class TicketCategory(db.Model):
+    """Модель для категорий билетов"""
+    __tablename__ = 'ticket_categories'
+
+    id = db.Column(db.Integer, primary_key=True)
+    category = db.Column(db.Enum('museum', 'poster', name='category_enum'), nullable=False)
+    title = db.Column(db.String(150), nullable=False)
+    description = db.Column(db.String(255))
+    price = db.Column(db.Numeric(10, 2), nullable=False)
+    quantity = db.Column(db.Integer)
+    pushkin_card_allowed = db.Column(db.Boolean, default=False)
+    age_restriction = db.Column(db.String(100))
+    student_discount = db.Column(db.Boolean, default=False)
+    icon = db.Column(db.String(50))
+
+    def __repr__(self):
+        return f'<TicketCategory {self.title}: {self.price}>'
+
+
+class SessionSchedule(db.Model):
+    """Модель для расписания сеансов"""
+    __tablename__ = 'session_schedule'
+
+    id = db.Column(db.Integer, primary_key=True)
+    session_date = db.Column(db.Date, nullable=False)
+    session_time = db.Column(db.Time, nullable=False)
+    day_of_week = db.Column(db.Enum('ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС', name='day_of_week_enum'), nullable=False)
+    total_tickets = db.Column(db.Integer, default=50)
+    available_tickets = db.Column(db.Integer, default=50)
+    reserved_tickets = db.Column(db.Integer, default=0)
+    sold_tickets = db.Column(db.Integer, default=0)
+    is_active = db.Column(db.Boolean, default=True)
+    session_type = db.Column(db.String(100))
+    created_at = db.Column(db.DateTime, server_default=db.func.current_timestamp())
+    updated_at = db.Column(db.DateTime, server_default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
+
+    def __repr__(self):
+        return f'<SessionSchedule {self.session_date} {self.session_time}>'
+
+
 class Order(db.Model):
     """Модель для заказов"""
     __tablename__ = 'orders'
 
     id = db.Column(db.Integer, primary_key=True)
-    customer_name = db.Column(db.String(255), nullable=False)
-    customer_email = db.Column(db.String(255), nullable=False)
+    full_name = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(255), nullable=False)
+    phone = db.Column(db.String(50), nullable=False)
+    country_code = db.Column(db.String(5), default='+7')
+    subscribe_news = db.Column(db.Boolean, default=False)
+    accept_terms = db.Column(db.Boolean, nullable=False)
+    booking_id = db.Column(db.Integer, db.ForeignKey('ticket_bookings.id'))
+    order_number = db.Column(db.String(50), nullable=False, unique=True)
+    order_status = db.Column(db.Enum('new', 'awaiting_payment', 'paid', 'completed', 'cancelled', name='order_status_enum'), default='new')
+    qr_code_token = db.Column(db.String(100), unique=True)
+    qr_code_url = db.Column(db.String(255))
+    ticket_verified = db.Column(db.Boolean, default=False)
+    verified_at = db.Column(db.DateTime)
+    verified_by = db.Column(db.String(100))
     total_amount = db.Column(db.Numeric(10, 2), nullable=False)
-    status = db.Column(db.String(50), default='paid')
+    payment_status = db.Column(db.Enum('unpaid', 'paid', 'refunded', name='payment_status_enum'), default='unpaid')
+    payment_method = db.Column(db.Enum('bank_card', 'pushkin_card', 'cash', name='payment_method_enum'))
     created_at = db.Column(db.DateTime, server_default=db.func.current_timestamp())
+    paid_at = db.Column(db.DateTime)
+    updated_at = db.Column(db.DateTime, server_default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
 
     def __repr__(self):
-        return f'<Order {self.customer_name}>'
+        return f'<Order {self.order_number}>'
+
+
+class TicketBooking(db.Model):
+    """Модель для бронирования билетов"""
+    __tablename__ = 'ticket_bookings'
+
+    id = db.Column(db.Integer, primary_key=True)
+    session_id = db.Column(db.Integer, db.ForeignKey('session_schedule.id'))
+    ticket_category_id = db.Column(db.Integer, db.ForeignKey('ticket_categories.id'))
+    user_email = db.Column(db.String(255), nullable=False)
+
+    def __repr__(self):
+        return f'<TicketBooking {self.id}>'
 
 
 class Ticket(db.Model):
@@ -133,8 +201,134 @@ def about_us(museum_id=None):
     return render_template('about_us.html', museum=museum)
 
 @app.route('/order')
-def order():
-    return render_template('order.html')
+@app.route('/order/<int:museum_id>')
+def order(museum_id=None):
+    """Страница заказа билетов"""
+    from datetime import datetime, timedelta
+
+    # Если ID не указан, берем первый музей
+    if museum_id is None:
+        museum = DataContent.query.filter_by(category='museums').first()
+    else:
+        museum = DataContent.query.get_or_404(museum_id)
+
+    # Получаем активные сеансы на ближайшие 7 дней
+    today = datetime.now().date()
+    week_later = today + timedelta(days=7)
+
+    sessions = SessionSchedule.query.filter(
+        SessionSchedule.is_active == True,
+        SessionSchedule.session_date >= today,
+        SessionSchedule.session_date <= week_later
+    ).order_by(SessionSchedule.session_date, SessionSchedule.session_time).all()
+
+    # Получаем категории билетов
+    ticket_categories = TicketCategory.query.all()
+
+    return render_template('order.html',
+                         museum=museum,
+                         sessions=sessions,
+                         ticket_categories=ticket_categories,
+                         today=today)
+
+
+@app.route('/create-order', methods=['POST'])
+def create_order():
+    """Создание заказа"""
+    from datetime import datetime
+    import json
+    import secrets
+
+    try:
+        # Получаем данные из формы
+        full_name = request.form.get('full_name')
+        email = request.form.get('email')
+        phone = request.form.get('phone')
+        country_code = request.form.get('country_code', '+7')
+        subscribe_news = request.form.get('subscribe_news') == 'on'
+        accept_terms = request.form.get('accept_terms') == 'on'
+
+        session_date = request.form.get('session_date')
+        session_time = request.form.get('session_time')
+        tickets_data = json.loads(request.form.get('tickets_data', '{}'))
+
+        # Проверка обязательных полей
+        if not all([full_name, email, phone, session_date, session_time, accept_terms]):
+            return jsonify({'success': False, 'error': 'Заполните все обязательные поля'})
+
+        if not tickets_data or sum(tickets_data.values()) == 0:
+            return jsonify({'success': False, 'error': 'Выберите хотя бы один билет'})
+
+        # Находим сеанс
+        session = SessionSchedule.query.filter_by(
+            session_date=session_date,
+            session_time=session_time
+        ).first()
+
+        if not session:
+            return jsonify({'success': False, 'error': 'Сеанс не найден'})
+
+        # Проверяем доступность билетов
+        total_tickets = sum(int(qty) for qty in tickets_data.values())
+        if session.available_tickets < total_tickets:
+            return jsonify({'success': False, 'error': 'Недостаточно доступных билетов'})
+
+        # Рассчитываем общую сумму
+        total_amount = 0
+        for category_id, quantity in tickets_data.items():
+            category = TicketCategory.query.get(int(category_id))
+            if category:
+                total_amount += float(category.price) * int(quantity)
+
+        # Создаем бронирование билета
+        booking = TicketBooking(
+            session_id=session.id,
+            user_email=email
+        )
+        db.session.add(booking)
+        db.session.flush()  # Получаем ID бронирования
+
+        # Генерируем номер заказа и QR-токен
+        order_number = f"ORD-{datetime.now().strftime('%Y%m%d')}-{secrets.token_hex(4).upper()}"
+        qr_token = secrets.token_urlsafe(32)
+
+        # Создаем заказ
+        new_order = Order(
+            full_name=full_name,
+            email=email,
+            phone=phone,
+            country_code=country_code,
+            subscribe_news=subscribe_news,
+            accept_terms=accept_terms,
+            booking_id=booking.id,
+            order_number=order_number,
+            order_status='new',
+            qr_code_token=qr_token,
+            qr_code_url=f"/qr/{qr_token}",
+            total_amount=total_amount,
+            payment_status='unpaid'
+        )
+
+        db.session.add(new_order)
+
+        # Обновляем количество доступных билетов
+        session.available_tickets -= total_tickets
+        session.reserved_tickets += total_tickets
+
+        db.session.commit()
+
+        return jsonify({
+            'success': True,
+            'order_id': new_order.id,
+            'order_number': order_number,
+            'total_amount': float(total_amount)
+        })
+
+    except Exception as e:
+        db.session.rollback()
+        print(f"Error creating order: {str(e)}")
+        return jsonify({'success': False, 'error': str(e)})
+
 
 @app.route('/virtual-exhibition')
 def virtual_exhibition():
@@ -168,6 +362,26 @@ def show_tables():
         return f"<h2>Таблицы в db_museum:</h2><ul>{''.join([f'<li>{t}</li>' for t in tables])}</ul>"
     except Exception as e:
         return f"❌ Ошибка: {str(e)}"
+
+
+@app.route('/show-sessions')
+def show_sessions():
+    """Тестовый маршрут для проверки сеансов"""
+    sessions = SessionSchedule.query.all()
+    result = '<h1>Данные из таблицы session_schedule:</h1>'
+    for session in sessions:
+        result += f'<p><strong>ID:</strong> {session.id}, <strong>Date:</strong> {session.session_date}, <strong>Time:</strong> {session.session_time}, <strong>Available:</strong> {session.available_tickets}/{session.total_tickets}</p>'
+    return result
+
+
+@app.route('/show-categories')
+def show_categories():
+    """Тестовый маршрут для проверки категорий билетов"""
+    categories = TicketCategory.query.all()
+    result = '<h1>Данные из таблицы ticket_categories:</h1>'
+    for cat in categories:
+        result += f'<p><strong>ID:</strong> {cat.id}, <strong>Title:</strong> {cat.title}, <strong>Price:</strong> {cat.price} ₽, <strong>Pushkin:</strong> {cat.pushkin_card_allowed}</p>'
+    return result
 
 
 @app.route('/show-columns')

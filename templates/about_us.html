@@ -20,7 +20,7 @@
                 <img src="{{ url_for('static', filename=museum.main_image) }}" alt="{{ museum.title_card }}" class="main-image">
             </div>
             <div class="main-info">
-                <a href="{{ url_for('order') }}" class="main-ticket-btn">Купить билет</a>
+                <a href="{{ url_for('order', museum_id=museum.id) }}" class="main-ticket-btn">Купить билет</a>
                 <div class="main-text">
                     {{ museum.main_text }}
                 </div>

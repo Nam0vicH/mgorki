@@ -20,10 +20,9 @@
         <div class="left-section">
             <!-- Museum Info -->
             <div class="museum-info">
-                <div class="museum-title">«Музей Усадьба Горки» (включает в себя экскурсионное обслуживание
-                    продолжительность 60-75 мин.) (6+)</div>
+                <div class="museum-title">{{ museum.title_card }}</div>
                 <div class="museum-description">
-                    Для посещения музеев, необходимо приобрести входной билет на уличные экспозиции и выставки.
+                    {{ museum.short_description_card }}
                 </div>
             </div>
 
@@ -38,30 +37,21 @@
                     <div class="calendar-day-header weekend">СБ</div>
                     <div class="calendar-day-header weekend">ВС</div>
 
-                    <div class="calendar-day">22<br><small>Сентябрь</small></div>
-                    <div class="calendar-day">23<br><small>Сентябрь</small></div>
-                    <div class="calendar-day selected">24<br><small>Сентябрь</small></div>
-                    <div class="calendar-day">25<br><small>Сентябрь</small></div>
-                    <div class="calendar-day">26<br><small>Сентябрь</small></div>
-                    <div class="calendar-day">27<br><small>Сентябрь</small></div>
-                    <div class="calendar-day">28<br><small>Сентябрь</small></div>
+                    {% set unique_dates = sessions | map(attribute='session_date') | unique | list %}
+                    {% for date in unique_dates[:7] %}
+                    <div class="calendar-day {% if loop.first %}selected{% endif %}" data-date="{{ date }}">
+                        {{ date.day }}<br><small>{{ date.strftime('%B') }}</small>
+                    </div>
+                    {% endfor %}
                 </div>
 
                 <div class="time-slots">
-                    <div class="time-slot">10:00</div>
-                    <div class="time-slot">10:30</div>
-                    <div class="time-slot">11:00</div>
-                    <div class="time-slot selected">11:30</div>
-                    <div class="time-slot">12:00</div>
-                    <div class="time-slot">12:30</div>
-                    <div class="time-slot">13:00</div>
-                    <div class="time-slot">13:30</div>
-                    <div class="time-slot">14:00</div>
-                    <div class="time-slot">14:30</div>
-                    <div class="time-slot">15:00</div>
-                    <div class="time-slot">15:30</div>
-                    <div class="time-slot">16:00</div>
-                    <div class="time-slot">16:30</div>
+                    {% set unique_times = sessions | map(attribute='session_time') | unique | list %}
+                    {% for time in unique_times %}
+                    <div class="time-slot {% if loop.first %}selected{% endif %}" data-time="{{ time }}">
+                        {{ time.strftime('%H:%M') }}
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
 
@@ -74,59 +64,27 @@
                     <div class="header-quantity">КОЛИЧЕСТВО</div>
                 </div>
 
+                {% for category in ticket_categories %}
                 <div class="ticket-row">
                     <div class="ticket-info">
-                        <div class="ticket-title">Взрослые (РФ и другие страны ЕАЭС) <img src="../static/images/icon/pushkin-icon.png" alt="Пушкинская карта" class="pushkin-icon"></div>
+                        <div class="ticket-title">
+                            {{ category.title }}
+                            {% if category.pushkin_card_allowed %}
+                            <img src="{{ url_for('static', filename='images/icon/pushkin-icon.png') }}" alt="Пушкинская карта" class="pushkin-icon">
+                            {% endif %}
+                        </div>
+                        {% if category.description %}
+                        <div class="ticket-description">{{ category.description }}</div>
+                        {% endif %}
                     </div>
-                    <div class="ticket-price">700 ₽</div>
+                    <div class="ticket-price">{{ category.price }} ₽</div>
                     <div class="quantity-control">
-                        <button class="quantity-btn">−</button>
-                        <span class="quantity">1</span>
-                        <button class="quantity-btn">+</button>
+                        <button class="quantity-btn" data-action="decrease" data-category-id="{{ category.id }}">−</button>
+                        <span class="quantity" data-category-id="{{ category.id }}">0</span>
+                        <button class="quantity-btn" data-action="increase" data-category-id="{{ category.id }}">+</button>
                     </div>
                 </div>
-
-                <div class="ticket-row">
-                    <div class="ticket-info">
-                        <div class="ticket-title">Пенсионеры (РФ и другие страны ЕАЭС)</div>
-                    </div>
-                    <div class="ticket-price">400 ₽</div>
-                    <div class="quantity-control">
-                        <button class="quantity-btn">−</button>
-                        <span class="quantity">0</span>
-                        <button class="quantity-btn">+</button>
-                    </div>
-                </div>
-
-                <div class="ticket-row">
-                    <div class="ticket-info">
-                        <div class="ticket-title">Дети и взрослые от 7 до 17 лет включительно (РФ и другие страны
-                            ЕАЭС) <img src="../static/images/icon/pushkin-icon.png" alt="Пушкинская карта" class="pushkin-icon"></div>
-                    </div>
-                    <div class="ticket-price">350 ₽</div>
-                    <div class="quantity-control">
-                        <button class="quantity-btn">−</button>
-                        <span class="quantity">0</span>
-                        <button class="quantity-btn">+</button>
-                    </div>
-                </div>
-
-                <div class="ticket-row">
-                    <div class="ticket-info">
-                        <div class="ticket-title">Студенты высших учебных заведений России <img src="../static/images/icon/pushkin-icon.png" alt="Пушкинская карта" class="pushkin-icon"></div>
-                    </div>
-                    <div class="ticket-price">400 ₽</div>
-                    <div class="quantity-control">
-                        <button class="quantity-btn">−</button>
-                        <span class="quantity">0</span>
-                        <button class="quantity-btn">+</button>
-                    </div>
-                </div>
-
-                <div style="margin-top: 20px;">
-                    <a href="#" style="color: #D4AF37; text-decoration: none; font-size: 14px;">+ Открыть все
-                        категории</a>
-                </div>
+                {% endfor %}
             </div>
         </div>
 
@@ -135,56 +93,62 @@
             <div class="booking-panel">
                 <div class="booking-info">
                     <div class="booking-header">Входной билет</div>
-                    <div class="museum-name">«Музей Усадьба Горки» (включает в себя экскурсионное обслуживание
-                        продолжительность 60-75 мин.)</div>
-                    <div class="booking-date">27.09.2025, 15:00</div>
+                    <div class="museum-name">{{ museum.title_card }}</div>
+                    <div class="booking-date" id="selected-datetime">Выберите дату и время</div>
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-                        <span style="color: #333; font-size: 14px;">1 билет</span>
+                        <span style="color: #333; font-size: 14px;" id="ticket-count">0 билетов</span>
                     </div>
-                    <div class="additional-option">+ 1 дополнительная опция</div>
-                    <div class="price-display">= 600 ₽</div>
+                    <div class="price-display" id="total-price">= 0 ₽</div>
                 </div>
 
                 <button class="show-all-tickets">▼ ПОКАЗАТЬ ВСЕ БИЛЕТЫ</button>
 
                 <div class="total-section">
                     <span>ИТОГО:</span>
-                    <span>600 ₽</span>
+                    <span id="final-total">0 ₽</span>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label">ФАМИЛИЯ ИМЯ ОТЧЕСТВО</label>
-                    <input type="text" class="form-input">
-                </div>
+                <form id="order-form">
+                    <input type="hidden" id="museum-id" name="museum_id" value="{{ museum.id }}">
+                    <input type="hidden" id="selected-date" name="session_date">
+                    <input type="hidden" id="selected-time" name="session_time">
+                    <input type="hidden" id="tickets-data" name="tickets_data">
 
-                <div class="form-group">
-                    <label class="form-label">E-mail</label>
-                    <input type="email" class="form-input">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Телефон</label>
-                    <div
-                        style="display: flex; align-items: center; border: 1px solid #e0e0e0; border-radius: 4px; padding: 10px;">
-                        <span style="margin-right: 10px;">🇷🇺 ▼</span>
-                        <input type="tel" style="border: none; outline: none; flex: 1;" placeholder="+7">
+                    <div class="form-group">
+                        <label class="form-label">ФАМИЛИЯ ИМЯ ОТЧЕСТВО</label>
+                        <input type="text" class="form-input" id="full-name" name="full_name" required>
                     </div>
-                </div>
 
-                <div class="checkbox-group">
-                    <input type="checkbox" class="checkbox" id="subscribe">
-                    <label for="subscribe" class="checkbox-label">Подписаться на новости музея</label>
-                </div>
+                    <div class="form-group">
+                        <label class="form-label">E-mail</label>
+                        <input type="email" class="form-input" id="email" name="email" required>
+                    </div>
 
-                <div class="checkbox-group" style="margin-bottom: 20px;">
-                    <input type="checkbox" class="checkbox" id="agreement" checked>
-                    <label for="agreement" class="checkbox-label">
-                        Покупкой билетов я выражаю свое согласие с пользовательским соглашением и подтверждение
-                        получения Билета на указанную почту
-                    </label>
-                </div>
+                    <div class="form-group">
+                        <label class="form-label">Телефон</label>
+                        <div style="display: flex; align-items: center; border: 1px solid #e0e0e0; border-radius: 4px; padding: 10px;">
+                            <select id="country-code" name="country_code" style="border: none; outline: none; margin-right: 10px;">
+                                <option value="+7">🇷🇺 +7</option>
+                            </select>
+                            <input type="tel" id="phone" name="phone" style="border: none; outline: none; flex: 1;" placeholder="9001234567" required>
+                        </div>
+                    </div>
 
-                <button class="pay-button">ОПЛАТИТЬ</button>
+                    <div class="checkbox-group">
+                        <input type="checkbox" class="checkbox" id="subscribe" name="subscribe_news">
+                        <label for="subscribe" class="checkbox-label">Подписаться на новости музея</label>
+                    </div>
+
+                    <div class="checkbox-group" style="margin-bottom: 20px;">
+                        <input type="checkbox" class="checkbox" id="agreement" name="accept_terms" checked required>
+                        <label for="agreement" class="checkbox-label">
+                            Покупкой билетов я выражаю свое согласие с пользовательским соглашением и подтверждение
+                            получения Билета на указанную почту
+                        </label>
+                    </div>
+
+                    <button type="submit" class="pay-button">ОПЛАТИТЬ</button>
+                </form>
 
                 <div class="payment-info">
                     ОПЛАТА ПУШКИНСКОЙ КАРТОЙ<br>НЕДОСТУПНА
@@ -193,5 +157,151 @@
         </div>
     </div>
     <!-- End Order Page Container -->
+
+    <script>
+        // Данные о билетах и ценах
+        const ticketPrices = {
+            {% for category in ticket_categories %}
+            {{ category.id }}: {{ category.price }},
+            {% endfor %}
+        };
+
+        let selectedDate = null;
+        let selectedTime = null;
+        let ticketQuantities = {};
+
+        // Обработка выбора даты
+        document.querySelectorAll('.calendar-day').forEach(day => {
+            day.addEventListener('click', function() {
+                document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedDate = this.getAttribute('data-date');
+                document.getElementById('selected-date').value = selectedDate;
+                updateBookingInfo();
+            });
+        });
+
+        // Обработка выбора времени
+        document.querySelectorAll('.time-slot').forEach(slot => {
+            slot.addEventListener('click', function() {
+                document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedTime = this.getAttribute('data-time');
+                document.getElementById('selected-time').value = selectedTime;
+                updateBookingInfo();
+            });
+        });
+
+        // Обработка кнопок количества билетов
+        document.querySelectorAll('.quantity-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const action = this.getAttribute('data-action');
+                const categoryId = this.getAttribute('data-category-id');
+                const quantitySpan = document.querySelector(`.quantity[data-category-id="${categoryId}"]`);
+                let currentQuantity = parseInt(quantitySpan.textContent);
+
+                if (action === 'increase') {
+                    currentQuantity++;
+                } else if (action === 'decrease' && currentQuantity > 0) {
+                    currentQuantity--;
+                }
+
+                quantitySpan.textContent = currentQuantity;
+                ticketQuantities[categoryId] = currentQuantity;
+                updateBookingInfo();
+            });
+        });
+
+        // Обновление информации о бронировании
+        function updateBookingInfo() {
+            let totalTickets = 0;
+            let totalPrice = 0;
+
+            for (let categoryId in ticketQuantities) {
+                const quantity = ticketQuantities[categoryId];
+                totalTickets += quantity;
+                totalPrice += quantity * ticketPrices[categoryId];
+            }
+
+            // Обновляем отображение
+            const ticketCountText = totalTickets === 0 ? '0 билетов' :
+                                   totalTickets === 1 ? '1 билет' :
+                                   totalTickets < 5 ? `${totalTickets} билета` :
+                                   `${totalTickets} билетов`;
+
+            document.getElementById('ticket-count').textContent = ticketCountText;
+            document.getElementById('total-price').textContent = `= ${totalPrice} ₽`;
+            document.getElementById('final-total').textContent = `${totalPrice} ₽`;
+
+            // Обновляем дату и время
+            if (selectedDate && selectedTime) {
+                const dateObj = new Date(selectedDate);
+                const dateStr = dateObj.toLocaleDateString('ru-RU');
+                document.getElementById('selected-datetime').textContent = `${dateStr}, ${selectedTime}`;
+            }
+
+            // Сохраняем данные о билетах в скрытое поле
+            document.getElementById('tickets-data').value = JSON.stringify(ticketQuantities);
+        }
+
+        // Обработка отправки формы
+        document.getElementById('order-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Проверка выбора даты и времени
+            if (!selectedDate || !selectedTime) {
+                alert('Пожалуйста, выберите дату и время сеанса');
+                return;
+            }
+
+            // Проверка выбора билетов
+            let totalTickets = 0;
+            for (let categoryId in ticketQuantities) {
+                totalTickets += ticketQuantities[categoryId];
+            }
+            if (totalTickets === 0) {
+                alert('Пожалуйста, выберите хотя бы один билет');
+                return;
+            }
+
+            // Собираем данные формы
+            const formData = new FormData(this);
+
+            try {
+                const response = await fetch('{{ url_for("create_order") }}', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert('Заказ успешно создан! Номер заказа: ' + result.order_number);
+                    // Можно перенаправить на страницу оплаты или подтверждения
+                    // window.location.href = '/order-confirmation/' + result.order_id;
+                } else {
+                    alert('Ошибка при создании заказа: ' + result.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Произошла ошибка при отправке заказа');
+            }
+        });
+
+        // Инициализация первых выбранных элементов
+        const firstDate = document.querySelector('.calendar-day.selected');
+        if (firstDate) {
+            selectedDate = firstDate.getAttribute('data-date');
+            document.getElementById('selected-date').value = selectedDate;
+        }
+
+        const firstTime = document.querySelector('.time-slot.selected');
+        if (firstTime) {
+            selectedTime = firstTime.getAttribute('data-time');
+            document.getElementById('selected-time').value = selectedTime;
+        }
+
+        updateBookingInfo();
+    </script>
 
 {% endblock %}
