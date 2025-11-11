@@ -41,48 +41,19 @@
 
             <!-- Museum Cards -->
             <div class="museum-cards">
-                <!-- Card 1: Усадьба -->
+                {% for museum in museums %}
                 <div class="museum-card">
-                    <img src="../static/images/img/Усадьба_5.jpeg" alt="Музей-усадьба Горки" class="museum-card-image">
-                    <h3 class="museum-card-title">Музей-усадьба «Горки»</h3>
+                    <img src="{{ url_for('static', filename=museum.img_card) }}" alt="{{ museum.title_card }}" class="museum-card-image">
+                    <h3 class="museum-card-title">{{ museum.title_card }}</h3>
                     <p class="museum-card-description">
-                        Единственная сохранившаяся усадьба в России в неоклассическом стиле. После революции, ей удалось
-                        избежать не только разрушения архитектурно – паркового...
+                        {{ museum.short_description_card }}
                     </p>
                     <div class="museum-card-buttons">
-                        <a href="about_us.html" class="museum-card-button">Подробнее</a>
-                        <a href="order.html" class="museum-card-button">Купить билет</a>
+                        <a href="{{ url_for('about_us', museum_id=museum.id) }}" class="museum-card-button">Подробнее</a>
+                        <a href="{{ url_for('order') }}" class="museum-card-button">Купить билет</a>
                     </div>
                 </div>
-
-                <!-- Card 2: НКЦ -->
-                <div class="museum-card">
-                    <img src="../static/images/img/НКЦ_4.jpeg" alt="Музей В.И. Ленина" class="museum-card-image">
-                    <h3 class="museum-card-title">Научно-культурный центр «Музей В.И. Ленина»</h3>
-                    <p class="museum-card-description">
-                        Отличительная особенность этой экспозиции – наличие «идейно-эмоциональных центров»
-                        (аудиовизуальных комплексов или «кубов»)...
-                    </p>
-                    <div class="museum-card-buttons">
-                        <a href="about_us.html" class="museum-card-button">Подробнее</a>
-                        <a href="order.html" class="museum-card-button">Купить билет</a>
-                    </div>
-                </div>
-
-                <!-- Card 3: Кабинет -->
-                <div class="museum-card">
-                    <img src="../static/images/img/кабинет_3.png" alt="Кабинет и квартира В.И. Ленина"
-                        class="museum-card-image">
-                    <h3 class="museum-card-title">Музей «Кабинет и квартира В.И. Ленина в кремле»</h3>
-                    <p class="museum-card-description">
-                        1994 год - год переезда Кремля в Горки. Поле последней реконструкции музея 2017-2018 гг.,
-                        интерьеры максимально приближены к кремлевским...
-                    </p>
-                    <div class="museum-card-buttons">
-                        <a href="about_us.html" class="museum-card-button">Подробнее</a>
-                        <a href="order.html" class="museum-card-button">Купить билет</a>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
 
             <!-- Navigation -->
@@ -111,26 +82,13 @@
 
             <!-- Virtual Exhibition Cards -->
             <div class="virtual-exhibitions-cards">
-                <!-- Card 1 -->
+                {% for exhibition in virtual_exhibitions %}
                 <div class="virtual-exhibition-card">
-                    <img src="../static/images/img/shat1.jpeg" alt="Виртуальная выставка"
+                    <img src="{{ url_for('static', filename=exhibition.img_card) }}" alt="{{ exhibition.title_card or 'Виртуальная выставка' }}"
                         class="virtual-exhibition-card-image">
-                    <a href="virtual-exhi.html" class="virtual-exhibition-card-button">Подробнее</a>
+                    <a href="{{ url_for('virtual_exhibition') }}" class="virtual-exhibition-card-button">Подробнее</a>
                 </div>
-
-                <!-- Card 2 -->
-                <div class="virtual-exhibition-card">
-                    <img src="../static/images/img/pl4.jpg" alt="Виртуальная выставка"
-                        class="virtual-exhibition-card-image">
-                    <a href="virtual-exhi.html" class="virtual-exhibition-card-button">Подробнее</a>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="virtual-exhibition-card">
-                    <img src="../static/images/img/Симбирск_в_XIX_веке.jpg" alt="Виртуальная выставка"
-                        class="virtual-exhibition-card-image">
-                    <a href="virtual-exhi.html" class="virtual-exhibition-card-button">Подробнее</a>
-                </div>
+                {% endfor %}
             </div>
 
             <!-- Navigation -->
@@ -158,23 +116,12 @@
 
             <!-- Poster Cards -->
             <div class="poster-cards">
-                <!-- Card 1 -->
+                {% for event in events %}
                 <div class="poster-card">
-                    <img src="../static/images/img/Утро_ЛЕС.jpg" alt="Афиша" class="poster-card-image">
-                    <a href="Poster.html" class="poster-card-button">Подробнее</a>
+                    <img src="{{ url_for('static', filename=event.img_card) }}" alt="{{ event.title_card or 'Афиша' }}" class="poster-card-image">
+                    <a href="{{ url_for('poster') }}" class="poster-card-button">Подробнее</a>
                 </div>
-
-                <!-- Card 2 -->
-                <div class="poster-card">
-                    <img src="../static/images/img/заповедное_А3_арка.jpg" alt="Афиша" class="poster-card-image">
-                    <a href="Poster.html" class="poster-card-button">Подробнее</a>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="poster-card">
-                    <img src="../static/images/img/сатира.jpg" alt="Афиша" class="poster-card-image">
-                    <a href="Poster.html" class="poster-card-button">Подробнее</a>
-                </div>
+                {% endfor %}
             </div>
 
             <!-- Navigation -->

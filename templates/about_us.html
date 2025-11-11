@@ -12,18 +12,17 @@
 <div class="about-us-container">
 
         <!-- О выставке Title -->
-        <h1 class="about-us-title">О выставке</h1>
+        <h1 class="about-us-title">{{ museum.title_card }}</h1>
 
         <!-- Главный блок с изображением и информацией -->
         <div class="main-section">
             <div class="main-image-container">
-                <img src="../static/images/img/Усадьба_5.jpeg" alt="Усадьба Горки" class="main-image">
+                <img src="{{ url_for('static', filename=museum.main_image) }}" alt="{{ museum.title_card }}" class="main-image">
             </div>
             <div class="main-info">
-                <a href="order.html" class="main-ticket-btn">Купить билет</a>
+                <a href="{{ url_for('order') }}" class="main-ticket-btn">Купить билет</a>
                 <div class="main-text">
-                    После революции, 25 сентября 1918 г., в Горки впервые приехал глава первого советского правительства
-                    В.И. Ленин. В 1972 году Музей В.И. Ленина в Горках получил статус музея-заповедника.
+                    {{ museum.main_text }}
                 </div>
             </div>
         </div>
@@ -32,44 +31,40 @@
         <div class="content-blocks">
 
             <!-- Блок 1: Темное изображение слева, текст справа -->
+            {% if museum.block_image_1 and museum.block_text_1 %}
             <div class="content-block block-1">
                 <div class="block-image">
-                    <img src="../static/images/img/Усадьба_1.jpg" alt="Усадьба Горки" class="block-img">
+                    <img src="{{ url_for('static', filename=museum.block_image_1) }}" alt="{{ museum.title_card }}" class="block-img">
                 </div>
                 <div class="block-text">
-                    Усадьба Горки – главный объект Государственного исторического музея-заповедника «Горки Ленинские».
-                    Живописные окрестности, неповторимая архитектура и уникальная история усадьбы вызывают неподдельный
-                    интерес у посетителей заповедника. В разное время Горками владели представители старинных дворянских
-                    фамилий: Наумовы, Трубецкие, Белосельские, Бекетовы, Бутурлины, Дурасовы, Писаревы. Лопухины.
+                    {{ museum.block_text_1 }}
                 </div>
             </div>
+            {% endif %}
 
             <!-- Блок 2: Текст слева, изображение справа -->
+            {% if museum.block_image_2 and museum.block_text_2 %}
             <div class="content-block block-2">
                 <div class="block-text">
-                    Формирование архитектурно-паркового ансамбля усадьбы относится к первой трети XIX в. Завершено
-                    строительство Большого дома и двух флигелей было при Писареве Александре Александровиче – известном
-                    политическом и общественном деятеле, участнике войны 1812 г. С конца 1870-х гг. XIX в. Горками
-                    владели представители купеческих династий Сушкиных, Прокофьевых, Шибаевых, Герасимовых.
+                    {{ museum.block_text_2 }}
                 </div>
                 <div class="block-image">
-                    <img src="../static/images/img/Усадьба_2.jpg" alt="Дверная ручка" class="block-img">
+                    <img src="{{ url_for('static', filename=museum.block_image_2) }}" alt="{{ museum.title_card }}" class="block-img">
                 </div>
             </div>
+            {% endif %}
 
             <!-- Блок 3: Интерьер слева, текст справа -->
+            {% if museum.block_image_3 %}
             <div class="content-block block-3">
                 <div class="block-image">
-                    <img src="../static/images/img/Усадьба_4.jpg" alt="Интерьер усадьбы" class="block-img">
+                    <img src="{{ url_for('static', filename=museum.block_image_3) }}" alt="{{ museum.title_card }}" class="block-img">
                 </div>
                 <div class="block-text">
-                    В 1909 г. имение приобрела вдова известного русского мецената, Саввы Тимофеевича Морозова, Зинаида
-                    Григорьевна, к тому времени ставшая женой московского градоначальника Анатолия Анатольевича Рейнбот.
-                    При З.Г. Морозовой-Рейнбот архитектурно-парковый ансамбль был реконструирован по последним
-                    новшествам в области технического прогресса. Работы велись при участии известных архитекторов Ф.
-                    Шехтеля, Ф. Кольбе, Н. Лазарева.
+                    {{ museum.block_text_4 }}
                 </div>
             </div>
+            {% endif %}
 
         </div>
 
@@ -108,75 +103,6 @@
             </div>
         </section>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-content">
-                <!-- Separator Lines -->
-                <div class="footer-separator"></div>
-                <div class="footer-separator"></div>
-                <div class="footer-separator"></div>
-                <div class="footer-separator"></div>
-                <div class="footer-separator"></div>
-                <div class="footer-separator"></div>
-                <div class="footer-separator"></div>
-                <div class="footer-separator"></div>
-                <div class="footer-separator"></div>
+</div>
 
-                <!-- Footer Columns -->
-                <div class="footer-columns">
-                    <!-- Column 1: Посетителям -->
-                    <div class="footer-column">
-                        <h3 class="footer-title">Посетителям</h3>
-                        <ul class="footer-links">
-                            <li><a href="https://mgorki.ru/visitors/" class="footer-link">Информация для посетителей</a>
-                            </li>
-                            <li><a href="https://mgorki.ru/visitors/info/" class="footer-link">Общая информация о
-                                    музее</a></li>
-                            <li><a href="https://mgorki.ru/visitors/karta-skhema/" class="footer-link">Карта-схема
-                                    музея</a></li>
-                            <li><a href="https://mgorki.ru/visitors/realization-of-action/"
-                                    class="footer-link">Реализация входных билетов на экскурсии</a></li>
-                            <li><a href="https://mgorki.ru/visitors/kafe/" class="footer-link">Кафе</a></li>
-                            <li><a href="https://mgorki.ru/visitors/hotel/" class="footer-link">Гостиница</a></li>
-                            <li><a href="https://mgorki.ru/visitors/dostupnaya-sreda/" class="footer-link">Доступная
-                                    среда</a></li>
-                            <li><a href="https://mgorki.ru/visitors/chavo/" class="footer-link">Часто задаваемые
-                                    вопросы</a></li>
-                            <li><a href="https://mgorki.ru/visitors/visiting-rules/" class="footer-link">Правила
-                                    посещения</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Column 2: О музее -->
-                    <div class="footer-column">
-                        <h3 class="footer-title">О музее</h3>
-                        <ul class="footer-links">
-                            <li><a href="https://mgorki.ru/about/" class="footer-link">О музее</a></li>
-                            <li><a href="https://mgorki.ru/about/press-sluzhba/" class="footer-link">Пресс-служба</a>
-                            </li>
-                            <li><a href="https://mgorki.ru/about/dokumenty/" class="footer-link">Документы</a></li>
-                            <li><a href="https://mgorki.ru/about/struktura-muzeya/" class="footer-link">Структура
-                                    музея</a></li>
-                            <li><a href="https://mgorki.ru/about/contacts/" class="footer-link">Контакты</a></li>
-                            <li><a href="https://mgorki.ru/about/protivodeystvie-korruptsii/"
-                                    class="footer-link">Противодействие коррупции</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Column 3: Контакты -->
-                    <div class="footer-column">
-                        <h3 class="footer-title">Контакты</h3>
-                        <div class="footer-contact">
-                            <p><a href="tel:+74955489309">+7 (495) 548 93 09</a></p>
-                            <p><a href="mailto:info@mgorki.ru">info@mgorki.ru</a></p>
-                            <p><a href="mailto:5489309@mgorki.ru">5489309@mgorki.ru</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
-    </div>
-</body>
-
-</html>
+{% endblock %}
