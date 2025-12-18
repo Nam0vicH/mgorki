@@ -70,3 +70,12 @@
   font-style: italic;
 }
 
+/* Vetrino Font Family */
+
+@font-face {
+  font-family: 'Vetrino';
+  src: url('../font/Vetrino/Vetrino.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+

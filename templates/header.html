@@ -2,14 +2,27 @@
 <header class="header">
     <!-- Logo -->
     <a href="{{ url_for('homepage') }}" class="logo"></a>
-    <!-- List Icon (Иконка списка)-->
-    <div class="list-icon"></div>
-    <!-- Search Icon (Иконка поиска)-->
-    <div class="search-icon"></div>
-    <!-- Chevron Icon (Иконка стрелки)-->
-    <div class="chevron-icon"></div>
-    <!-- RU Language Selector (Выбор языка)-->
-    <div class="language-ru">RU</div>
-    <!-- Buy Ticket Button (Кнопка купить билет)-->
-    <a href="{{ url_for('order') }}" class="buy-ticket">Купить билет</a>
+
+    <!-- Navigation Menu -->
+    <nav class="header-nav">
+        <a href="#" class="nav-link">Музеи</a>
+        <a href="#" class="nav-link">Экспозиции</a>
+        <a href="#" class="nav-link">О музее</a>
+        <a href="#" class="nav-link">Новости</a>
+    </nav>
+
+    <!-- Right Section -->
+    <div class="header-right">
+        <!-- List Icon (Иконка списка)-->
+        <div class="list-icon"></div>
+        <!-- Buy Ticket Button (Кнопка купить билет)-->
+        <a href="{{ url_for('order') }}" class="buy-ticket">Купить билет</a>
+        <!-- Search Icon (Иконка поиска)-->
+        <div class="search-icon"></div>
+        <!-- Language Selector -->
+        <div class="language-selector">
+            <div class="language-ru">RU</div>
+            <div class="chevron-icon"></div>
+        </div>
+    </div>
 </header>

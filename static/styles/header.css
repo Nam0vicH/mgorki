@@ -9,75 +9,121 @@ body {
   font-family: 'Gerbera-Regular', Arial, sans-serif;
   position: relative;
   min-height: 100vh;
+  background: #f1f2ed;
 }
 
 /* Header */
 .header {
   position: relative;
-  width: 1440px;
+  width: 1559px;
   height: 89px;
-  margin: 0 auto;
+  margin: 20px auto 0;
   background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  border-radius: 20px;
 }
 
 /* Logo */
 .logo {
-  position: absolute;
   width: 200px;
   height: 83px;
-  left: 154px;
-  top: 4px;
   background: url('../images/logo/logo.png') no-repeat center;
   background-size: contain;
   cursor: pointer;
   transition: opacity 0.3s ease;
   display: block;
+  flex-shrink: 0;
 }
 
 .logo:hover {
   opacity: 0.8;
 }
 
+/* Navigation Menu */
+.header-nav {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  margin-left: 60px;
+}
+
+.nav-link {
+  font-family: 'Gerbera-Medium', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: #000000;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  position: relative;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  color: #FCD619;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: #FCD619;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Header Right Section */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-left: auto;
+}
+
 /* List Icon */
 .list-icon {
-  position: absolute;
   width: 22px;
   height: 22px;
-  left: 1030px;
-  top: 36px;
   background: url('../images/icon/lisr-icon.png') no-repeat center;
   background-size: contain;
+  cursor: pointer;
 }
 
 /* Search Icon */
 .search-icon {
-  position: absolute;
   width: 25px;
   height: 25px;
-  left: 1180px;
-  top: 35px;
   background: url('../images/icon/search-icon.png') no-repeat center;
   background-size: contain;
+  cursor: pointer;
+}
+
+/* Language Selector */
+.language-selector {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 /* Chevron Icon */
 .chevron-icon {
-  position: absolute;
   width: 20px;
   height: 20px;
-  left: 1270px;
-  top: 35px;
   background: url('../images/icon/chevron-icon.png') no-repeat center;
   background-size: contain;
 }
 
 /* RU Language Selector */
 .language-ru {
-  position: absolute;
-  width: 20px;
-  height: 17px;
-  left: 1247px;
-  top: 36px;
   font-family: 'Gerbera-Regular';
   font-style: normal;
   font-weight: 400;
@@ -88,15 +134,17 @@ body {
 
 /* Купить билет (Buy Ticket Button) */
 .buy-ticket {
-  position: absolute;
-  width: 98px;
-  height: 15px;
-  left: 1054px;
-  top: 38px;
   font-family: 'Gerbera-Regular';
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
   color: #000000;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.buy-ticket:hover {
+  color: #FCD619;
 }

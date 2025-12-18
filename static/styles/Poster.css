@@ -4,7 +4,7 @@
   width: 100%;
   min-height: 100vh;
   padding: 40px 0 40px;
-  background: #ffffff;
+  background: #f1f2ed;
   display: grid;
   grid-template-columns: repeat(2, 490px);
   grid-template-rows: auto auto auto;
@@ -35,6 +35,7 @@
   position: relative;
   width: 490px;
   height: 644px;
+  background: #ffffff;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);

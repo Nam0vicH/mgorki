@@ -29,6 +29,7 @@
             <!-- Calendar -->
             <div class="calendar-section">
                 <div class="calendar-grid">
+                    <!-- Заголовки дней недели -->
                     <div class="calendar-day-header">ПН</div>
                     <div class="calendar-day-header">ВТ</div>
                     <div class="calendar-day-header">СР</div>
@@ -37,21 +38,20 @@
                     <div class="calendar-day-header weekend">СБ</div>
                     <div class="calendar-day-header weekend">ВС</div>
 
+                    <!-- Даты -->
                     {% set unique_dates = sessions | map(attribute='session_date') | unique | list %}
                     {% for date in unique_dates[:7] %}
-                    <div class="calendar-day {% if loop.first %}selected{% endif %}" data-date="{{ date }}">
-                        {{ date.day }}<br><small>{{ date.strftime('%B') }}</small>
+                    {% set session = sessions | selectattr('session_date', 'equalto', date) | first %}
+                    <div class="calendar-day {% if loop.first %}selected{% endif %} {% if session.day_of_week in ['СБ', 'ВС'] %}weekend{% endif %}"
+                         data-date="{{ date }}"
+                         data-day-of-week="{{ session.day_of_week }}">
+                        {{ date.day }}<br><small>{{ date.strftime('%b') }}</small>
                     </div>
                     {% endfor %}
                 </div>
 
                 <div class="time-slots">
-                    {% set unique_times = sessions | map(attribute='session_time') | unique | list %}
-                    {% for time in unique_times %}
-                    <div class="time-slot {% if loop.first %}selected{% endif %}" data-time="{{ time }}">
-                        {{ time.strftime('%H:%M') }}
-                    </div>
-                    {% endfor %}
+                    <!-- Временные слоты будут добавлены динамически через JavaScript -->
                 </div>
             </div>
 
@@ -95,13 +95,16 @@
                     <div class="booking-header">Входной билет</div>
                     <div class="museum-name">{{ museum.title_card }}</div>
                     <div class="booking-date" id="selected-datetime">Выберите дату и время</div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-                        <span style="color: #333; font-size: 14px;" id="ticket-count">0 билетов</span>
+
+                    <!-- Список выбранных билетов -->
+                    <div id="selected-tickets-list" style="margin-top: 10px;">
+                        <!-- Здесь будут отображаться выбранные билеты -->
                     </div>
+
                     <div class="price-display" id="total-price">= 0 ₽</div>
                 </div>
 
-                <button class="show-all-tickets">▼ ПОКАЗАТЬ ВСЕ БИЛЕТЫ</button>
+                <button class="show-all-tickets" id="toggle-tickets-btn" style="display: none;">▼ ПОКАЗАТЬ ВСЕ БИЛЕТЫ</button>
 
                 <div class="total-section">
                     <span>ИТОГО:</span>
@@ -166,9 +169,28 @@
             {% endfor %}
         };
 
+        // Данные о названиях категорий
+        const ticketNames = {
+            {% for category in ticket_categories %}
+            {{ category.id }}: "{{ category.title }}",
+            {% endfor %}
+        };
+
+        // Данные о сеансах из БД
+        const sessionsData = [
+            {% for session in sessions %}
+            {
+                date: "{{ session.session_date }}",
+                time: "{{ '%02d:%02d' % (session.session_time.seconds // 3600, (session.session_time.seconds % 3600) // 60) }}",
+                available: {{ session.available_tickets }}
+            },
+            {% endfor %}
+        ];
+
         let selectedDate = null;
         let selectedTime = null;
         let ticketQuantities = {};
+        let ticketsExpanded = false;
 
         // Обработка выбора даты
         document.querySelectorAll('.calendar-day').forEach(day => {
@@ -176,25 +198,81 @@
                 document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
                 this.classList.add('selected');
                 selectedDate = this.getAttribute('data-date');
+                selectedTime = null; // Сбрасываем выбранное время
                 document.getElementById('selected-date').value = selectedDate;
+                document.getElementById('selected-time').value = '';
+
+                // Фильтруем и показываем только времена для выбранной даты
+                updateAvailableTimes();
+
+                // Блокируем выбор билетов до выбора времени
+                disableTicketSelection();
+
                 updateBookingInfo();
             });
         });
 
-        // Обработка выбора времени
-        document.querySelectorAll('.time-slot').forEach(slot => {
-            slot.addEventListener('click', function() {
-                document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
-                this.classList.add('selected');
-                selectedTime = this.getAttribute('data-time');
-                document.getElementById('selected-time').value = selectedTime;
-                updateBookingInfo();
+        // Функция для обновления доступных временных слотов
+        function updateAvailableTimes() {
+            const timeSlotsContainer = document.querySelector('.time-slots');
+
+            // Фильтруем сеансы по выбранной дате
+            const availableTimes = sessionsData.filter(session => session.date === selectedDate);
+
+            // Очищаем контейнер
+            timeSlotsContainer.innerHTML = '';
+
+            // Создаем слоты для каждого времени
+            availableTimes.forEach((session, index) => {
+                const timeSlot = document.createElement('div');
+                timeSlot.className = 'time-slot';
+                timeSlot.setAttribute('data-time', session.time);
+                timeSlot.textContent = session.time;
+
+                // Добавляем обработчик клика
+                timeSlot.addEventListener('click', function() {
+                    document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedTime = this.getAttribute('data-time');
+                    document.getElementById('selected-time').value = selectedTime;
+
+                    // Разблокируем выбор билетов
+                    enableTicketSelection();
+
+                    updateBookingInfo();
+                });
+
+                timeSlotsContainer.appendChild(timeSlot);
             });
-        });
+        }
+
+        // Функция для блокировки выбора билетов
+        function disableTicketSelection() {
+            document.querySelectorAll('.quantity-btn').forEach(btn => {
+                btn.disabled = true;
+                btn.style.opacity = '0.5';
+                btn.style.cursor = 'not-allowed';
+            });
+        }
+
+        // Функция для разблокировки выбора билетов
+        function enableTicketSelection() {
+            document.querySelectorAll('.quantity-btn').forEach(btn => {
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                btn.style.cursor = 'pointer';
+            });
+        }
 
         // Обработка кнопок количества билетов
         document.querySelectorAll('.quantity-btn').forEach(btn => {
             btn.addEventListener('click', function() {
+                // Проверяем, что выбрана дата и время
+                if (!selectedDate || !selectedTime) {
+                    alert('Пожалуйста, сначала выберите дату и время сеанса');
+                    return;
+                }
+
                 const action = this.getAttribute('data-action');
                 const categoryId = this.getAttribute('data-category-id');
                 const quantitySpan = document.querySelector(`.quantity[data-category-id="${categoryId}"]`);
@@ -212,24 +290,72 @@
             });
         });
 
+        // Обработка кнопки "Показать все билеты"
+        document.getElementById('toggle-tickets-btn').addEventListener('click', function() {
+            ticketsExpanded = !ticketsExpanded;
+            updateBookingInfo();
+        });
+
         // Обновление информации о бронировании
         function updateBookingInfo() {
             let totalTickets = 0;
             let totalPrice = 0;
+            let selectedTicketsList = [];
 
             for (let categoryId in ticketQuantities) {
                 const quantity = ticketQuantities[categoryId];
-                totalTickets += quantity;
-                totalPrice += quantity * ticketPrices[categoryId];
+                if (quantity > 0) {
+                    totalTickets += quantity;
+                    const price = quantity * ticketPrices[categoryId];
+                    totalPrice += price;
+                    selectedTicketsList.push({
+                        id: categoryId,
+                        name: ticketNames[categoryId],
+                        quantity: quantity,
+                        price: price
+                    });
+                }
             }
 
-            // Обновляем отображение
-            const ticketCountText = totalTickets === 0 ? '0 билетов' :
-                                   totalTickets === 1 ? '1 билет' :
-                                   totalTickets < 5 ? `${totalTickets} билета` :
-                                   `${totalTickets} билетов`;
+            // Обновляем список выбранных билетов
+            const ticketsListContainer = document.getElementById('selected-tickets-list');
+            const toggleBtn = document.getElementById('toggle-tickets-btn');
 
-            document.getElementById('ticket-count').textContent = ticketCountText;
+            if (selectedTicketsList.length === 0) {
+                ticketsListContainer.innerHTML = '<div style="color: #999; font-size: 14px; margin-top: 10px;">Билеты не выбраны</div>';
+                toggleBtn.style.display = 'none';
+            } else {
+                let ticketsHTML = '';
+                // Показываем только 1 билет по умолчанию, все остальные - после нажатия кнопки
+                const displayCount = ticketsExpanded ? selectedTicketsList.length : 1;
+
+                for (let i = 0; i < displayCount; i++) {
+                    const ticket = selectedTicketsList[i];
+                    const ticketText = ticket.quantity === 1 ? 'билет' :
+                                      ticket.quantity < 5 ? 'билета' : 'билетов';
+                    ticketsHTML += `
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: 14px;">
+                            <div>
+                                <div style="color: #333; font-weight: 500;">${ticket.name}</div>
+                                <div style="color: #666; font-size: 12px;">${ticket.quantity} ${ticketText}</div>
+                            </div>
+                            <div style="color: #333; font-weight: 500;">${ticket.price} ₽</div>
+                        </div>
+                    `;
+                }
+
+                ticketsListContainer.innerHTML = ticketsHTML;
+
+                // Показываем кнопку только если билетов больше 1
+                if (selectedTicketsList.length > 1) {
+                    toggleBtn.style.display = 'block';
+                    toggleBtn.textContent = ticketsExpanded ? '▲ СКРЫТЬ БИЛЕТЫ' : '▼ ПОКАЗАТЬ ВСЕ БИЛЕТЫ';
+                } else {
+                    toggleBtn.style.display = 'none';
+                }
+            }
+
+            // Обновляем общую сумму
             document.getElementById('total-price').textContent = `= ${totalPrice} ₽`;
             document.getElementById('final-total').textContent = `${totalPrice} ₽`;
 
@@ -288,20 +414,21 @@
             }
         });
 
-        // Инициализация первых выбранных элементов
-        const firstDate = document.querySelector('.calendar-day.selected');
-        if (firstDate) {
-            selectedDate = firstDate.getAttribute('data-date');
-            document.getElementById('selected-date').value = selectedDate;
-        }
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Блокируем выбор билетов при загрузке
+            disableTicketSelection();
 
-        const firstTime = document.querySelector('.time-slot.selected');
-        if (firstTime) {
-            selectedTime = firstTime.getAttribute('data-time');
-            document.getElementById('selected-time').value = selectedTime;
-        }
+            // Если есть первая дата, выбираем её
+            const firstDate = document.querySelector('.calendar-day.selected');
+            if (firstDate) {
+                selectedDate = firstDate.getAttribute('data-date');
+                document.getElementById('selected-date').value = selectedDate;
+                updateAvailableTimes();
+            }
 
-        updateBookingInfo();
+            updateBookingInfo();
+        });
     </script>
 
 {% endblock %}

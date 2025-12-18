@@ -1,8 +1,8 @@
 /* Hero Section */
 .hero-section {
   position: relative;
-  width: 1132px;
-  height: 326px;
+  width: 1559px;
+  height: 450px;
   margin: 30px auto 0;
 }
 
@@ -123,7 +123,7 @@
   width: 126px;
   height: 53px;
   margin: 0 auto 37px;
-  font-family: 'Gerbera-Regular', Arial, sans-serif;
+  font-family: 'Vetrino', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 40px;
@@ -134,8 +134,9 @@
 
 /* Museum Cards Container */
 .museum-cards {
-  display: flex;
-  gap: 115px;
+  display: grid;
+  grid-template-columns: repeat(3, 473px);
+  gap: 40px;
   position: relative;
   justify-content: center;
   margin-bottom: 23px;
@@ -144,17 +145,17 @@
 /* Museum Card */
 .museum-card {
   position: relative;
-  width: 279px;
-  height: 352px;
-  background: #EDEDED;
+  width: 473px;
+  height: 462px;
+  background: #ffffff;
   border-radius: 20px;
   overflow: hidden;
 }
 
 /* Card Image */
 .museum-card-image {
-  width: 279px;
-  height: 186px;
+  width: 473px;
+  height: 244px;
   object-fit: cover;
   border-radius: 20px 20px 0 0;
 }
@@ -162,30 +163,31 @@
 /* Card Title */
 .museum-card-title {
   position: absolute;
-  width: 258px;
+  width: 453px;
   left: 10px;
-  top: 190px;
-  font-family: 'Gerbera-Regular', Arial, sans-serif;
+  top: 254px;
+  font-family: 'Gerbera-Bold', Arial, sans-serif;
   font-style: normal;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 18px;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 26px;
   color: #000000;
+  margin-bottom: 8px;
 }
 
 /* Card Description */
 .museum-card-description {
   position: absolute;
-  width: 258px;
-  height: 76px;
+  width: 453px;
+  height: 95px;
   left: 10px;
-  top: 220px;
+  top: 315px;
   font-family: 'Gerbera-Regular', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 12px;
-  line-height: 15px;
-  color: #000000;
+  font-size: 14px;
+  line-height: 18px;
+  color: #333333;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -193,29 +195,29 @@
 /* Card Buttons Container */
 .museum-card-buttons {
   position: absolute;
-  bottom: 8px;
-  left: 70px;
+  bottom: 12px;
+  left: 140px;
   display: flex;
   gap: 15px;
 }
 
 /* Card Button */
 .museum-card-button {
-  width: 93px;
-  height: 37px;
+  width: 135px;
+  height: 48px;
   background: #FCD619;
-  border-radius: 20px;
+  border-radius: 24px;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  font-family: 'Gerbera-Regular', Arial, sans-serif;
+  font-family: 'Gerbera-Medium', Arial, sans-serif;
   font-style: normal;
-  font-weight: 400;
-  font-size: 11px;
-  line-height: 13px;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
   color: #000000;
   transition: background 0.3s ease;
 }
@@ -301,7 +303,7 @@
   position: relative;
   width: auto;
   margin: 0 auto 37px;
-  font-family: 'Gerbera-Regular', Arial, sans-serif;
+  font-family: 'Vetrino', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 40px;
@@ -312,8 +314,9 @@
 
 /* Virtual Exhibition Cards Container */
 .virtual-exhibitions-cards {
-  display: flex;
-  gap: 106px;
+  display: grid;
+  grid-template-columns: repeat(3, 473px);
+  gap: 40px;
   position: relative;
   justify-content: center;
   margin-bottom: 23px;
@@ -322,9 +325,9 @@
 /* Virtual Exhibition Card */
 .virtual-exhibition-card {
   position: relative;
-  width: 279px;
-  height: 352px;
-  background: #E3E3E3;
+  width: 473px;
+  height: 462px;
+  background: #ffffff;
   border-radius: 20px;
   overflow: hidden;
 }
@@ -340,30 +343,31 @@
 /* Card Title */
 .virtual-exhibition-card-title {
   position: absolute;
-  width: 258px;
+  width: 453px;
   left: 10px;
-  top: 190px;
-  font-family: 'Gerbera-Regular', Arial, sans-serif;
+  top: 254px;
+  font-family: 'Gerbera-Bold', Arial, sans-serif;
   font-style: normal;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 18px;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 26px;
   color: #000000;
+  margin-bottom: 8px;
 }
 
 /* Card Description */
 .virtual-exhibition-card-description {
   position: absolute;
-  width: 258px;
-  height: 76px;
+  width: 453px;
+  height: 95px;
   left: 10px;
-  top: 220px;
+  top: 295px;
   font-family: 'Gerbera-Regular', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 12px;
-  line-height: 15px;
-  color: #000000;
+  font-size: 14px;
+  line-height: 18px;
+  color: #333333;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -371,23 +375,23 @@
 /* Card Button */
 .virtual-exhibition-card-button {
   position: absolute;
-  width: 93px;
-  height: 37px;
-  right: 8px;
-  bottom: 8px;
+  width: 135px;
+  height: 48px;
+  right: 12px;
+  bottom: 12px;
   background: #FCD619;
-  border-radius: 20px;
+  border-radius: 24px;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  font-family: 'Gerbera-Regular', Arial, sans-serif;
+  font-family: 'Gerbera-Medium', Arial, sans-serif;
   font-style: normal;
-  font-weight: 400;
-  font-size: 11px;
-  line-height: 13px;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
   text-align: center;
   color: #000000;
   transition: background 0.3s ease;
@@ -474,7 +478,7 @@
   position: relative;
   width: auto;
   margin: 0 auto 37px;
-  font-family: 'Gerbera-Regular', Arial, sans-serif;
+  font-family: 'Vetrino', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 40px;
@@ -485,8 +489,9 @@
 
 /* Poster Cards Container */
 .poster-section .poster-cards {
-  display: flex;
-  gap: 106px;
+  display: grid;
+  grid-template-columns: repeat(3, 473px);
+  gap: 40px;
   position: relative;
   justify-content: center;
   margin-bottom: 23px;
@@ -495,9 +500,9 @@
 /* Poster Card */
 .poster-section .poster-card {
   position: relative;
-  width: 279px;
-  height: 352px;
-  background: #E3E3E3;
+  width: 473px;
+  height: 462px;
+  background: #ffffff;
   border-radius: 20px;
   overflow: hidden;
 }
@@ -513,30 +518,31 @@
 /* Poster Card Title */
 .poster-section .poster-card-title {
   position: absolute;
-  width: 258px;
+  width: 453px;
   left: 10px;
-  top: 190px;
-  font-family: 'Gerbera-Regular', Arial, sans-serif;
+  top: 254px;
+  font-family: 'Gerbera-Bold', Arial, sans-serif;
   font-style: normal;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 18px;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 26px;
   color: #000000;
+  margin-bottom: 8px;
 }
 
 /* Poster Card Description */
 .poster-section .poster-card-description {
   position: absolute;
-  width: 258px;
-  height: 76px;
+  width: 453px;
+  height: 95px;
   left: 10px;
-  top: 220px;
+  top: 295px;
   font-family: 'Gerbera-Regular', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 12px;
-  line-height: 15px;
-  color: #000000;
+  font-size: 14px;
+  line-height: 18px;
+  color: #333333;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -544,23 +550,23 @@
 /* Poster Card Button */
 .poster-section .poster-card-button {
   position: absolute;
-  width: 93px;
-  height: 37px;
-  right: 8px;
-  bottom: 8px;
+  width: 135px;
+  height: 48px;
+  right: 12px;
+  bottom: 12px;
   background: #FCD619;
-  border-radius: 20px;
+  border-radius: 24px;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  font-family: 'Gerbera-Regular', Arial, sans-serif;
+  font-family: 'Gerbera-Medium', Arial, sans-serif;
   font-style: normal;
-  font-weight: 400;
-  font-size: 11px;
-  line-height: 13px;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
   text-align: center;
   color: #000000;
   transition: background 0.3s ease;
@@ -647,7 +653,7 @@
   position: relative;
   width: auto;
   margin: 0 0 24px 187px;
-  font-family: 'Gerbera-Regular', Arial, sans-serif;
+  font-family: 'Vetrino', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 40px;
