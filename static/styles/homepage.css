@@ -133,88 +133,149 @@
 }
 
 /* Museum Cards Container */
+.museum-section {
+  position: relative;
+  width: 1440px;
+  margin: 60px auto 0;
+  padding-top: 0;
+}
+
+.museum-title {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto 37px;
+  font-family: 'Vetrino', sans-serif;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 53px;
+  color: #000000;
+}
+
 .museum-cards {
   display: grid;
-  grid-template-columns: repeat(3, 473px);
+  grid-template-columns: repeat(3, 470px); /* Ширина 470px строго по Figma */
   gap: 40px;
   position: relative;
   justify-content: center;
   margin-bottom: 23px;
 }
 
-/* Museum Card */
+/* Белая карточка-подложка */
 .museum-card {
   position: relative;
-  width: 473px;
-  height: 462px;
-  background: #ffffff;
+  width: 470px;
+  height: 410px;
+  background: #FFFFFF;
   border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Обертка для контента (картинка + темный блок) */
+.museum-content-wrapper {
+  width: 430px;
+  margin-top: 20px;
+  border-radius: 15px;
   overflow: hidden;
+  position: relative;
 }
 
-/* Card Image */
 .museum-card-image {
-  width: 473px;
-  height: 244px;
+  width: 430px;
+  height: 200px;
   object-fit: cover;
-  border-radius: 20px 20px 0 0;
+  display: block;
 }
 
-/* Card Title */
-.museum-card-title {
-  position: absolute;
-  width: 453px;
-  left: 10px;
-  top: 254px;
-  font-family: 'Gerbera-Bold', Arial, sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 22px;
-  line-height: 26px;
-  color: #000000;
+.museum-card-info {
+  width: 430px;
+  height: 123px; /* 323px (общая) - 200px (фото) */
+  background: #2C3848;
+  padding: 15px 15px;
+  box-sizing: border-box;
+}
+
+.museum-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   margin-bottom: 8px;
 }
 
-/* Card Description */
-.museum-card-description {
-  position: absolute;
-  width: 453px;
-  height: 95px;
-  left: 10px;
-  top: 315px;
-  font-family: 'Gerbera-Regular', Arial, sans-serif;
-  font-style: normal;
+/* ИСПРАВЛЕНИЕ ЗАГОЛОВКА: Одна строка + троеточие */
+.museum-card-title {
+  width: 240px; /* Фиксированная ширина из Figma */
+  font-family: 'Gerbera', Arial, sans-serif;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 18px;
-  color: #333333;
+  font-size: 20px;
+  line-height: 27px;
+  color: #FFFFFF;
+  margin: 0;
+
+  /* Свойства для одной строки */
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* Card Buttons Container */
-.museum-card-buttons {
-  position: absolute;
-  bottom: 12px;
-  left: 140px;
+.museum-badges {
   display: flex;
-  gap: 15px;
+  gap: 10px;
 }
 
-/* Card Button */
-.museum-card-button {
-  width: 135px;
-  height: 48px;
+.museum-badge {
   background: #FCD619;
-  border-radius: 24px;
+  border-radius: 11px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  font-family: 'Gerbera', Arial, sans-serif;
+  font-size: 11px;
+  line-height: 15px;
+  color: #000000;
+  white-space: nowrap;
+}
+
+.museum-card-description {
+  width: 100%;
+  height: 56px;
+  font-family: 'Gerbera', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 15px;
+  color: #FFFFFF;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+.museum-card-buttons {
+  width: 430px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 18px;
+  margin-top: 15px;
+}
+
+.museum-card-button {
+  width: 132px;
+  height: 42px;
+  background: #FCD619;
+  border-radius: 21px;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  font-family: 'Gerbera-Medium', Arial, sans-serif;
-  font-style: normal;
+  font-family: 'Gerbera-Medium', 'Gerbera', Arial, sans-serif;
   font-weight: 500;
   font-size: 15px;
   line-height: 18px;
@@ -223,10 +284,10 @@
 }
 
 .museum-card-button:hover {
-  background: #FCD619;
+  background: #eec814;
 }
 
-/* Navigation */
+/* Навигация (стрелочки) для музеев */
 .museum-navigation {
   position: relative;
   width: 210px;
@@ -236,8 +297,6 @@
   align-items: center;
   justify-content: space-between;
 }
-
-/* Navigation Button */
 .museum-nav-button {
   width: 45px;
   height: 45px;
@@ -250,47 +309,26 @@
   justify-content: center;
   transition: background 0.3s ease;
 }
-
-.museum-nav-button:hover {
-  background: #FCD619;
-}
-
-/* Navigation Chevron Icons */
+.museum-nav-button:hover { background: #FCD619; }
 .museum-nav-button.prev::after {
-  content: '';
-  display: block;
-  width: 20px;
-  height: 20px;
-  background: url('../images/icon/museum-nav-chevron-left-icon.png') no-repeat center;
-  background-size: contain;
+  content: ''; display: block; width: 20px; height: 20px;
+  background: url('../images/icon/museum-nav-chevron-left-icon.png') no-repeat center; background-size: contain;
 }
-
 .museum-nav-button.next::after {
-  content: '';
-  display: block;
-  width: 20px;
-  height: 20px;
-  background: url('../images/icon/museum-nav-chevron-right-icon.png') no-repeat center;
-  background-size: contain;
+  content: ''; display: block; width: 20px; height: 20px;
+  background: url('../images/icon/museum-nav-chevron-right-icon.png') no-repeat center; background-size: contain;
 }
-
-/* Hide SVG if present */
-.museum-nav-button svg {
-  display: none;
-}
-
-/* Navigation Counter */
+.museum-nav-button svg { display: none; }
 .museum-nav-counter {
   font-family: 'Gerbera-Regular', Arial, sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
-  color: #000000;
+  font-size: 18px; color: #000000;
 }
 
 
-/* Virtual Exhibitions Section */
+/* =========================
+   2. VIRTUAL EXHIBITIONS (Восстановлено)
+   ========================= */
+
 .virtual-exhibitions {
   position: relative;
   width: 1440px;
@@ -298,13 +336,11 @@
   padding-top: 0;
 }
 
-/* Section Title */
 .virtual-exhibitions-title {
   position: relative;
   width: auto;
   margin: 0 auto 37px;
   font-family: 'Vetrino', sans-serif;
-  font-style: normal;
   font-weight: 400;
   font-size: 40px;
   line-height: 53px;
@@ -312,17 +348,15 @@
   text-align: center;
 }
 
-/* Virtual Exhibition Cards Container */
 .virtual-exhibitions-cards {
   display: grid;
-  grid-template-columns: repeat(3, 473px);
+  grid-template-columns: repeat(3, 473px); /* Здесь ширина старая, 473px */
   gap: 40px;
   position: relative;
   justify-content: center;
   margin-bottom: 23px;
 }
 
-/* Virtual Exhibition Card */
 .virtual-exhibition-card {
   position: relative;
   width: 473px;
@@ -332,7 +366,6 @@
   overflow: hidden;
 }
 
-/* Card Image - Full card size */
 .virtual-exhibition-card-image {
   width: 100%;
   height: 100%;
@@ -340,39 +373,6 @@
   border-radius: 20px;
 }
 
-/* Card Title */
-.virtual-exhibition-card-title {
-  position: absolute;
-  width: 453px;
-  left: 10px;
-  top: 254px;
-  font-family: 'Gerbera-Bold', Arial, sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 22px;
-  line-height: 26px;
-  color: #000000;
-  margin-bottom: 8px;
-}
-
-/* Card Description */
-.virtual-exhibition-card-description {
-  position: absolute;
-  width: 453px;
-  height: 95px;
-  left: 10px;
-  top: 295px;
-  font-family: 'Gerbera-Regular', Arial, sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 18px;
-  color: #333333;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Card Button */
 .virtual-exhibition-card-button {
   position: absolute;
   width: 135px;
@@ -388,20 +388,14 @@
   justify-content: center;
   text-decoration: none;
   font-family: 'Gerbera-Medium', Arial, sans-serif;
-  font-style: normal;
   font-weight: 500;
   font-size: 15px;
-  line-height: 18px;
-  text-align: center;
   color: #000000;
   transition: background 0.3s ease;
 }
+.virtual-exhibition-card-button:hover { background: #8F8F8F; }
 
-.virtual-exhibition-card-button:hover {
-  background: #8F8F8F;
-}
-
-/* Navigation */
+/* Навигация виртуальных выставок */
 .virtual-exhibitions-navigation {
   position: relative;
   width: 210px;
@@ -411,8 +405,6 @@
   align-items: center;
   justify-content: space-between;
 }
-
-/* Navigation Button */
 .virtual-exhibitions-nav-button {
   width: 45px;
   height: 45px;
@@ -423,49 +415,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.3s ease;
 }
-
-.virtual-exhibitions-nav-button:hover {
-  background: #FCD619;
-}
-
-/* Navigation Chevron Icons */
 .virtual-exhibitions-nav-button.prev::after {
-  content: '';
-  display: block;
-  width: 20px;
-  height: 20px;
-  background: url('../images/icon/virtual-nav-chevron-left-icon.png') no-repeat center;
-  background-size: contain;
+  content: ''; display: block; width: 20px; height: 20px;
+  background: url('../images/icon/virtual-nav-chevron-left-icon.png') no-repeat center; background-size: contain;
 }
-
 .virtual-exhibitions-nav-button.next::after {
-  content: '';
-  display: block;
-  width: 20px;
-  height: 20px;
-  background: url('../images/icon/virtual-nav-chevron-right-icon.png') no-repeat center;
-  background-size: contain;
+  content: ''; display: block; width: 20px; height: 20px;
+  background: url('../images/icon/virtual-nav-chevron-right-icon.png') no-repeat center; background-size: contain;
 }
-
-/* Hide SVG if present */
-.virtual-exhibitions-nav-button svg {
-  display: none;
-}
-
-/* Navigation Counter */
+.virtual-exhibitions-nav-button svg { display: none; }
 .virtual-exhibitions-nav-counter {
   font-family: 'Gerbera-Regular', Arial, sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
-  color: #000000;
+  font-size: 18px; color: #000000;
 }
 
 
-/* Poster Section */
+/* =========================
+   3. POSTER SECTION (Стиль Билета)
+   ========================= */
+
 .poster-section {
   position: relative;
   width: 1440px;
@@ -473,13 +442,11 @@
   padding-top: 0;
 }
 
-/* Poster Section Title */
 .poster-section .poster-title {
   position: relative;
   width: auto;
   margin: 0 auto 37px;
   font-family: 'Vetrino', sans-serif;
-  font-style: normal;
   font-weight: 400;
   font-size: 40px;
   line-height: 53px;
@@ -487,96 +454,144 @@
   text-align: center;
 }
 
-/* Poster Cards Container */
+/* Сетка карточек */
 .poster-section .poster-cards {
   display: grid;
-  grid-template-columns: repeat(3, 473px);
+  grid-template-columns: repeat(3, 400px); /* Три колонки по 400px */
   gap: 40px;
   position: relative;
   justify-content: center;
   margin-bottom: 23px;
+  align-items: start;
 }
 
-/* Poster Card */
+/* Карточка-билет */
 .poster-section .poster-card {
-  position: relative;
-  width: 473px;
-  height: 462px;
-  background: #ffffff;
+  background: #FFFFFF;
+  border-radius: 30px;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden; /* Важно, чтобы ничего не вылезало */
+}
+
+.poster-section .poster-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* Контейнер картинки */
+.poster-image-container {
+  width: 100%;
+  height: 250px;
   border-radius: 20px;
   overflow: hidden;
+  margin-bottom: 20px;
 }
 
-/* Poster Card Image - Full card size */
 .poster-section .poster-card-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 20px;
 }
 
-/* Poster Card Title */
+/* Контент */
+.poster-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Заголовок */
 .poster-section .poster-card-title {
-  position: absolute;
-  width: 453px;
-  left: 10px;
-  top: 254px;
   font-family: 'Gerbera-Bold', Arial, sans-serif;
-  font-style: normal;
   font-weight: 700;
-  font-size: 22px;
-  line-height: 26px;
+  font-size: 20px;
+  line-height: 24px;
   color: #000000;
-  margin-bottom: 8px;
+  margin: 0 0 12px 0;
 }
 
-/* Poster Card Description */
+/* Описание */
 .poster-section .poster-card-description {
-  position: absolute;
-  width: 453px;
-  height: 95px;
-  left: 10px;
-  top: 295px;
   font-family: 'Gerbera-Regular', Arial, sans-serif;
-  font-style: normal;
   font-weight: 400;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #333333;
+  margin: 0 0 15px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Пунктирная линия */
+.poster-divider {
+  width: 100%;
+  height: 1px;
+  border-top: 1px dashed #CCCCCC;
+  margin: 5px 0 20px;
+}
+
+/* Мета-данные */
+.poster-meta {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.poster-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.calendar-icon {
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z' stroke='%238C9E46' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M16 2V6' stroke='%238C9E46' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M8 2V6' stroke='%238C9E46' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M3 10H21' stroke='%238C9E46' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.location-icon {
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32601 5.63604 3.63819C7.32387 1.95036 9.61305 1 12 1C14.3869 1 16.6761 1.95036 18.364 3.63819C20.0518 5.32601 21 7.61305 21 10Z' stroke='%23D14D28' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z' stroke='%23D14D28' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.poster-meta-text {
+  font-family: 'Gerbera-Regular', Arial, sans-serif;
   font-size: 14px;
   line-height: 18px;
   color: #333333;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
-/* Poster Card Button */
-.poster-section .poster-card-button {
-  position: absolute;
-  width: 135px;
-  height: 48px;
-  right: 12px;
-  bottom: 12px;
-  background: #FCD619;
-  border-radius: 24px;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  font-family: 'Gerbera-Medium', Arial, sans-serif;
-  font-style: normal;
-  font-weight: 500;
+.poster-link {
+  display: inline-block;
+  margin-top: 15px;
+  margin-bottom: 25px;
+  font-family: 'Gerbera-Regular', Arial, sans-serif;
   font-size: 15px;
-  line-height: 18px;
-  text-align: center;
-  color: #000000;
-  transition: background 0.3s ease;
+  color: #8C9E46;
+  text-decoration: none;
+  transition: opacity 0.3s;
 }
 
-.poster-section .poster-card-button:hover {
-  background: #FCD619;
+.poster-link:hover {
+  opacity: 0.8;
+  text-decoration: underline;
 }
 
-/* Poster Navigation */
+.poster-barcode {
+  height: 40px;
+  width: 100%;
+  opacity: 0.7;
+  background: repeating-linear-gradient(90deg, #000 0px, #000 2px, transparent 2px, transparent 4px, #000 4px, #000 5px, transparent 5px, transparent 9px, #000 9px, #000 12px, transparent 12px, transparent 14px);
+}
+
+/* Навигация */
 .poster-section .poster-navigation {
   position: relative;
   width: 210px;
@@ -586,8 +601,6 @@
   align-items: center;
   justify-content: space-between;
 }
-
-/* Poster Navigation Button */
 .poster-section .poster-nav-button {
   width: 45px;
   height: 45px;
@@ -598,150 +611,174 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.3s ease;
 }
-
-.poster-section .poster-nav-button:hover {
-  background: #FCD619;
-}
-
-/* Poster Navigation Chevron Icons */
 .poster-section .poster-nav-button.prev::after {
-  content: '';
-  display: block;
-  width: 20px;
-  height: 20px;
-  background: url('../images/icon/virtual-nav-chevron-left-icon.png') no-repeat center;
-  background-size: contain;
+  content: ''; display: block; width: 20px; height: 20px;
+  background: url('../images/icon/virtual-nav-chevron-left-icon.png') no-repeat center; background-size: contain;
 }
-
 .poster-section .poster-nav-button.next::after {
-  content: '';
-  display: block;
-  width: 20px;
-  height: 20px;
-  background: url('../images/icon/virtual-nav-chevron-right-icon.png') no-repeat center;
-  background-size: contain;
+  content: ''; display: block; width: 20px; height: 20px;
+  background: url('../images/icon/virtual-nav-chevron-right-icon.png') no-repeat center; background-size: contain;
 }
-
-/* Hide SVG if present */
-.poster-section .poster-nav-button svg {
-  display: none;
-}
-
-/* Poster Navigation Counter */
+.poster-section .poster-nav-button svg { display: none; }
 .poster-section .poster-nav-counter {
   font-family: 'Gerbera-Regular', Arial, sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
-  color: #000000;
+  font-size: 18px; color: #000000;
 }
 
 
 /* Map Section */
 .map-section {
-  position: relative;
-  width: 1440px;
-  margin: 60px auto 0;
-  padding-top: 0;
+    position: relative;
+    width: 1440px;
+    margin: 60px auto 80px; /* Добавил отступ снизу */
+    padding-top: 0;
 }
 
-/* Section Title */
+/* Section Title (Vetrino) */
 .map-title {
-  position: relative;
-  width: auto;
-  margin: 0 0 24px 187px;
-  font-family: 'Vetrino', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 40px;
-  line-height: 53px;
-  color: #000000;
+    position: relative;
+    width: 100%;
+    text-align: center; /* Центрируем заголовок как в других секциях */
+    margin: 0 auto 37px;
+    font-family: 'Vetrino', sans-serif;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 53px;
+    color: #000000;
 }
 
-/* Map Container */
+/* Map Container (Main Card) */
 .map-container {
-  position: relative;
-  width: 1109px;
-  height: 304px;
-  margin: 0 auto;
-  background: #9C8F80;
-  border-radius: 20px;
-  overflow: hidden;
-  display: flex;
+    position: relative;
+    width: 1109px; /* Сохранил вашу ширину, но можно расширить до 1440px если нужно */
+    min-height: 380px; /* Немного увеличил высоту для воздуха */
+    margin: 0 auto;
+    background: #FFFFFF;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex; /* Используем Flexbox для разметки */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Легкая тень для объема */
+    border: 1px solid rgba(0, 0, 0, 0.03);
 }
 
-/* Info Block - Contact Info */
-.map-contact-info {
-  position: absolute;
-  width: 265px;
-  left: 45px;
-  top: 22px;
-  font-family: 'Gerbera-Regular', Arial, sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 27px;
-  color: #FFFFFF;
-  z-index: 2;
+/* --- Left Side: Content --- */
+.map-content {
+    width: 55%; /* Текст занимает 55% ширины */
+    padding: 40px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 35px;
 }
 
-/* Info Block - Excursions */
-.map-excursions-info {
-  position: absolute;
-  width: 262px;
-  left: 330px;
-  top: 22px;
-  font-family: 'Gerbera-Regular', Arial, sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 27px;
-  color: #FFFFFF;
-  z-index: 2;
+/* Row for Contact & Excursions */
+.map-info-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
 }
 
-
-/* Info Block - Address */
-.map-address {
-  position: absolute;
-  width: 541px;
-  left: 51px;
-  bottom: 25px;
-  font-family: 'Gerbera-Regular', Arial, sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 27px;
-  color: #FFFFFF;
-  z-index: 2;
+.map-info-block {
+    flex: 1;
 }
 
-/* Map Image */
+/* Headers within the map card */
+.map-info-header {
+    font-family: 'Gerbera-Bold', Arial, sans-serif;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+    margin-bottom: 12px;
+    position: relative;
+}
+
+/* Желтый акцент под заголовками (опционально, для стиля) */
+.map-info-header::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: #FCD619;
+    margin-top: 6px;
+    border-radius: 2px;
+}
+
+/* Text Styling */
+.map-info-text p,
+.map-info-text a {
+    font-family: 'Gerbera-Regular', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333333;
+    margin: 0;
+    display: block;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+/* Phone numbers interactive state */
+.map-info-text a[href^="tel"]:hover {
+    color: #DBB80A; /* Darker yellow on hover */
+    text-decoration: underline;
+}
+
+/* Address Block */
+.map-address-block {
+    border-top: 1px solid #EEEEEE;
+    padding-top: 25px;
+}
+
+.map-address-text {
+    font-family: 'Gerbera-Regular', Arial, sans-serif;
+    font-size: 18px; /* Чуть крупнее для адреса */
+    line-height: 1.5;
+    color: #333333;
+    margin: 0;
+}
+
+/* --- Right Side: Image --- */
+.map-image-wrapper {
+    width: 45%; /* Картинка занимает 45% */
+    position: relative;
+    overflow: hidden;
+}
+
 .map-image {
-  position: absolute;
-  width: 479px;
-  height: 304px;
-  right: 0;
-  top: 0;
-  object-fit: cover;
-  border-radius: 0 20px 20px 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
 }
 
-/* Responsive text formatting */
-.map-contact-info p,
-.map-excursions-info p,
-.map-address p {
-  margin: 0;
-  padding: 0;
+/* Эффект при наведении на всю карту */
+.map-container:hover .map-image {
+    transform: scale(1.05);
 }
 
-.map-contact-info strong,
-.map-excursions-info strong {
-  display: block;
-  margin-bottom: 5px;
+/* --- Responsive Layout (Mobile) --- */
+@media screen and (max-width: 1150px) {
+    .map-container {
+        width: 95%;
+        flex-direction: column-reverse; /* Картинка сверху или снизу на мобильных */
+        height: auto;
+    }
+
+    .map-content {
+        width: 100%;
+        padding: 30px;
+        box-sizing: border-box;
+    }
+
+    .map-image-wrapper {
+        width: 100%;
+        height: 250px;
+    }
+
+    .map-info-row {
+        flex-direction: column;
+        gap: 20px;
+    }
 }
 
 

@@ -1,22 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Горки Ленинские{% endblock %}</title>
+
+    <!-- Шрифты -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/fonts.css') }}">
+
+    <!-- Глобальные стили -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/header.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/footer.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='js/main.js') }}">
+
+    <!-- Стили конкретной страницы -->
     {% block extra_css %}{% endblock %}
+
+    <style>
+        /* Критически важные стили для прижатия футера */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            background-color: #f1f2ed;
+            font-family: 'Gerbera-Regular', Arial, sans-serif;
+        }
+        /* Контент растягивается */
+        main {
+            flex: 1 0 auto;
+            width: 100%;
+        }
+        /* Футер не сжимается */
+        footer {
+            flex-shrink: 0;
+        }
+    </style>
 </head>
 <body>
     {% include 'header.html' %}
 
-    {% block content %}{% endblock %}
+    <main>
+        {% block content %}{% endblock %}
+    </main>
 
     {% include 'footer.html' %}
 
+    <!-- Скрипты -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>
