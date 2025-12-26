@@ -157,7 +157,8 @@ def virtual_exhibition():
 
 @app.route('/poster')
 def poster():
-    return render_template('Poster.html')
+    museums_for_poster = db.get_content_by_category('museums') or []
+    return render_template('poster.html', museums=museums_for_poster)
 
 
 # ===================================================================================

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Афиша - Горки Ленинские{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/poster.css') }}">
+{% endblock %}
+
+{% block content %}
+
+    <!-- Main Content -->
+    <main class="poster-page">
+        <!-- Page Title -->
+        <h1 class="afisha-title">Афиша</h1>
+
+        <!-- Museum Cards Grid -->
+        <div class="museum-cards">
+            {% for museum in museums %}
+            <div class="museum-card">
+                <!-- Контейнер для картинки и темного блока с текстом -->
+                <div class="museum-content-wrapper">
+                    <!-- Используем url_for для статики, предполагая, что путь в БД относительный -->
+                    <img src="{{ url_for('static', filename=museum.img_card) }}" alt="{{ museum.title_card }}" class="museum-card-image">
+
+                    <div class="museum-card-info">
+                        <div class="museum-card-header">
+                            <h3 class="museum-card-title">{{ museum.title_card }}</h3>
+                            <div class="museum-badges">
+                                <span class="museum-badge">0+</span>
+                                <span class="museum-badge">от 800 ₽</span>
+                            </div>
+                        </div>
+                        <p class="museum-card-description">
+                            {{ museum.short_description_card }}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Кнопки -->
+                <div class="museum-card-buttons">
+                    <a href="{{ url_for('about_us', museum_id=museum.id) }}" class="museum-card-button">Подробнее</a>
+                    <a href="{{ url_for('order', museum_id=museum.id) }}" class="museum-card-button">Купить билет</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+{% endblock %}

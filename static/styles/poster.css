@@ -1,0 +1,192 @@
+/* Poster Page Layout */
+.poster-page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding: 40px 0 60px;
+  background: #f1f2ed;
+  /* Меняем старый Grid на Flex/Block, так как сетка теперь внутри .museum-cards */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Заголовок афиши */
+.afisha-title {
+  font-family: 'Gerbera-Regular', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 60px;
+  text-align: center;
+  color: #000000;
+  margin: 0 0 50px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+/* --- Стили карточек (Museum Cards) --- */
+
+/* Сетка карточек */
+.museum-cards {
+  display: grid;
+  /* Используем grid из вашего задания.
+     Внимание: 3 колонки по 470px требуют ширину экрана > 1500px.
+     Если нужно адаптивно, можно поменять на repeat(auto-fit, minmax(470px, 1fr)) */
+  grid-template-columns: repeat(3, 470px);
+  gap: 40px;
+  position: relative;
+  justify-content: center;
+  margin-bottom: 23px;
+  z-index: 1;
+}
+
+/* Адаптация сетки под меньшие экраны (опционально, чтобы не ломалось на ноутбуках) */
+@media (max-width: 1550px) {
+  .museum-cards {
+    grid-template-columns: repeat(2, 470px);
+  }
+}
+@media (max-width: 1050px) {
+  .museum-cards {
+    grid-template-columns: repeat(1, 470px);
+  }
+}
+
+/* Белая карточка-подложка */
+.museum-card {
+  position: relative;
+  width: 470px;
+  height: 410px;
+  background: #FFFFFF;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Легкая тень для объема */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.museum-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Обертка для контента (картинка + темный блок) */
+.museum-content-wrapper {
+  width: 430px;
+  margin-top: 20px;
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+}
+
+.museum-card-image {
+  width: 430px;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+/* Эффект зума картинки при наведении на карточку */
+.museum-card:hover .museum-card-image {
+  transform: scale(1.03);
+}
+
+.museum-card-info {
+  width: 430px;
+  height: 123px;
+  background: #2C3848;
+  padding: 15px 15px;
+  box-sizing: border-box;
+}
+
+.museum-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+/* Заголовок карточки */
+.museum-card-title {
+  width: 240px;
+  font-family: 'Gerbera', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 27px;
+  color: #FFFFFF;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.museum-badges {
+  display: flex;
+  gap: 10px;
+}
+
+.museum-badge {
+  background: #FCD619;
+  border-radius: 11px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  font-family: 'Gerbera', Arial, sans-serif;
+  font-size: 11px;
+  line-height: 15px;
+  color: #000000;
+  white-space: nowrap;
+}
+
+.museum-card-description {
+  width: 100%;
+  height: 56px;
+  font-family: 'Gerbera', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 15px;
+  color: #FFFFFF;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+.museum-card-buttons {
+  width: 430px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 18px;
+  margin-top: 15px;
+}
+
+.museum-card-button {
+  width: 132px;
+  height: 42px;
+  background: #FCD619;
+  border-radius: 21px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-family: 'Gerbera-Medium', 'Gerbera', Arial, sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+  color: #000000;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.museum-card-button:hover {
+  background: #eec814;
+  transform: scale(1.05);
+}
