@@ -45,7 +45,11 @@
                 <div class="museum-card">
                     <!-- Контейнер для картинки и темного блока с текстом -->
                     <div class="museum-content-wrapper">
-                        <img src="{{ url_for('static', filename=museum.img_card) }}" alt="{{ museum.title_card }}" class="museum-card-image">
+                        <img src="{{ url_for('static', filename=museum.img_card) }}"
+                             alt="{{ museum.title_card }}"
+                             class="museum-card-image"
+                             loading="lazy"
+                             decoding="async">
 
                         <div class="museum-card-info">
                             <div class="museum-card-header">
@@ -98,8 +102,12 @@
             <div class="virtual-exhibitions-cards">
                 {% for exhibition in virtual_exhibitions %}
                 <div class="virtual-exhibition-card">
-                    <img src="{{ url_for('static', filename=exhibition.img_card) }}" alt="{{ exhibition.title_card or 'Виртуальная выставка' }}"
-                        class="virtual-exhibition-card-image">
+                    <img src="{{ url_for('static', filename=exhibition.img_card) }}"
+                         alt="{{ exhibition.title_card or 'Виртуальная выставка' }}"
+                         class="virtual-exhibition-card-image"
+                         loading="lazy"
+                         decoding="async">
+
                     <a href="{{ url_for('virtual_exhibition') }}" class="virtual-exhibition-card-button">Подробнее</a>
                 </div>
                 {% endfor %}
@@ -134,7 +142,11 @@
                 <div class="poster-card">
                     <!-- Верхняя часть: Картинка -->
                     <div class="poster-image-container">
-                        <img src="{{ url_for('static', filename=event.img_card) }}" alt="{{ event.title_card }}" class="poster-card-image">
+                        <img src="{{ url_for('static', filename=event.img_card) }}"
+                             alt="{{ event.title_card }}"
+                             class="poster-card-image"
+                             loading="lazy"
+                             decoding="async">
                     </div>
 
                     <!-- Нижняя часть: Контент -->
@@ -234,7 +246,11 @@
 
                 <!-- Image Side -->
                 <div class="map-image-wrapper">
-                    <img src="../static/images/img/888.jpg" alt="Карта расположения" class="map-image">
+                    <img src="../static/images/img/888.jpg"
+                         alt="Карта расположения"
+                         class="map-image"
+                         loading="lazy"
+                         decoding="async">
                 </div>
             </div>
         </section>

@@ -109,29 +109,6 @@
 
 
 
-/* Museum Section */
-.museum-section {
-  position: relative;
-  width: 1440px;
-  margin: 60px auto 0;
-  padding-top: 0;
-}
-
-/* Section Title */
-.museum-title {
-  position: relative;
-  width: 126px;
-  height: 53px;
-  margin: 0 auto 37px;
-  font-family: 'Vetrino', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 40px;
-  line-height: 53px;
-  color: #000000;
-  text-align: center;
-}
-
 /* Museum Cards Container */
 .museum-section {
   position: relative;
@@ -171,6 +148,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transform: translateZ(0);
+  will-change: transform, box-shadow;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.museum-card:hover {
+  transform: translateY(-5px) translateZ(0);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
 }
 
 /* Обертка для контента (картинка + темный блок) */
@@ -362,6 +350,9 @@
   background: #ffffff;
   border-radius: 20px;
   overflow: hidden;
+  transform: translateZ(0);
+  will-change: transform;
+
 }
 
 .virtual-exhibition-card-image {
@@ -471,8 +462,16 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transform: translateZ(0);
+  will-change: transform, box-shadow;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  overflow: hidden; /* Важно, чтобы ничего не вылезало */
+}
+
+.poster-section .poster-card:hover {
+  transform: translateY(-5px) translateZ(0);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.1);
 }
 
 .poster-section .poster-card:hover {
@@ -649,15 +648,16 @@
 /* Map Container (Main Card) */
 .map-container {
     position: relative;
-    width: 1109px; /* Сохранил вашу ширину, но можно расширить до 1440px если нужно */
-    min-height: 380px; /* Немного увеличил высоту для воздуха */
+    width: 1109px;
+    min-height: 380px;
     margin: 0 auto;
     background: #FFFFFF;
     border-radius: 20px;
     overflow: hidden;
-    display: flex; /* Используем Flexbox для разметки */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Легкая тень для объема */
+    display: flex;
     border: 1px solid rgba(0, 0, 0, 0.03);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transform: translateZ(0);
 }
 
 /* --- Left Side: Content --- */
@@ -746,7 +746,9 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    will-change: transform;
     transition: transform 0.5s ease;
+    backface-visibility: hidden;
 }
 
 /* Эффект при наведении на всю карту */
