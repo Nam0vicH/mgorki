@@ -1,12 +1,17 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
 <footer class="site-footer">
     <div class="footer-container">
 
         <div class="footer-top">
             <div class="footer-brand-block">
                 <a href="/" class="footer-logo-link">
-                    <img src="{{ url_for('static', filename='images/logo/logo_white.png') }}" alt="Музей-заповедник" class="main-logo">
+                    <!-- ОПТИМИЗАЦИЯ: Добавлены размеры, lazy и async -->
+                    <img src="{{ url_for('static', filename='images/logo/logo_white.png') }}"
+                         alt="Музей-заповедник"
+                         class="main-logo"
+                         width="160"
+                         height="66"
+                         loading="lazy"
+                         decoding="async">
                 </a>
 
                 <p class="footer-slogan">Сохраняем историю.<br>Вдохновляем будущее.</p>
@@ -71,7 +76,14 @@
 
         <div class="footer-bottom">
             <div class="ministry-block">
-                <img src="{{ url_for('static', filename='images/logo/mk.svg') }}" alt="Министерство культуры РФ" class="ministry-logo">
+                <!-- ОПТИМИЗАЦИЯ: Добавлены размеры, lazy и async -->
+                <img src="{{ url_for('static', filename='images/logo/mk.svg') }}"
+                     alt="Министерство культуры РФ"
+                     class="ministry-logo"
+                     width="50"
+                     height="50"
+                     loading="lazy"
+                     decoding="async">
                 <div class="ministry-info">
                     <span class="support-text">При поддержке</span>
                     <span class="ministry-name">Министерства культуры<br>Российской Федерации</span>

@@ -17,7 +17,11 @@
         <!-- Главный блок с изображением и информацией -->
         <div class="main-section">
             <div class="main-image-container">
-                <img src="{{ url_for('static', filename=museum.main_image) }}" alt="{{ museum.title_card }}" class="main-image">
+                <img src="{{ url_for('static', filename=museum.main_image) }}"
+                     alt="{{ museum.title_card }}"
+                     class="main-image"
+                     loading="eager"
+                     decoding="async">
             </div>
             <div class="main-info">
                 <a href="{{ url_for('order', museum_id=museum.id) }}" class="main-ticket-btn">Купить билет</a>
@@ -34,7 +38,11 @@
             {% if museum.block_image_1 and museum.block_text_1 %}
             <div class="content-block block-1">
                 <div class="block-image">
-                    <img src="{{ url_for('static', filename=museum.block_image_1) }}" alt="{{ museum.title_card }}" class="block-img">
+                    <img src="{{ url_for('static', filename=museum.block_image_1) }}"
+                         alt="{{ museum.title_card }}"
+                         class="block-img"
+                         loading="eager"
+                         decoding="async">
                 </div>
                 <div class="block-text">
                     {{ museum.block_text_1 }}
@@ -49,7 +57,11 @@
                     {{ museum.block_text_2 }}
                 </div>
                 <div class="block-image">
-                    <img src="{{ url_for('static', filename=museum.block_image_2) }}" alt="{{ museum.title_card }}" class="block-img">
+                    <img src="{{ url_for('static', filename=museum.block_image_2) }}"
+                         alt="{{ museum.title_card }}"
+                         class="block-img"
+                         loading="eager"
+                         decoding="async">
                 </div>
             </div>
             {% endif %}
@@ -58,7 +70,11 @@
             {% if museum.block_image_3 %}
             <div class="content-block block-3">
                 <div class="block-image">
-                    <img src="{{ url_for('static', filename=museum.block_image_3) }}" alt="{{ museum.title_card }}" class="block-img">
+                    <img src="{{ url_for('static', filename=museum.block_image_3) }}"
+                         alt="{{ museum.title_card }}"
+                         class="block-img"
+                         loading="eager"
+                         decoding="async">
                 </div>
                 <div class="block-text">
                     {{ museum.block_text_3 }}
@@ -111,7 +127,11 @@
 
                 <!-- Image Side -->
                 <div class="map-image-wrapper">
-                    <img src="../static/images/img/888.jpg" alt="Карта расположения" class="map-image">
+                    <img src="../static/images/img/888.jpg"
+                         alt="Карта расположения"
+                         class="map-image"
+                         loading="lazy"
+                         decoding="async">
                 </div>
             </div>
         </section>
