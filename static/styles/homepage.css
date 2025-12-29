@@ -312,6 +312,41 @@
   font-size: 18px; color: #000000;
 }
 
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Класс, который будет добавляться JS-ом */
+.animating {
+    animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    opacity: 0; /* Скрыт до начала анимации */
+}
+
+/* Эффект нажатия на кнопки навигации */
+.museum-nav-button:active,
+.virtual-exhibitions-nav-button:active,
+.poster-nav-button:active {
+    transform: scale(0.9);
+    background-color: #eec814; /* Чуть темнее при клике */
+    transition: transform 0.1s ease;
+}
+
+/* Плавность для счетчика */
+.museum-nav-counter,
+.virtual-exhibitions-nav-counter,
+.poster-nav-counter {
+    transition: opacity 0.2s ease;
+}
+.counter-fade {
+    opacity: 0.3;
+}
 
 /* VIRTUAL EXHIBITIONS */
 
@@ -446,7 +481,7 @@
 /* Сетка карточек */
 .poster-section .poster-cards {
   display: grid;
-  grid-template-columns: repeat(3, 400px); /* Три колонки по 400px */
+  grid-template-columns: repeat(3, 470px); /* Три колонки по 400px */
   gap: 40px;
   position: relative;
   justify-content: center;
