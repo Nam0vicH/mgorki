@@ -1,0 +1,148 @@
+/* Общий фон страницы (светлый бежевый как на скрине) */
+body {
+    background-color: #F0EFE9; /* Подбираем цвет под скриншот */
+}
+
+/* Контейнер страницы */
+.history-page {
+    width: 1440px; /* Ширина как у главной */
+    margin: 0 auto;
+    padding: 40px 60px 80px;
+    box-sizing: border-box;
+    font-family: 'Gerbera-Regular', Arial, sans-serif;
+    color: #000000;
+}
+
+/* --- Заголовок --- */
+.page-title {
+    font-family: 'Vetrino', serif;
+    font-size: 64px; /* Крупный размер как на макете */
+    font-weight: 400;
+    text-transform: uppercase; /* Все буквы заглавные */
+    margin-bottom: 50px;
+    line-height: 1;
+    color: #1D1D1D;
+    letter-spacing: 1px;
+}
+
+/* --- Верхняя секция (2 колонки) --- */
+.intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Две равные колонки */
+    gap: 40px; /* Расстояние между колонками */
+    margin-bottom: 80px;
+}
+
+.intro-column {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Картинки */
+.intro-image {
+    width: 100%;
+    height: 400px; /* Фиксированная высота для аккуратности */
+    object-fit: cover;
+    border-radius: 30px; /* Скругление углов */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+/* Текст в колонках */
+.intro-text p {
+    font-family: 'Gerbera-Regular', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: justify; /* Выключка по ширине как в газетах */
+}
+
+/* --- Секция таймлайна (Этапы создания) --- */
+.timeline-section-title {
+    font-family: 'Vetrino', serif;
+    font-size: 42px;
+    text-transform: uppercase;
+    margin-bottom: 60px;
+    color: #1D1D1D;
+    text-align: left;
+    border-bottom: 1px solid #D1D1D1;
+    padding-bottom: 20px;
+}
+
+.timeline-list {
+    display: flex;
+    flex-direction: column;
+    /* Убираем gap, чтобы линии могли соединяться визуально через padding */
+    gap: 0;
+}
+
+/* Строка с датой */
+.timeline-row {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 40px;
+    align-items: stretch; /* Важно: растягиваем колонки по высоте */
+    padding-bottom: 50px; /* Отступ снизу теперь здесь, чтобы линия могла идти вниз */
+    position: relative;
+}
+
+/* Левая колонка с датой */
+.timeline-date {
+    font-family: 'Gerbera-Medium', Arial, sans-serif;
+    font-size: 28px;
+    color: #1D1D1D;
+    line-height: 1.2;
+    position: relative; /* Чтобы позиционировать линию внутри */
+}
+
+/* РИСУЕМ ЛИНИЮ */
+.timeline-date::after {
+    content: '';
+    position: absolute;
+    /* Позиция линии */
+    left: 2px; /* Чуть сдвиг вправо, чтобы было по центру первой буквы (или 0 для края) */
+    top: 45px; /* Начинаем чуть ниже текста даты */
+    bottom: -10px; /* Тянем линию до следующего блока (немного внахлест) */
+
+    /* Внешний вид линии */
+    width: 1px; /* Тонкая линия */
+    background-color: #C4C4C4; /* Серый цвет как на скрине */
+}
+
+/* Убираем линию у самой последней даты */
+.timeline-row:last-child .timeline-date::after {
+    display: none;
+}
+
+/* Описание события */
+.timeline-content {
+    font-family: 'Gerbera-Regular', Arial, sans-serif;
+    font-size: 18px;
+    line-height: 1.5;
+    color: #333;
+    max-width: 800px;
+    margin-top: 5px; /* Визуальная компенсация высоты шрифта даты */
+}
+
+/* Адаптив */
+@media (max-width: 1024px) {
+    .history-page {
+        width: 100%;
+        padding: 20px;
+    }
+    .intro-grid {
+        grid-template-columns: 1fr;
+    }
+    .timeline-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding-bottom: 40px;
+    }
+    .timeline-date::after {
+        display: none; /* На мобильных линию лучше убрать, так как даты стоят одна над другой */
+    }
+    .page-title {
+        font-size: 40px;
+    }
+}

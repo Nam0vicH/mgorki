@@ -160,6 +160,10 @@ def poster():
     museums_for_poster = db.get_content_by_category('museums') or []
     return render_template('poster.html', museums=museums_for_poster)
 
+@app.route('/about_the_museum')
+def about_the_museum():
+    return render_template('about_the_museum.html')
+
 
 # ===================================================================================
 # ВСПОМОГАТЕЛЬНЫЕ МАРШРУТЫ ДЛЯ ТЕСТИРОВАНИЯ
