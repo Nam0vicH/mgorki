@@ -45,6 +45,27 @@
         footer {
             flex-shrink: 0;
         }
+
+        /* --- СТИЛИ ДЛЯ ПЛАВНОГО СКРОЛЛА (LENIS) --- */
+        html.lenis, html.lenis body {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto !important; /* Отключаем нативный скролл */
+        }
+
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+
+        .lenis.lenis-scrolling iframe {
+            pointer-events: none; /* Убирает лаги iframe при скролле */
+        }
     </style>
 </head>
 <body>
@@ -58,6 +79,37 @@
 
     <!-- Скрипты -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <!-- Lenis Smooth Scroll (Инерционный скролл) -->
+    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+    <script>
+        const lenis = new Lenis({
+            duration: 1.2,        // Мягкость (1.2 - стандарт, можно менять)
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,   // На телефонах лучше родной скролл
+            touchMultiplier: 2,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+
+        // Плавный скролл для якорных ссылок
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                lenis.scrollTo(this.getAttribute('href'));
+            });
+        });
+    </script>
+
     {% block extra_js %}{% endblock %}
 </body>
 </html>

@@ -13,10 +13,10 @@
 
 /* Заголовок афиши */
 .afisha-title {
-  font-family: 'Gerbera-Regular', Arial, sans-serif;
+  font-family: 'Vetrino', sans-serif;
   font-style: normal;
   font-weight: 500;
-  font-size: 48px;
+  font-size: 50px;
   line-height: 60px;
   text-align: center;
   color: #000000;
@@ -30,9 +30,6 @@
 /* Сетка карточек */
 .museum-cards {
   display: grid;
-  /* Используем grid из вашего задания.
-     Внимание: 3 колонки по 470px требуют ширину экрана > 1500px.
-     Если нужно адаптивно, можно поменять на repeat(auto-fit, minmax(470px, 1fr)) */
   grid-template-columns: repeat(3, 470px);
   gap: 40px;
   position: relative;

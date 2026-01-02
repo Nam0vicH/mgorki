@@ -108,8 +108,8 @@
 
 /* ЗАГОЛОВКИ - VETRINO */
 .footer-title {
-    font-family: 'Vetrino', sans-serif; /* Подключен шрифт Vetrino */
-    font-size: 26px; /* Чуть крупнее для изящности */
+    font-family: 'Vetrino', sans-serif;
+    font-size: 26px;
     font-weight: 400;
     color: #ffffff;
     margin-bottom: 25px;
