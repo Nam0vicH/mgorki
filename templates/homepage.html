@@ -27,10 +27,7 @@
             </button>
 
             <!-- Slide Indicators -->
-            <div class="hero-indicators">
-                <span class="hero-indicator active" data-slide="0"></span>
-                <span class="hero-indicator" data-slide="1"></span>
-            </div>
+            <div class="hero-indicators"></div>
         </section>
 
 
@@ -262,13 +259,30 @@
         const heroBackground = document.getElementById('heroBackground');
         const heroPrev = document.getElementById('heroPrev');
         const heroNext = document.getElementById('heroNext');
-        const heroIndicators = document.querySelectorAll('.hero-indicator');
+        const indicatorsContainer = document.querySelector('.hero-indicators');
 
         const heroImages = [
             '../static/images/hero/Page_1.jpg',
-            '../static/images/hero/Page_2.jpg'
+            '../static/images/hero/Page_2.jpg',
+            '../static/images/hero/Page_3.jpg',
+            '../static/images/hero/Page_4.jpg'
         ];
 
+        indicatorsContainer.innerHTML = '';
+
+        heroImages.forEach((_, index) => {
+            const dot = document.createElement('span');
+            dot.classList.add('hero-indicator');
+            if (index === 0) dot.classList.add('active');
+
+            dot.addEventListener('click', () => {
+                updateSlide(index);
+            });
+
+            indicatorsContainer.appendChild(dot);
+        });
+
+        const heroIndicators = document.querySelectorAll('.hero-indicator');
         let currentSlide = 0;
 
         function updateSlide(index) {
