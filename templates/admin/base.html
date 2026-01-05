@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Админ-панель | Музей</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/admin.css') }}">
+    <style>
+        @font-face {
+            font-family: 'Gerbera-Regular';
+            src: url('{{ url_for("static", filename="font/gerbera/Gerbera-Regular.otf") }}') format('opentype');
+        }
+        @font-face {
+            font-family: 'Gerbera-Medium';
+            src: url('{{ url_for("static", filename="font/gerbera/Gerbera-Medium.otf") }}') format('opentype');
+        }
+        @font-face {
+            font-family: 'Vetrino';
+            src: url('{{ url_for("static", filename="font/vetrino/Vetrino.otf") }}') format('opentype');
+        }
+    </style>
+</head>
+<body>
+    <nav class="admin-sidebar">
+        <a href="/" class="admin-logo">Музей<br>Админ</a>
+        <div class="admin-nav">
+            <a href="{{ url_for('admin_dashboard') }}" class="{{ 'active' if request.path == url_for('admin_dashboard') else '' }}">Дашборд</a>
+
+            <!-- Ссылки на категории (проверьте, что в БД категории называются именно так) -->
+            <a href="{{ url_for('admin_content', category='museums') }}" class="{{ 'active' if category == 'museums' else '' }}">Музеи</a>
+            <a href="{{ url_for('admin_content', category='virtual_exhibitions') }}" class="{{ 'active' if category == 'virtual_exhibitions' else '' }}">Выставки</a>
+            <a href="{{ url_for('admin_content', category='poster') }}" class="{{ 'active' if category == 'poster' else '' }}">Афиша</a>
+
+            <a href="{{ url_for('admin_orders') }}" class="{{ 'active' if request.path == url_for('admin_orders') else '' }}">Заказы</a>
+            <a href="{{ url_for('logout') }}" class="admin-logout">Выйти</a>
+        </div>
+    </nav>
+
+    <main class="admin-main">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="admin-card" style="background: #fff3cd; color: #856404; padding: 15px; margin-bottom: 20px;">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

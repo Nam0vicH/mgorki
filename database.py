@@ -143,3 +143,54 @@ def get_order_by_id(order_id):
     query = "SELECT * FROM orders WHERE id = %s"
     result = execute_query(query, (order_id,))
     return result[0] if result else None
+
+# ===================================================================================
+# ФУНКЦИИ ДЛЯ АДМИНКИ
+# ===================================================================================
+
+def insert_content(category, title, short_desc, img_card, main_image, main_text,
+                  b_img1, b_txt1, b_img2, b_txt2, b_img3, b_txt3):
+    """Добавить новый контент (ВСЕ ПОЛЯ)"""
+    query = """
+        INSERT INTO data_content 
+        (category, title_card, short_description_card, img_card, 
+         main_image, main_text,
+         block_image_1, block_text_1,
+         block_image_2, block_text_2,
+         block_image_3, block_text_3)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    """
+    params = (category, title, short_desc, img_card, main_image, main_text,
+              b_img1, b_txt1, b_img2, b_txt2, b_img3, b_txt3)
+    return execute_query(query, params, fetch=False)
+
+def update_content(content_id, title, short_desc, img_card, main_image, main_text,
+                  b_img1, b_txt1, b_img2, b_txt2, b_img3, b_txt3):
+    """Обновить контент (ВСЕ ПОЛЯ)"""
+    query = """
+        UPDATE data_content 
+        SET title_card=%s, short_description_card=%s, img_card=%s,
+            main_image=%s, main_text=%s,
+            block_image_1=%s, block_text_1=%s,
+            block_image_2=%s, block_text_2=%s,
+            block_image_3=%s, block_text_3=%s
+        WHERE id=%s
+    """
+    params = (title, short_desc, img_card, main_image, main_text,
+              b_img1, b_txt1, b_img2, b_txt2, b_img3, b_txt3, content_id)
+    return execute_query(query, params, fetch=False)
+
+def delete_content(content_id):
+    """Удалить контент"""
+    query = "DELETE FROM data_content WHERE id = %s"
+    return execute_query(query, (content_id,), fetch=False)
+
+def get_all_orders():
+    """Получить все заказы для админки"""
+    query = "SELECT * FROM orders ORDER BY id DESC"
+    return execute_query(query)
+
+def update_order_status(order_id, status):
+    """Обновить статус заказа"""
+    query = "UPDATE orders SET order_status = %s WHERE id = %s"
+    return execute_query(query, (status, order_id), fetch=False)

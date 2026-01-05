@@ -1,0 +1,39 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">Заказы билетов</h1>
+</div>
+
+<div class="admin-card">
+    <table>
+        <thead>
+            <tr>
+                <th>№ Заказа</th>
+                <th>Клиент</th>
+                <th>Сумма</th>
+                <th>Статус</th>
+                <th>Дата</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.order_number }}</td>
+                <td>
+                    {{ order.full_name }}<br>
+                    <small>{{ order.email }} | {{ order.phone }}</small>
+                </td>
+                <td>{{ order.total_amount }} ₽</td>
+                <td>
+                    <span style="padding: 5px 10px; border-radius: 10px; background: {{ '#e6fffa' if order.order_status == 'paid' else '#fff5f5' }}; color: {{ '#00acc1' if order.order_status == 'paid' else '#e53e3e' }}">
+                        {{ order.order_status }}
+                    </span>
+                </td>
+                <td>{{ order.created_at }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

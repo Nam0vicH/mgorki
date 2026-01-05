@@ -1,0 +1,204 @@
+:root {
+    --primary: #FCD619;
+    --dark: #1F1F1F;
+    --light-bg: #f1f2ed;
+    --white: #FFFFFF;
+    --text: #000000;
+    --gray: #888888;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--light-bg);
+    font-family: 'Gerbera-Regular', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.admin-sidebar {
+    width: 280px;
+    background-color: var(--white);
+    padding: 30px;
+    box-shadow: 4px 0 10px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.admin-logo {
+    font-family: 'Vetrino', serif;
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: var(--text);
+    text-decoration: none;
+    text-align: center;
+}
+
+.admin-nav a {
+    display: block;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    text-decoration: none;
+    color: var(--text);
+    font-family: 'Gerbera-Medium', sans-serif;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+.admin-nav a:hover, .admin-nav a.active {
+    background-color: var(--primary);
+    transform: translateX(5px);
+}
+
+.admin-logout {
+    margin-top: auto;
+    color: #d9534f !important;
+}
+
+/* Main Content */
+.admin-main {
+    margin-left: 280px;
+    width: calc(100% - 280px);
+    padding: 40px 60px;
+    position: relative;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-top: 10px;
+}
+
+.page-title {
+    font-family: 'Vetrino', serif;
+    font-size: 40px;
+    margin: 0;
+}
+
+/* Cards & Tables */
+.admin-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    padding: 15px;
+    color: var(--gray);
+    font-family: 'Gerbera-Medium', sans-serif;
+    border-bottom: 2px solid #eee;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+.img-preview {
+    width: 60px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Buttons */
+.btn {
+    padding: 12px 25px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Gerbera-Medium', sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: var(--text);
+}
+
+.btn-primary:hover {
+    background-color: #eec814;
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background-color: #fff;
+    border: 1px solid #ffcccc;
+    color: #cc0000;
+}
+
+.btn-sm {
+    padding: 8px 15px;
+    font-size: 12px;
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-family: 'Gerbera-Medium', sans-serif;
+}
+
+.form-control {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-family: 'Gerbera-Regular', sans-serif;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+/* Login Page specific */
+.login-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('../images/hero/Page_1.jpg') no-repeat center;
+    background-size: cover;
+}
+
+.login-box {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 50px;
+    border-radius: 30px;
+    width: 400px;
+    text-align: center;
+}

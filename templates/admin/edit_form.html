@@ -1,0 +1,79 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">{{ 'Редактирование: ' + (item.title_card if item else 'Новая запись') }}</h1>
+</div>
+
+<form method="POST" enctype="multipart/form-data" style="max-width: 1000px;">
+
+    <!-- КАРТОЧКА (ПРЕВЬЮ) -->
+    <div class="admin-card">
+        <h3 style="margin-top: 0;">1. Карточка (для списка)</h3>
+        <div class="form-group">
+            <label class="form-label">Название</label>
+            <input type="text" name="title" class="form-control" value="{{ item.title_card if item else '' }}" required>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Краткое описание</label>
+            <textarea name="short_desc" class="form-control" rows="3">{{ item.short_description_card if item else '' }}</textarea>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Изображение карточки</label>
+            {% if item and item.img_card %}
+                <img src="{{ url_for('static', filename=item.img_card) }}" class="img-preview" style="width: 100px; height: auto; margin-bottom: 10px;">
+            {% endif %}
+            <input type="hidden" name="current_img_card" value="{{ item.img_card if item else '' }}">
+            <input type="file" name="img_card_file" class="form-control">
+        </div>
+    </div>
+
+    <!-- ГЛАВНЫЙ БЛОК -->
+    <div class="admin-card">
+        <h3 style="margin-top: 0;">2. Главный блок страницы</h3>
+        <div class="form-group">
+            <label class="form-label">Основной текст</label>
+            <textarea name="main_text" class="form-control" rows="6">{{ item.main_text if item else '' }}</textarea>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Главное изображение</label>
+            {% if item and item.main_image %}
+                <img src="{{ url_for('static', filename=item.main_image) }}" class="img-preview" style="width: 200px; height: auto; margin-bottom: 10px;">
+            {% endif %}
+            <input type="hidden" name="current_main_image" value="{{ item.main_image if item else '' }}">
+            <input type="file" name="main_image_file" class="form-control">
+        </div>
+    </div>
+
+    <!-- ДОПОЛНИТЕЛЬНЫЕ БЛОКИ -->
+    {% for i in range(1, 4) %}
+        {% set img_field = 'block_image_' ~ i %}
+        {% set txt_field = 'block_text_' ~ i %}
+
+        <div class="admin-card" style="background-color: #fcfcfc; border: 1px solid #eee;">
+            <h3 style="margin-top: 0;">Блок контента №{{ i }}</h3>
+
+            <div class="form-group">
+                <label class="form-label">Текст блока {{ i }}</label>
+                <textarea name="{{ txt_field }}" class="form-control" rows="4">{{ item[txt_field] if item and item[txt_field] else '' }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Изображение блока {{ i }}</label>
+                {% if item and item[img_field] %}
+                    <img src="{{ url_for('static', filename=item[img_field]) }}" class="img-preview" style="width: 150px; height: auto; margin-bottom: 10px;">
+                {% endif %}
+                <input type="hidden" name="current_{{ img_field }}" value="{{ item[img_field] if item and item[img_field] else '' }}">
+                <input type="file" name="{{ img_field }}_file" class="form-control">
+            </div>
+        </div>
+    {% endfor %}
+
+    <!-- КНОПКИ -->
+    <div style="position: sticky; bottom: 20px; background: rgba(255,255,255,0.9); padding: 20px; border-radius: 15px; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); display: flex; gap: 15px; align-items: center;">
+        <button type="submit" class="btn btn-primary" style="padding: 15px 40px; font-size: 16px;">Сохранить все изменения</button>
+        <a href="{{ url_for('admin_content', category=category) }}" class="btn" style="background: #eee;">Отмена</a>
+    </div>
+
+</form>
+{% endblock %}
