@@ -16,43 +16,46 @@ body {
     width: 100%;
     margin-top: 50px;
     padding-top: 20px;
-    font-family: 'Gerbera-Regular', Arial, sans-serif;
+    font-family: 'Vetrino', sans-serif;
     font-weight: 500;
-    font-size: 40px;
-    line-height: 53px;
+    font-size: 60px;
+    line-height: 1.1;
     text-align: center;
     color: #000000;
+    margin-bottom: 60px;
 }
 
-/* Главная секция */
+/* --- ГЛАВНАЯ СЕКЦИЯ --- */
 .main-section {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 60px;
-    max-width: 1200px;
+    width: 100%;
+    max-width: 1600px;
     margin: 40px auto 0;
-    padding: 0 80px;
+    padding: 0 40px;
 }
 
 .main-image-container {
-    flex: 0 0 600px;
+    flex: 0 0 55%;
 }
 
 .main-image {
-    width: 100%; /* Исправлено с фиксированных 600px для адаптивности */
-    height: 450px;
+    width: 100%;
+    height: 550px;
     border-radius: 20px;
     object-fit: cover;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Добавил легкую тень для красоты */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
 }
 
 .main-info {
     flex: 1;
-    padding-top: 20px;
+    padding-top: 0;
 }
 
 .main-ticket-btn {
-    width: 300px;
+    width: 100%;
+    max-width: 350px;
     height: 70px;
     background: #FCD619;
     border-radius: 35px;
@@ -68,59 +71,99 @@ body {
     justify-content: center;
     text-decoration: none;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(252, 214, 25, 0.4);
 }
 
 .main-ticket-btn:hover {
     background: #E5C517;
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
 .main-text {
     font-family: 'Gerbera-Regular', Arial, sans-serif;
-    font-size: 18px;
-    line-height: 26px;
+    font-size: 20px;
+    line-height: 1.6;
     color: #000000;
-    max-width: 400px;
+    width: 100%;
 }
 
-/* Блоки контента */
+/* --- БЛОКИ КОНТЕНТА --- */
 .content-blocks {
     width: 100%;
-    max-width: 1200px;
-    margin: 80px auto 0;
-    padding: 0 80px;
+    max-width: 1600px;
+    margin: 100px auto 0;
+    padding: 0 40px;
 }
 
 .content-block {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 80px;
-    margin-bottom: 100px;
+    margin-bottom: 120px;
 }
 
 .block-image {
-    flex: 0 0 400px;
+    flex: 0 0 50%;
 }
 
 .block-img {
-    width: 100%; /* Исправлено для гибкости */
-    height: 500px;
+    width: 100%;
+    height: 600px;
     border-radius: 20px;
     object-fit: cover;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
 }
 
 .block-text {
     flex: 1;
     font-family: 'Gerbera-Regular', Arial, sans-serif;
-    font-size: 18px;
-    line-height: 26px;
+    font-size: 20px;
+    line-height: 1.6;
     color: #000000;
-    padding-top: 40px;
-    max-width: 600px;
+    padding-top: 0;
 }
 
-/* Блок 2 - обычный порядок */
-.block-2 {
-    flex-direction: row;
+.content-block.reverse {
+    flex-direction: row-reverse;
+}
+
+/* Адаптивность для ноутбуков и планшетов */
+@media (max-width: 1200px) {
+    .about-us-title {
+        font-size: 40px;
+    }
+
+    .main-section, .content-blocks {
+        padding: 0 20px;
+    }
+
+    .main-image, .block-img {
+        height: 400px;
+    }
+}
+
+/* Мобильная версия */
+@media (max-width: 900px) {
+    .main-section {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .content-block {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .content-block.reverse {
+        flex-direction: column;
+    }
+
+    .main-image-container, .block-image {
+        flex: 0 0 100%;
+        width: 100%;
+    }
+
+    .main-image, .block-img {
+        height: 300px;
+    }
 }

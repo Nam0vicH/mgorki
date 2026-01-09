@@ -230,36 +230,42 @@ def admin_edit(category, content_id):
         item = db.get_content_by_id(content_id)
 
     if request.method == 'POST':
-        # 1. Сбор текстовых полей
         title = request.form.get('title')
         short_desc = request.form.get('short_desc')
-        main_text = request.form.get('main_text')  # Было full_desc, стало main_text как в БД
+        main_text = request.form.get('main_text')
 
         b_txt1 = request.form.get('block_text_1')
         b_txt2 = request.form.get('block_text_2')
         b_txt3 = request.form.get('block_text_3')
 
-        # 2. Вспомогательная функция для сохранения файлов
+
         def save_file(file_obj, current_path):
             if file_obj and file_obj.filename:
+
+                folder_map = {
+                    'museums': 'museums',  # папка static/images/museums
+                    'virtual_exhibitions': 'virtual',  # папка static/images/virtual
+                    'poster': 'posters'  # папка static/images/posters
+                }
+
+                subfolder = folder_map.get(category, 'uploads')
+                save_dir = os.path.join(static_dir, 'images', subfolder)
+                os.makedirs(save_dir, exist_ok=True)
+
                 filename = secure_filename(file_obj.filename)
-                file_obj.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                return f"images/uploads/{filename}"
+                file_obj.save(os.path.join(save_dir, filename))
+                return f"images/{subfolder}/{filename}"
+
             return current_path
 
-        # 3. Обработка всех картинок
-        # Карточка
+
         img_card = save_file(request.files.get('img_card_file'), request.form.get('current_img_card'))
-
-        # Главная страница
         main_image = save_file(request.files.get('main_image_file'), request.form.get('current_main_image'))
-
-        # Блоки 1-3
         b_img1 = save_file(request.files.get('block_image_1_file'), request.form.get('current_block_image_1'))
         b_img2 = save_file(request.files.get('block_image_2_file'), request.form.get('current_block_image_2'))
         b_img3 = save_file(request.files.get('block_image_3_file'), request.form.get('current_block_image_3'))
 
-        # 4. Сохранение в БД
+
         if content_id == 0:
             db.insert_content(category, title, short_desc, img_card, main_image, main_text,
                               b_img1, b_txt1, b_img2, b_txt2, b_img3, b_txt3)
@@ -291,10 +297,12 @@ def admin_orders():
 def virtual_exhibition():
     return render_template('virtual-exhi.html')
 
+
 @app.route('/poster')
 def poster():
     museums_for_poster = db.get_content_by_category('museums') or []
     return render_template('poster.html', museums=museums_for_poster)
+
 
 @app.route('/about_the_museum')
 def about_the_museum():

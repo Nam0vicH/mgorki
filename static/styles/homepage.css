@@ -499,7 +499,7 @@
 
 .poster-section .poster-cards {
   display: grid;
-  grid-template-columns: repeat(3, 470px);
+  grid-template-columns: repeat(3, 450px);
   gap: 40px;
   position: relative;
   justify-content: center;
