@@ -16,14 +16,14 @@
         </div>
         <div class="form-group">
             <label class="form-label">Краткое описание</label>
-            <textarea name="short_desc" class="form-control" rows="3">{{ item.short_description_card if item else '' }}</textarea>
+            <textarea name="short_desc" class="form-control" rows="3">{{ (item.short_description_card or '') if item else '' }}</textarea>
         </div>
         <div class="form-group">
             <label class="form-label">Изображение карточки</label>
             {% if item and item.img_card %}
                 <img src="{{ url_for('static', filename=item.img_card) }}" class="img-preview" style="width: 100px; height: auto; margin-bottom: 10px;">
             {% endif %}
-            <input type="hidden" name="current_img_card" value="{{ item.img_card if item else '' }}">
+            <input type="hidden" name="current_img_card" value="{{ (item.img_card or '') if item else '' }}">
             <input type="file" name="img_card_file" class="form-control">
         </div>
     </div>
@@ -33,14 +33,14 @@
         <h3 style="margin-top: 0;">2. Главный блок страницы</h3>
         <div class="form-group">
             <label class="form-label">Основной текст</label>
-            <textarea name="main_text" class="form-control" rows="6">{{ item.main_text if item else '' }}</textarea>
+            <textarea name="main_text" class="form-control" rows="6">{{ (item.main_text or '') if item else '' }}</textarea>
         </div>
         <div class="form-group">
             <label class="form-label">Главное изображение</label>
             {% if item and item.main_image %}
                 <img src="{{ url_for('static', filename=item.main_image) }}" class="img-preview" style="width: 200px; height: auto; margin-bottom: 10px;">
             {% endif %}
-            <input type="hidden" name="current_main_image" value="{{ item.main_image if item else '' }}">
+            <input type="hidden" name="current_main_image" value="{{ (item.main_image or '') if item else '' }}">
             <input type="file" name="main_image_file" class="form-control">
         </div>
     </div>
@@ -55,7 +55,7 @@
 
             <div class="form-group">
                 <label class="form-label">Текст блока {{ i }}</label>
-                <textarea name="{{ txt_field }}" class="form-control" rows="4">{{ item[txt_field] if item and item[txt_field] else '' }}</textarea>
+                <textarea name="{{ txt_field }}" class="form-control" rows="4">{{ (item[txt_field] or '') if item and item[txt_field] else '' }}</textarea>
             </div>
 
             <div class="form-group">
@@ -63,7 +63,7 @@
                 {% if item and item[img_field] %}
                     <img src="{{ url_for('static', filename=item[img_field]) }}" class="img-preview" style="width: 150px; height: auto; margin-bottom: 10px;">
                 {% endif %}
-                <input type="hidden" name="current_{{ img_field }}" value="{{ item[img_field] if item and item[img_field] else '' }}">
+                <input type="hidden" name="current_{{ img_field }}" value="{{ (item[img_field] or '') if item and item[img_field] else '' }}">
                 <input type="file" name="{{ img_field }}_file" class="form-control">
             </div>
         </div>
