@@ -35,9 +35,9 @@ def homepage():
     posters = db.get_content_by_category('poster') or []
 
     return render_template('homepage.html',
-                         museums=museums,
-                         virtual_exhibitions=virtual_exhibitions,
-                         events=posters)
+                           museums=museums,
+                           virtual_exhibitions=virtual_exhibitions,
+                           events=posters)
 
 
 @app.route('/about-us')
@@ -73,10 +73,10 @@ def order(museum_id=None):
     ticket_categories = db.get_all_ticket_categories() or []
 
     return render_template('order.html',
-                         museum=museum,
-                         sessions=sessions,
-                         ticket_categories=ticket_categories,
-                         today=today)
+                           museum=museum,
+                           sessions=sessions,
+                           ticket_categories=ticket_categories,
+                           today=today)
 
 
 @app.route('/create-order', methods=['POST'])
@@ -100,29 +100,36 @@ def create_order():
         if not tickets_data or sum(tickets_data.values()) == 0:
             return jsonify({'success': False, 'error': 'Выберите хотя бы один билет'})
 
-        session = db.get_session_by_date_time(session_date, session_time)
-        if not session:
+        session_obj = db.get_session_by_date_time(session_date, session_time)
+        if not session_obj:
             return jsonify({'success': False, 'error': 'Сеанс не найден'})
 
         total_tickets = sum(int(qty) for qty in tickets_data.values())
-        if session['available_tickets'] < total_tickets:
+        if session_obj['available_tickets'] < total_tickets:
             return jsonify({'success': False, 'error': 'Недостаточно доступных билетов'})
 
         total_amount = 0
+        first_category_id = None
+
         for category_id, quantity in tickets_data.items():
-            category = db.get_ticket_category_by_id(int(category_id))
-            if category:
-                total_amount += float(category['price']) * int(quantity)
+            if int(quantity) > 0:
+
+                if first_category_id is None:
+                    first_category_id = int(category_id)
+
+                category = db.get_ticket_category_by_id(int(category_id))
+                if category:
+                    total_amount += float(category['price']) * int(quantity)
 
         booking_code = secrets.token_hex(8).upper()
         booking_id = db.create_booking(
-            session_id=session['id'],
-            ticket_category_id=None,
+            session_id=session_obj['id'],
+            ticket_category_id=first_category_id,
             user_email=email,
             user_phone=phone,
             quantity=total_tickets,
             total_price=total_amount,
-            payment_method=None,
+            payment_method='bank_card',
             booking_code=booking_code
         )
 
@@ -134,17 +141,17 @@ def create_order():
             email=email,
             phone=phone,
             country_code=country_code,
-            subscribe_news=subscribe_news,
-            accept_terms=accept_terms,
             booking_id=booking_id,
             order_number=order_number,
             qr_code_token=qr_token,
             total_amount=total_amount
         )
 
-        new_available = session['available_tickets'] - total_tickets
-        new_reserved = session['reserved_tickets'] + total_tickets
-        db.update_session_tickets(session['id'], new_available, new_reserved)
+        new_available = session_obj['available_tickets'] - total_tickets
+        current_sold = session_obj.get('sold_tickets', 0)
+        new_sold = current_sold + total_tickets
+
+        db.update_session_tickets(session_obj['id'], new_available, new_sold)
 
         return jsonify({
             'success': True,
@@ -155,12 +162,14 @@ def create_order():
 
     except Exception as e:
         print(f"Error creating order: {str(e)}")
+        import traceback
+        traceback.print_exc()
         return jsonify({'success': False, 'error': str(e)})
 
 
 # --- КОНФИГУРАЦИЯ АДМИНА ---
 ADMIN_USER = 'admin'
-ADMIN_PASS = 'admin'  # В реальном проекте используйте хеширование!
+ADMIN_PASS = 'admin'
 
 
 def login_required(f):
@@ -204,7 +213,7 @@ def admin_dashboard():
     return render_template('admin/content_list.html',
                            title_page="Дашборд (Музеи)",
                            items=db.get_content_by_category('museums'),
-                           category='museums')  # Для простоты перенаправляем на список музеев, можно сделать отдельный dashboard.html
+                           category='museums')
 
 
 @app.route('/admin/content/<category>')
@@ -238,14 +247,12 @@ def admin_edit(category, content_id):
         b_txt2 = request.form.get('block_text_2')
         b_txt3 = request.form.get('block_text_3')
 
-
         def save_file(file_obj, current_path):
             if file_obj and file_obj.filename:
-
                 folder_map = {
-                    'museums': 'museums',  # папка static/images/museums
-                    'virtual_exhibitions': 'virtual',  # папка static/images/virtual
-                    'poster': 'posters'  # папка static/images/posters
+                    'museums': 'museums',
+                    'virtual_exhibitions': 'virtual',
+                    'poster': 'posters'
                 }
 
                 subfolder = folder_map.get(category, 'uploads')
@@ -258,13 +265,11 @@ def admin_edit(category, content_id):
 
             return current_path
 
-
         img_card = save_file(request.files.get('img_card_file'), request.form.get('current_img_card'))
         main_image = save_file(request.files.get('main_image_file'), request.form.get('current_main_image'))
         b_img1 = save_file(request.files.get('block_image_1_file'), request.form.get('current_block_image_1'))
         b_img2 = save_file(request.files.get('block_image_2_file'), request.form.get('current_block_image_2'))
         b_img3 = save_file(request.files.get('block_image_3_file'), request.form.get('current_block_image_3'))
-
 
         if content_id == 0:
             db.insert_content(category, title, short_desc, img_card, main_image, main_text,
@@ -289,7 +294,6 @@ def admin_delete(id):
 @login_required
 def admin_orders():
     orders = db.get_all_orders()
-
     return render_template('admin/orders_list.html', orders=orders)
 
 

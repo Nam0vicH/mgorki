@@ -38,8 +38,9 @@ def execute_query(query, params=None, fetch=True):
         print(f"Ошибка выполнения запроса: {e}")
         return None
     finally:
-        cursor.close()
-        connection.close()
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
 
 
 # ===================================================================================
@@ -99,14 +100,14 @@ def get_session_by_date_time(session_date, session_time):
     return result[0] if result else None
 
 
-def update_session_tickets(session_id, available, reserved):
-    """Обновить количество билетов сеанса"""
+def update_session_tickets(session_id, available, sold):
+    """Обновить количество билетов сеанса (ИСПРАВЛЕНО: reserved -> sold)"""
     query = """
         UPDATE session_schedule
-        SET available_tickets = %s, reserved_tickets = %s
+        SET available_tickets = %s, sold_tickets = %s
         WHERE id = %s
     """
-    return execute_query(query, (available, reserved, session_id), fetch=False)
+    return execute_query(query, (available, sold, session_id), fetch=False)
 
 
 # ===================================================================================
@@ -115,6 +116,7 @@ def update_session_tickets(session_id, available, reserved):
 
 def create_booking(session_id, ticket_category_id, user_email, user_phone, quantity, total_price, payment_method, booking_code):
     """Создать бронирование"""
+    # ticket_category_id и payment_method теперь обязательны в SQL
     query = """
         INSERT INTO ticket_bookings
         (session_id, ticket_category_id, user_email, user_phone, quantity, total_price, payment_method, booking_status, booking_code)
@@ -127,15 +129,15 @@ def create_booking(session_id, ticket_category_id, user_email, user_phone, quant
 # ФУНКЦИИ ДЛЯ orders
 # ===================================================================================
 
-def create_order(full_name, email, phone, country_code, subscribe_news, accept_terms, booking_id, order_number, qr_code_token, total_amount):
-    """Создать заказ"""
+def create_order(full_name, email, phone, country_code, booking_id, order_number, qr_code_token, total_amount):
+    """Создать заказ (ИСПРАВЛЕНО: удалены subscribe_news и accept_terms)"""
     query = """
         INSERT INTO orders
-        (full_name, email, phone, country_code, subscribe_news, accept_terms, booking_id, order_number, order_status, qr_code_token, qr_code_url, total_amount, payment_status)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, 'new', %s, %s, %s, 'unpaid')
+        (full_name, email, phone, country_code, booking_id, order_number, order_status, qr_code_token, qr_code_url, total_amount, payment_status)
+        VALUES (%s, %s, %s, %s, %s, %s, 'new', %s, %s, %s, 'unpaid')
     """
     qr_code_url = f"/qr/{qr_code_token}"
-    return execute_query(query, (full_name, email, phone, country_code, subscribe_news, accept_terms, booking_id, order_number, qr_code_token, qr_code_url, total_amount), fetch=False)
+    return execute_query(query, (full_name, email, phone, country_code, booking_id, order_number, qr_code_token, qr_code_url, total_amount), fetch=False)
 
 
 def get_order_by_id(order_id):
@@ -150,7 +152,7 @@ def get_order_by_id(order_id):
 
 def insert_content(category, title, short_desc, img_card, main_image, main_text,
                   b_img1, b_txt1, b_img2, b_txt2, b_img3, b_txt3):
-    """Добавить новый контент (ВСЕ ПОЛЯ)"""
+    """Добавить новый контент"""
     query = """
         INSERT INTO data_content 
         (category, title_card, short_description_card, img_card, 
@@ -166,7 +168,7 @@ def insert_content(category, title, short_desc, img_card, main_image, main_text,
 
 def update_content(content_id, title, short_desc, img_card, main_image, main_text,
                   b_img1, b_txt1, b_img2, b_txt2, b_img3, b_txt3):
-    """Обновить контент (ВСЕ ПОЛЯ)"""
+    """Обновить контент"""
     query = """
         UPDATE data_content 
         SET title_card=%s, short_description_card=%s, img_card=%s,
