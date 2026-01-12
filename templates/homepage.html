@@ -151,7 +151,7 @@
                         <h3 class="poster-card-title">{{ event.title_card }}</h3>
 
                         <p class="poster-card-description">
-                            {{ event.short_description_card or 'Зимние события в музее-заповеднике «Горки Ленинские», переходите по кнопке «узнать подробнее»...' }}
+                            {{ event.short_description_card }}
                         </p>
 
                         <!-- Пунктирный разделитель -->
@@ -160,13 +160,13 @@
                         <!-- Дата и время -->
                         <div class="poster-meta">
                             <span class="poster-icon calendar-icon"></span>
-                            <span class="poster-meta-text">01.12.2025 - 31.12.2025</span>
+                            <span class="poster-meta-text">{{ event.date_of_the_event }}</span>
                         </div>
 
                         <!-- Место проведения -->
                         <div class="poster-meta">
                             <span class="poster-icon location-icon"></span>
-                            <span class="poster-meta-text">Места проведения событий смотрите в календаре</span>
+                            <span class="poster-meta-text">{{ event.location_of_the_event }}</span>
                         </div>
 
                         <!-- Ссылка -->

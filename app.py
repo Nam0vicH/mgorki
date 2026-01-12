@@ -243,6 +243,15 @@ def admin_edit(category, content_id):
         short_desc = request.form.get('short_desc')
         main_text = request.form.get('main_text')
 
+        # --- НОВЫЕ ПОЛЯ ---
+        date_event = request.form.get('date_of_the_event')  # Получаем дату с формы
+        if date_event == '':  # Если дата не выбрана, отправляем None в SQL
+            date_event = None
+
+        location_event = request.form.get('location_of_the_event')
+        if not location_event:
+            location_event = ""  # Чтобы не было ошибки с null=No, если не заполнено
+
         b_txt1 = request.form.get('block_text_1')
         b_txt2 = request.form.get('block_text_2')
         b_txt3 = request.form.get('block_text_3')
@@ -272,10 +281,14 @@ def admin_edit(category, content_id):
         b_img3 = save_file(request.files.get('block_image_3_file'), request.form.get('current_block_image_3'))
 
         if content_id == 0:
-            db.insert_content(category, title, short_desc, img_card, main_image, main_text,
+            db.insert_content(category, title, short_desc, img_card,
+                              date_event, location_event,  # Передаем новые поля
+                              main_image, main_text,
                               b_img1, b_txt1, b_img2, b_txt2, b_img3, b_txt3)
         else:
-            db.update_content(content_id, title, short_desc, img_card, main_image, main_text,
+            db.update_content(content_id, title, short_desc, img_card,
+                              date_event, location_event,  # Передаем новые поля
+                              main_image, main_text,
                               b_img1, b_txt1, b_img2, b_txt2, b_img3, b_txt3)
 
         return redirect(url_for('admin_content', category=category))
@@ -304,8 +317,9 @@ def virtual_exhibition():
 
 @app.route('/poster')
 def poster():
-    museums_for_poster = db.get_content_by_category('museums') or []
-    return render_template('poster.html', museums=museums_for_poster)
+    # Возможно, здесь теперь нужно передавать контент категории 'poster', а не 'museums'
+    posters = db.get_content_by_category('poster') or []
+    return render_template('poster.html', events=posters)  # Исправил переменную на events/posters
 
 
 @app.route('/about_the_museum')
@@ -399,7 +413,7 @@ def show_content():
 
         html += "<h2>Афиша:</h2><ul>"
         for p in posters:
-            html += f"<li><strong>{p['title_card']}</strong> - {p['img_card']}</li>"
+            html += f"<li><strong>{p['title_card']}</strong> - {p['img_card']}<br>Дата: {p.get('date_of_the_event')}, Место: {p.get('location_of_the_event')}</li>"
         html += "</ul>"
 
         return html

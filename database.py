@@ -101,7 +101,6 @@ def get_session_by_date_time(session_date, session_time):
 
 
 def update_session_tickets(session_id, available, sold):
-    """Обновить количество билетов сеанса (ИСПРАВЛЕНО: reserved -> sold)"""
     query = """
         UPDATE session_schedule
         SET available_tickets = %s, sold_tickets = %s
@@ -115,8 +114,6 @@ def update_session_tickets(session_id, available, sold):
 # ===================================================================================
 
 def create_booking(session_id, ticket_category_id, user_email, user_phone, quantity, total_price, payment_method, booking_code):
-    """Создать бронирование"""
-    # ticket_category_id и payment_method теперь обязательны в SQL
     query = """
         INSERT INTO ticket_bookings
         (session_id, ticket_category_id, user_email, user_phone, quantity, total_price, payment_method, booking_status, booking_code)
@@ -130,7 +127,6 @@ def create_booking(session_id, ticket_category_id, user_email, user_phone, quant
 # ===================================================================================
 
 def create_order(full_name, email, phone, country_code, booking_id, order_number, qr_code_token, total_amount):
-    """Создать заказ (ИСПРАВЛЕНО: удалены subscribe_news и accept_terms)"""
     query = """
         INSERT INTO orders
         (full_name, email, phone, country_code, booking_id, order_number, order_status, qr_code_token, qr_code_url, total_amount, payment_status)
@@ -150,35 +146,45 @@ def get_order_by_id(order_id):
 # ФУНКЦИИ ДЛЯ АДМИНКИ
 # ===================================================================================
 
-def insert_content(category, title, short_desc, img_card, main_image, main_text,
-                  b_img1, b_txt1, b_img2, b_txt2, b_img3, b_txt3):
+def insert_content(category, title, short_desc, img_card,
+                   date_event, location_event,
+                   main_image, main_text,
+                   b_img1, b_txt1, b_img2, b_txt2, b_img3, b_txt3):
     """Добавить новый контент"""
     query = """
         INSERT INTO data_content 
         (category, title_card, short_description_card, img_card, 
+         date_of_the_event, location_of_the_event,
          main_image, main_text,
          block_image_1, block_text_1,
          block_image_2, block_text_2,
          block_image_3, block_text_3)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
     """
-    params = (category, title, short_desc, img_card, main_image, main_text,
+    params = (category, title, short_desc, img_card,
+              date_event, location_event,
+              main_image, main_text,
               b_img1, b_txt1, b_img2, b_txt2, b_img3, b_txt3)
     return execute_query(query, params, fetch=False)
 
-def update_content(content_id, title, short_desc, img_card, main_image, main_text,
-                  b_img1, b_txt1, b_img2, b_txt2, b_img3, b_txt3):
+def update_content(content_id, title, short_desc, img_card,
+                   date_event, location_event,
+                   main_image, main_text,
+                   b_img1, b_txt1, b_img2, b_txt2, b_img3, b_txt3):
     """Обновить контент"""
     query = """
         UPDATE data_content 
         SET title_card=%s, short_description_card=%s, img_card=%s,
+            date_of_the_event=%s, location_of_the_event=%s,
             main_image=%s, main_text=%s,
             block_image_1=%s, block_text_1=%s,
             block_image_2=%s, block_text_2=%s,
             block_image_3=%s, block_text_3=%s
         WHERE id=%s
     """
-    params = (title, short_desc, img_card, main_image, main_text,
+    params = (title, short_desc, img_card,
+              date_event, location_event,
+              main_image, main_text,
               b_img1, b_txt1, b_img2, b_txt2, b_img3, b_txt3, content_id)
     return execute_query(query, params, fetch=False)
 
