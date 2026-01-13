@@ -355,7 +355,7 @@
 
 
 /* =========================
-   3. VIRTUAL EXHIBITIONS
+   3. VIRTUAL EXHIBITIONS (MUSEUM PROGRAMS)
    ========================= */
 
 .virtual-exhibitions {
@@ -379,59 +379,145 @@
 
 .virtual-exhibitions-cards {
   display: grid;
-  grid-template-columns: repeat(3, 473px);
+  grid-template-columns: repeat(3, 450px);
   gap: 40px;
   position: relative;
   justify-content: center;
   margin-bottom: 23px;
-  /* FIX CLS: Минимальная высота для стабильности */
-  min-height: 462px;
+  min-height: 500px; /* Немного увеличили высоту, чтобы влезли дата и место */
 }
 
 .virtual-exhibition-card {
   position: relative;
-  width: 473px;
-  height: 462px;
-  background: #ffffff;
+  width: 450px;
+  background: #FFFFFF;
+  border-radius: 30px;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transform: translateZ(0);
+  will-change: transform, box-shadow;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  contain: paint layout;
+}
+
+.virtual-exhibition-card:hover {
+  transform: translateY(-5px) translateZ(0);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Картинка: горизонтальная (aspect-ratio 16/10) */
+.virtual-card-image-container {
+  width: 100%;
+  aspect-ratio: 16 / 10;
   border-radius: 20px;
   overflow: hidden;
-  transform: translateZ(0);
-  will-change: transform;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Добавил легкую тень для целостности */
-  contain: paint layout;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+  flex-shrink: 0;
 }
 
 .virtual-exhibition-card-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 20px;
-  /* FIX CLS: Жесткое соотношение сторон */
-  aspect-ratio: 473 / 462;
-  background-color: #f0f0f0;
+  transition: transform 0.5s ease;
 }
 
-.virtual-exhibition-card-button {
-  position: absolute;
-  width: 135px;
-  height: 48px;
-  right: 12px;
-  bottom: 12px;
-  background: #FCD619;
-  border-radius: 24px;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  font-family: 'Gerbera-Medium', Arial, sans-serif;
-  font-weight: 500;
-  font-size: 15px;
-  color: #000000;
-  transition: background 0.3s ease;
+.virtual-exhibition-card:hover .virtual-exhibition-card-image {
+  transform: scale(1.05);
 }
-.virtual-exhibition-card-button:hover { background: #8F8F8F; }
+
+.virtual-card-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.virtual-card-title {
+  font-family: 'Gerbera-Bold', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000000;
+  margin: 0 0 12px 0;
+}
+
+.virtual-card-description {
+  font-family: 'Gerbera-Regular', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #333333;
+  margin: 0 0 15px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Пунктирный разделитель */
+.virtual-card-divider {
+  width: 100%;
+  height: 1px;
+  border-top: 1px dashed #CCCCCC;
+  margin-top: auto;
+  margin-bottom: 15px;
+}
+
+/* --- БЛОК ДАТЫ И МЕСТА --- */
+.virtual-meta {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 8px; /* Отступ между строками */
+}
+
+.virtual-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Иконка календаря */
+.virtual-icon.calendar {
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z' stroke='%238C9E46' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M16 2V6' stroke='%238C9E46' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M8 2V6' stroke='%238C9E46' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M3 10H21' stroke='%238C9E46' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* Иконка локации */
+.virtual-icon.location {
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32601 5.63604 3.63819C7.32387 1.95036 9.61305 1 12 1C14.3869 1 16.6761 1.95036 18.364 3.63819C20.0518 5.32601 21 7.61305 21 10Z' stroke='%23D14D28' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z' stroke='%23D14D28' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.virtual-meta-text {
+  font-family: 'Gerbera-Regular', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  color: #333333;
+}
+/* --------------------- */
+
+.virtual-card-link {
+  display: inline-block;
+  margin-top: 15px; /* Отступ от даты/места до ссылки */
+  font-family: 'Gerbera-Regular', Arial, sans-serif;
+  font-size: 15px;
+  color: #8C9E46;
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+.virtual-card-link:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
 
 /* Навигация виртуальных выставок */
 .virtual-exhibitions-navigation {

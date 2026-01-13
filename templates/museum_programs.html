@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Экскурсия - Музей-заповедник Горки Ленинские{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/about_us.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/homepage.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/museum_programs.css') }}">
+
+<!-- Временные стили для соответствия макету. Рекомендуется перенести в CSS файл. -->
+<style>
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Обертка для фона -->
+<div class="page-wrapper">
+    
+    <!-- Карточка экскурсии -->
+    <div class="excursion-card">
+        
+        <!-- Левая часть: Контент -->
+        <div class="card-content">
+            
+            <!-- Хлебные крошки (текст статический, т.к. на картинке он специфичный) -->
+            <div class="breadcrumbs">
+                <a href="/">Главная страница</a> » 
+                <a href="/excursions">Экскурсии, музейные программы и выставки</a> » 
+                Тематическая экскурсия «{{ museum.title_card }}»
+            </div>
+
+            <!-- Теги (Цена и Возраст) -->
+            <div class="tags">
+                <span class="tag">6+</span>
+                <span class="tag">300 ₽</span>
+            </div>
+
+            <!-- Заголовок -->
+            <h1 class="excursion-title">
+                ТЕМАТИЧЕСКАЯ ЭКСКУРСИЯ «{{ museum.title_card }}»
+            </h1>
+
+            <!-- Текст описания -->
+            <div class="description-text">
+                <!-- Здесь выводим основной текст. 
+                     Если в базе текст одним куском, выводим его. 
+                     Если текст разбит на части, можно использовать несколько переменных. -->
+                {{ museum.main_text|safe }}
+                
+                <!-- Если нужно жестко задать текст "Ждем вас...", можно добавить его здесь -->
+                <p>Ждем вас в музее крестьянского быта по адресу д. Горки, 9!</p>
+            </div>
+
+            <!-- Список характеристик -->
+            <ul class="details-list">
+                <li>Место проведения: Музей крестьянского быта</li>
+                <li>Продолжительность: 60 минут</li>
+                <li>Возрастное ограничение: 6+</li>
+                <li>Стоимость: 300 ₽</li>
+            </ul>
+
+            <!-- Кнопка заказа -->
+            <a href="{{ url_for('order', museum_id=museum.id) }}" class="buy-btn">Заказать билет</a>
+        </div>
+
+        <!-- Правая часть: Изображение -->
+        <div class="card-image-container">
+            <img src="{{ url_for('static', filename=museum.main_image) }}" 
+                 alt="{{ museum.title_card }}"
+                 loading="eager">
+        </div>
+
+    </div>
+</div>
+{% endblock %}

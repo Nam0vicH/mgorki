@@ -167,6 +167,23 @@ def create_order():
         return jsonify({'success': False, 'error': str(e)})
 
 
+@app.route('/museum_programs')
+def museum_programs():
+    return render_template('museum_programs.html')
+
+
+@app.route('/poster')
+def poster():
+    # Возможно, здесь теперь нужно передавать контент категории 'poster', а не 'museums'
+    posters = db.get_content_by_category('museum') or []
+    return render_template('poster.html', events=posters)  # Исправил переменную на events/posters
+
+
+@app.route('/about_the_museum')
+def about_the_museum():
+    return render_template('about_the_museum.html')
+
+
 # --- КОНФИГУРАЦИЯ АДМИНА ---
 ADMIN_USER = 'admin'
 ADMIN_PASS = 'admin'
@@ -308,23 +325,6 @@ def admin_delete(id):
 def admin_orders():
     orders = db.get_all_orders()
     return render_template('admin/orders_list.html', orders=orders)
-
-
-@app.route('/virtual-exhibition')
-def virtual_exhibition():
-    return render_template('virtual-exhi.html')
-
-
-@app.route('/poster')
-def poster():
-    # Возможно, здесь теперь нужно передавать контент категории 'poster', а не 'museums'
-    posters = db.get_content_by_category('poster') or []
-    return render_template('poster.html', events=posters)  # Исправил переменную на events/posters
-
-
-@app.route('/about_the_museum')
-def about_the_museum():
-    return render_template('about_the_museum.html')
 
 
 # ===================================================================================

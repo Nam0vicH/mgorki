@@ -90,22 +90,53 @@
         </section>
 
 
-        <!-- Virtual exhibitions section -->
+<!-- Museum Programs section (бывший virtual-exhibitions) -->
         <section class="virtual-exhibitions">
             <!-- Section Title -->
-            <h2 class="virtual-exhibitions-title">Виртуальные выставки</h2>
+            <h2 class="virtual-exhibitions-title">Музейная программа</h2>
 
-            <!-- Virtual Exhibition Cards -->
+            <!-- Cards -->
             <div class="virtual-exhibitions-cards">
                 {% for exhibition in virtual_exhibitions %}
                 <div class="virtual-exhibition-card">
-                    <img src="{{ url_for('static', filename=exhibition.img_card) }}"
-                         alt="{{ exhibition.title_card or 'Виртуальная выставка' }}"
-                         class="virtual-exhibition-card-image"
-                         loading="lazy"
-                         decoding="async">
 
-                    <a href="{{ url_for('virtual_exhibition') }}" class="virtual-exhibition-card-button">Подробнее</a>
+                    <!-- Картинка -->
+                    <div class="virtual-card-image-container">
+                        <img src="{{ url_for('static', filename=exhibition.img_card) }}"
+                             alt="{{ exhibition.title_card }}"
+                             class="virtual-exhibition-card-image"
+                             loading="lazy"
+                             decoding="async">
+                    </div>
+
+                    <!-- Контент -->
+                    <div class="virtual-card-content">
+                        <h3 class="virtual-card-title">{{ exhibition.title_card }}</h3>
+
+                        <p class="virtual-card-description">
+                            {{ exhibition.short_description_card }}
+                        </p>
+
+                        <!-- Разделитель -->
+                        <div class="virtual-card-divider"></div>
+
+                        <!-- Дата и время -->
+                        <div class="virtual-meta">
+                            <span class="virtual-icon calendar-icon"></span>
+                            <span class="virtual-meta-text">{{ exhibition.date_of_the_event }}</span>
+                        </div>
+
+                        <!-- Место проведения -->
+                        <div class="virtual-meta">
+                            <span class="virtual-icon location-icon"></span>
+                            <span class="virtual-meta-text">{{ exhibition.location_of_the_event }}</span>
+                        </div>
+
+                        <!-- Ссылка -->
+                        <a href="{{ url_for('order', museum_id=exhibition.id) }}" class="virtual-card-link">
+                            Узнать подробнее ↗
+                        </a>
+                    </div>
                 </div>
                 {% endfor %}
             </div>
@@ -170,7 +201,7 @@
                         </div>
 
                         <!-- Ссылка -->
-                        <a href="{{ url_for('poster') }}" class="poster-link">
+                        <a href="{{ url_for('order', event=event.id) }}" class="poster-link">
                             Узнать подробнее ↗
                         </a>
 
