@@ -1,151 +1,153 @@
-
-/* Основной контейнер страницы */
 .page-wrapper {
-        background-color: #f4f4f2; /* Светло-бежевый фон как на картинке */
-        padding: 40px 20px;
-        font-family: 'Georgia', serif; /* Или ваш основной шрифт */
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-    }
+    background-color: #f4f4f2;
+    padding: 40px 20px 60px 20px;
+    font-family: 'Vetrino', serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
 
-    /* Карточка экскурсии */
+.excursion-card {
+    background-color: #ffffff;
+    border-radius: 30px;
+    overflow: hidden;
+    display: flex;
+    max-width: 1200px;
+    width: 100%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    align-items: stretch;
+}
+
+.card-content {
+    flex: 1;
+    padding: 40px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card-image-container {
+    flex: 0 0 45%;
+    position: relative;
+    min-height: 100%;
+    display: flex;
+}
+
+.card-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.breadcrumbs {
+    font-family: sans-serif;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.breadcrumbs a {
+    color: #8aa64b;
+    text-decoration: none;
+}
+
+.tags {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tag {
+    background-color: #FCD619;
+    color: black;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+.excursion-title {
+    font-size: 36px;
+    line-height: 1.1;
+    color: #2c3e50;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+.description-text {
+    font-family: sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.description-text p {
+    margin-bottom: 15px;
+}
+
+.details-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    font-family: sans-serif;
+    font-size: 14px;
+    color: #444;
+}
+
+.details-list li {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.details-list li::before {
+    content: "•";
+    color: #9cb961;
+    font-size: 20px;
+    margin-right: 10px;
+    line-height: 0;
+}
+
+.buy-btn {
+    display: inline-block;
+    background-color: #FCD619;
+    color: black;
+    padding: 15px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-weight: bold;
+    transition: background 0.3s;
+    width: fit-content;
+    margin-top: 10px;
+}
+
+.buy-btn:hover {
+    background-color: #222;
+}
+
+@media (max-width: 900px) {
     .excursion-card {
-        background-color: #ffffff;
-        border-radius: 30px;
-        overflow: hidden;
-        display: flex;
-        max-width: 1200px;
-        width: 100%;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        flex-direction: column-reverse;
     }
 
-    /* Левая колонка с текстом */
-    .card-content {
-        flex: 1;
-        padding: 40px 50px;
-        display: flex;
-        flex-direction: column;
-    }
-
-    /* Правая колонка с изображением */
     .card-image-container {
-        flex: 0 0 45%; /* Ширина картинки примерно 45% */
-        position: relative;
+        flex: none;
+        width: 100%;
+        height: 300px;
     }
 
     .card-image-container img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
+        position: relative;
     }
-
-    /* Хлебные крошки */
-    .breadcrumbs {
-        font-family: sans-serif;
-        font-size: 12px;
-        color: #666;
-        margin-bottom: 20px;
-        line-height: 1.4;
-    }
-
-    .breadcrumbs a {
-        color: #8aa64b; /* Зеленоватый оттенок */
-        text-decoration: none;
-    }
-
-    /* Теги (6+, 300 Р) */
-    .tags {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
-    }
-
-    .tag {
-        background-color: #9cb961; /* Салатовый цвет */
-        color: white;
-        padding: 5px 15px;
-        border-radius: 20px;
-        font-weight: bold;
-        font-family: sans-serif;
-        font-size: 14px;
-    }
-
-    /* Заголовок */
-    .excursion-title {
-        font-size: 36px;
-        line-height: 1.1;
-        color: #2c3e50;
-        margin-bottom: 25px;
-        text-transform: uppercase;
-        font-weight: 400;
-        letter-spacing: 1px;
-    }
-
-    /* Текст описания */
-    .description-text {
-        font-family: sans-serif;
-        font-size: 14px;
-        line-height: 1.6;
-        color: #444;
-        margin-bottom: 20px;
-    }
-
-    .description-text p {
-        margin-bottom: 15px;
-    }
-
-    /* Список деталей (место, время, цена) */
-    .details-list {
-        list-style: none;
-        padding: 0;
-        margin: 20px 0;
-        font-family: sans-serif;
-        font-size: 14px;
-        color: #444;
-    }
-
-    .details-list li {
-        margin-bottom: 8px;
-        display: flex;
-        align-items: center;
-    }
-
-    .details-list li::before {
-        content: "•";
-        color: #9cb961;
-        font-size: 20px;
-        margin-right: 10px;
-        line-height: 0;
-    }
-
-    /* Кнопка */
-    .buy-btn {
-        display: inline-block;
-        background-color: #343e48; /* Темно-синий/серый */
-        color: white;
-        padding: 15px 30px;
-        border-radius: 25px;
-        text-decoration: none;
-        font-family: sans-serif;
-        font-weight: bold;
-        transition: background 0.3s;
-        width: fit-content;
-        margin-top: 10px;
-    }
-
-    .buy-btn:hover {
-        background-color: #222;
-    }
-
-        /* Адаптивность для мобильных */
-        @media (max-width: 900px) {
-            .excursion-card {
-                flex-direction: column-reverse;
-            }
-            .card-image-container {
-                height: 300px;
-            }
-        }
+}

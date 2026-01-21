@@ -17,9 +17,7 @@
         <div class="museum-cards">
             {% for museum in museums %}
             <div class="museum-card">
-                <!-- Контейнер для картинки и темного блока с текстом -->
                 <div class="museum-content-wrapper">
-                    <!-- Используем url_for для статики, предполагая, что путь в БД относительный -->
                     <img src="{{ url_for('static', filename=museum.img_card) }}"
                          alt="{{ museum.title_card }}"
                          class="museum-card-image"

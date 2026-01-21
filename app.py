@@ -167,16 +167,18 @@ def create_order():
         return jsonify({'success': False, 'error': str(e)})
 
 
-@app.route('/museum_programs')
-def museum_programs():
-    return render_template('museum_programs.html')
+@app.route('/museum_programs/<int:exhibition_id>')
+def museum_programs(exhibition_id):
+    exhibition = db.get_content_by_id(exhibition_id)
+    if not exhibition:
+        abort(404)
+    return render_template('museum_programs.html', exhibition=exhibition)
 
 
 @app.route('/poster')
 def poster():
-    # Возможно, здесь теперь нужно передавать контент категории 'poster', а не 'museums'
-    posters = db.get_content_by_category('museum') or []
-    return render_template('poster.html', events=posters)  # Исправил переменную на events/posters
+    museums = db.get_content_by_category('museums') or []
+    return render_template('poster.html', museums=museums)
 
 
 @app.route('/about_the_museum')

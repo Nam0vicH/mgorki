@@ -122,7 +122,7 @@ body {
     line-height: 1.5;
     color: #333;
     max-width: 800px;
-    margin-top: 5px; /* Визуальная компенсация высоты шрифта даты */
+    margin-top: 5px;
 }
 
 /* Адаптив */
@@ -140,7 +140,7 @@ body {
         padding-bottom: 40px;
     }
     .timeline-date::after {
-        display: none; /* На мобильных линию лучше убрать, так как даты стоят одна над другой */
+        display: none;
     }
     .page-title {
         font-size: 40px;
