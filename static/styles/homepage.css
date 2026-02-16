@@ -119,9 +119,11 @@
 
 .museum-section {
   position: relative;
-  width: 1440px;
+  width: 100%;
+  max-width: 1600px;
   margin: 60px auto 0;
   padding-top: 0;
+  overflow: visible;
 }
 
 .museum-title {
@@ -137,19 +139,25 @@
 }
 
 .museum-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 470px);
+  display: flex;
+  flex-wrap: nowrap;
   gap: 40px;
   position: relative;
   justify-content: center;
   margin-bottom: 23px;
   min-height: 410px;
+  overflow: visible;
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Белая карточка-подложка */
 .museum-card {
   position: relative;
   width: 470px;
+  min-width: 470px;
   height: 410px;
   background: #FFFFFF;
   border-radius: 20px;
@@ -161,6 +169,7 @@
   will-change: transform, box-shadow;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   contain: paint layout;
+  flex-shrink: 0;
 }
 
 .museum-card:hover {
@@ -360,9 +369,11 @@
 
 .virtual-exhibitions {
   position: relative;
-  width: 1440px;
+  width: 100%;
+  max-width: 1600px;
   margin: 60px auto 0;
   padding-top: 0;
+  overflow: visible;
 }
 
 .virtual-exhibitions-title {
@@ -378,18 +389,24 @@
 }
 
 .virtual-exhibitions-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 450px);
+  display: flex;
+  flex-wrap: nowrap;
   gap: 40px;
   position: relative;
   justify-content: center;
   margin-bottom: 23px;
   min-height: 500px; /* Немного увеличили высоту, чтобы влезли дата и место */
+  overflow: visible;
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .virtual-exhibition-card {
   position: relative;
   width: 450px;
+  min-width: 450px;
   background: #FFFFFF;
   border-radius: 30px;
   padding: 20px;
@@ -402,6 +419,7 @@
   will-change: transform, box-shadow;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   contain: paint layout;
+  flex-shrink: 0;
 }
 
 .virtual-exhibition-card:hover {
@@ -564,11 +582,11 @@
 
 .poster-section {
   position: relative;
-  width: 1440px;
+  width: 100%;
+  max-width: 1600px;
   margin: 60px auto 0;
   padding-top: 0;
-  content-visibility: auto;
-  contain-intrinsic-size: 1440px 500px;
+  overflow: visible;
 }
 
 .poster-section .poster-title {
@@ -584,14 +602,19 @@
 }
 
 .poster-section .poster-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 450px);
+  display: flex;
+  flex-wrap: nowrap;
   gap: 40px;
   position: relative;
   justify-content: center;
   margin-bottom: 23px;
   align-items: start;
   min-height: 600px; /* Фиксируем высоту сетки афиши */
+  overflow: visible;
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .poster-section .poster-card {
@@ -607,6 +630,9 @@
   will-change: transform, box-shadow;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   contain: paint layout;
+  width: 450px;
+  min-width: 450px;
+  flex-shrink: 0;
 }
 
 .poster-section .poster-card:hover {

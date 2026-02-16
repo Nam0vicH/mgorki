@@ -1,11 +1,15 @@
-from flask import Flask, render_template, request, jsonify, abort
-from flask import session, redirect, url_for, flash
-from functools import wraps
-import os
-from datetime import datetime, timedelta
-from werkzeug.utils import secure_filename
 import json
+import os
 import secrets
+from datetime import datetime, timedelta
+from functools import wraps
+
+from flask import (
+    Flask, render_template, request, jsonify, abort,
+    session, redirect, url_for, flash
+)
+from werkzeug.utils import secure_filename
+
 import database as db
 
 # Получаем абсолютный путь к текущей директории
@@ -186,6 +190,10 @@ def about_the_museum():
     return render_template('about_the_museum.html')
 
 
+# ===================================================================================
+# АДМИН ПАНЕЛЬ
+# ===================================================================================
+
 # --- КОНФИГУРАЦИЯ АДМИНА ---
 ADMIN_USER = 'admin'
 ADMIN_PASS = 'admin'
@@ -262,7 +270,6 @@ def admin_edit(category, content_id):
         short_desc = request.form.get('short_desc')
         main_text = request.form.get('main_text')
 
-        # --- НОВЫЕ ПОЛЯ ---
         date_event = request.form.get('date_of_the_event')  # Получаем дату с формы
         if date_event == '':  # Если дата не выбрана, отправляем None в SQL
             date_event = None
