@@ -116,6 +116,7 @@
                     <input type="hidden" id="selected-date" name="session_date">
                     <input type="hidden" id="selected-time" name="session_time">
                     <input type="hidden" id="tickets-data" name="tickets_data">
+                    <input type="hidden" id="payment-method" name="payment_method" value="bank_card">
 
                     <div class="form-group">
                         <label class="form-label">ФАМИЛИЯ ИМЯ ОТЧЕСТВО</label>
@@ -130,10 +131,7 @@
                     <div class="form-group">
                         <label class="form-label">Телефон</label>
                         <div style="display: flex; align-items: center; border: 1px solid #e0e0e0; border-radius: 4px; padding: 10px;">
-                            <select id="country-code" name="country_code" style="border: none; outline: none; margin-right: 10px;">
-                                <option value="+7">🇷🇺 +7</option>
-                            </select>
-                            <input type="tel" id="phone" name="phone" style="border: none; outline: none; flex: 1;" placeholder="9001234567" required>
+                            <input type="tel" id="phone" name="phone" style="border: none; outline: none; flex: 1;" placeholder="+7 (___) ___-__-__" maxlength="18" required>
                         </div>
                     </div>
 
@@ -153,7 +151,11 @@
                     <button type="submit" class="pay-button">ОПЛАТИТЬ</button>
                 </form>
 
-                <div class="payment-info">
+                <button type="button" id="pushkin-pay-btn" class="pay-button pushkin-pay-button" disabled style="margin-top: 10px; background-color: #9e9e9e; cursor: not-allowed;">
+                    <img src="{{ url_for('static', filename='images/icon/pushkin-icon.png') }}" alt="" style="height: 18px; vertical-align: middle; margin-right: 6px;">
+                    ОПЛАТИТЬ ПУШКИНСКОЙ КАРТОЙ
+                </button>
+                <div id="pushkin-pay-info" class="payment-info" style="margin-top: 8px; font-size: 12px; color: #999; text-align: center;">
                     ОПЛАТА ПУШКИНСКОЙ КАРТОЙ<br>НЕДОСТУПНА
                 </div>
             </div>
@@ -173,6 +175,13 @@
         const ticketNames = {
             {% for category in ticket_categories %}
             {{ category.id }}: "{{ category.title }}",
+            {% endfor %}
+        };
+
+        // Флаг разрешения Пушкинской карты для каждой категории
+        const pushkinCardAllowed = {
+            {% for category in ticket_categories %}
+            {{ category.id }}: {{ 1 if category.pushkin_card_allowed else 0 }},
             {% endfor %}
         };
 
@@ -368,6 +377,41 @@
 
             // Сохраняем данные о билетах в скрытое поле
             document.getElementById('tickets-data').value = JSON.stringify(ticketQuantities);
+
+            // --- Логика кнопки Пушкинской карты ---
+            let hasPushkinTickets = false;
+            let hasNonPushkinTickets = false;
+            for (let catId in ticketQuantities) {
+                if (ticketQuantities[catId] > 0) {
+                    if (pushkinCardAllowed[catId]) {
+                        hasPushkinTickets = true;
+                    } else {
+                        hasNonPushkinTickets = true;
+                    }
+                }
+            }
+
+            const pushkinBtn  = document.getElementById('pushkin-pay-btn');
+            const pushkinInfo = document.getElementById('pushkin-pay-info');
+
+            // Кнопка активна: выбраны только пушкинские билеты + дата/время
+            const pushkinActive = hasPushkinTickets && !hasNonPushkinTickets && selectedDate && selectedTime;
+
+            pushkinBtn.disabled = !pushkinActive;
+            pushkinBtn.style.backgroundColor = pushkinActive ? '' : '#9e9e9e';
+            pushkinBtn.style.cursor = pushkinActive ? 'pointer' : 'not-allowed';
+
+            if (pushkinActive) {
+                pushkinInfo.style.display = 'none';
+                pushkinInfo.innerHTML = '';
+            } else {
+                pushkinInfo.style.display = 'block';
+                if (hasPushkinTickets && hasNonPushkinTickets) {
+                    pushkinInfo.innerHTML = 'ДЛЯ ОПЛАТЫ ПУШКИНСКОЙ КАРТОЙ<br>ВЫБЕРИТЕ ТОЛЬКО ПОДХОДЯЩИЕ БИЛЕТЫ';
+                } else {
+                    pushkinInfo.innerHTML = 'ОПЛАТА ПУШКИНСКОЙ КАРТОЙ<br>НЕДОСТУПНА';
+                }
+            }
         }
 
         // Обработка отправки формы
@@ -403,8 +447,10 @@
 
                 if (result.success) {
                     alert('Заказ успешно создан! Номер заказа: ' + result.order_number);
-                    // Можно перенаправить на страницу оплаты или подтверждения
-                    // window.location.href = '/order-confirmation/' + result.order_id;
+                    // Сброс формы и редирект на главную
+                    document.getElementById('order-form').reset();
+                    document.getElementById('payment-method').value = 'bank_card';
+                    window.location.href = '/';
                 } else {
                     alert('Ошибка при создании заказа: ' + result.error);
                 }
@@ -429,6 +475,79 @@
 
             updateBookingInfo();
         });
+
+        // ======== Кнопка оплаты Пушкинской картой ========
+        document.getElementById('pushkin-pay-btn').addEventListener('click', function() {
+            // Проверка даты и времени
+            if (!selectedDate || !selectedTime) {
+                alert('Пожалуйста, выберите дату и время сеанса');
+                return;
+            }
+            // Проверка билетов
+            let totalTickets = 0;
+            for (let catId in ticketQuantities) {
+                totalTickets += ticketQuantities[catId];
+            }
+            if (totalTickets === 0) {
+                alert('Пожалуйста, выберите хотя бы один билет');
+                return;
+            }
+            // Устанавливаем метод оплаты и сабмитим форму
+            document.getElementById('payment-method').value = 'pushkin_card';
+            document.getElementById('order-form').dispatchEvent(new Event('submit', { cancelable: true }));
+        });
+
+        // ======== Маска телефона РФ: +7 (XXX) XXX-XX-XX ========
+        (function() {
+            const phoneInput = document.getElementById('phone');
+
+            function formatPhone(digits) {
+                // digits — только цифры без ведущей 7
+                let r = '+7';
+                if (digits.length === 0) return r;
+                r += ' (' + digits.substring(0, 3);
+                if (digits.length < 3) return r;
+                r += ') ' + digits.substring(3, 6);
+                if (digits.length < 6) return r;
+                r += '-' + digits.substring(6, 8);
+                if (digits.length < 8) return r;
+                r += '-' + digits.substring(8, 10);
+                return r;
+            }
+
+            function getDigits(value) {
+                // Убираем всё, кроме цифр
+                let raw = value.replace(/\D/g, '');
+                // Убираем ведущую 7 или 8
+                if (raw.startsWith('7') || raw.startsWith('8')) raw = raw.substring(1);
+                return raw.substring(0, 10);
+            }
+
+            phoneInput.addEventListener('input', function() {
+                const digits = getDigits(this.value);
+                this.value = formatPhone(digits);
+            });
+
+            phoneInput.addEventListener('keydown', function(e) {
+                // Разрешаем: backspace, delete, стрелки, tab, home, end
+                if ([8, 46, 37, 38, 39, 40, 9, 36, 35].includes(e.keyCode)) return;
+                // Блокируем всё кроме цифр (учитываем Shift+цифра = спецсимвол)
+                if (e.ctrlKey || e.metaKey) return; // ctrl+c/v/a
+                if (!/^[0-9]$/.test(e.key)) e.preventDefault();
+            });
+
+            phoneInput.addEventListener('focus', function() {
+                if (this.value === '' || this.value === '+7') {
+                    this.value = '+7 (';
+                }
+            });
+
+            phoneInput.addEventListener('blur', function() {
+                if (this.value === '+7 (' || this.value === '+7') {
+                    this.value = '';
+                }
+            });
+        })();
     </script>
 
 {% endblock %}

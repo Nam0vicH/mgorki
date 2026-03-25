@@ -93,6 +93,7 @@ def create_order():
         country_code = request.form.get('country_code', '+7')
         subscribe_news = request.form.get('subscribe_news') == 'on'
         accept_terms = request.form.get('accept_terms') == 'on'
+        payment_method = request.form.get('payment_method', 'bank_card')
 
         session_date = request.form.get('session_date')
         session_time = request.form.get('session_time')
@@ -133,7 +134,7 @@ def create_order():
             user_phone=phone,
             quantity=total_tickets,
             total_price=total_amount,
-            payment_method='bank_card',
+            payment_method=payment_method,
             booking_code=booking_code
         )
 
