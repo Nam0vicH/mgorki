@@ -166,4 +166,19 @@ body {
     .main-image, .block-img {
         height: 300px;
     }
+
+    .main-text, .block-text {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-image, .block-img {
+        height: 200px;
+    }
+
+    .main-ticket-btn {
+        height: 50px;
+        font-size: 16px;
+    }
 }

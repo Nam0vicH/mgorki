@@ -98,6 +98,11 @@ body {
     color: #000000;
     transition: color 0.3s;
     padding: 10px;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .calendar-nav:hover {
@@ -285,8 +290,8 @@ body {
 }
 
 .quantity-btn {
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     background: #F5F5F5; /* Светлый фон */
     border: none;

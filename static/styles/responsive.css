@@ -1,0 +1,359 @@
+.museum-cards::-webkit-scrollbar,
+.virtual-exhibitions-cards::-webkit-scrollbar,
+.poster-cards::-webkit-scrollbar {
+    display: none;
+}
+
+/* =========================================
+   ПЛАНШЕТЫ И НОУТБУКИ (Max-width: 1200px)
+========================================= */
+@media (max-width: 1200px) {
+    /* Глобальные контейнеры */
+    .header, .hero-section, .map-section, .history-page, .order-page-container {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+        box-sizing: border-box;
+    }
+
+    .header {
+        margin: 10px auto;
+        width: calc(100% - 40px);
+    }
+
+    /* Навигация в шапке */
+    .header-nav {
+        margin-left: 20px;
+        gap: 20px;
+    }
+
+    .logo {
+        width: 150px;
+    }
+
+    /* Карточки выставок и музея (подготовка к мобилкам) */
+    .museum-section .museum-cards,
+    .virtual-exhibitions-cards,
+    .poster-section .poster-cards {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding: 0 20px 30px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 20px;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        display: flex;
+    }
+
+    /* Сетка афиш на отдельной странице */
+    .poster-page .museum-cards {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-content: center;
+        padding: 0 20px;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Экскурсии / История */
+    .intro-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================
+   ПЛАНШЕТЫ (ПОРТРЕТ) (Max-width: 992px)
+========================================= */
+@media (max-width: 992px) {
+    /* Типографика - уменьшаем заголовки */
+    .about-us-title, .page-title, .afisha-title,
+    .museum-title, .virtual-exhibitions-title, .poster-title, .title {
+        font-size: 36px !important;
+        line-height: 1.2;
+        margin-bottom: 30px;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    /* Главный баннер (Hero) */
+    .hero-section {
+        height: 350px;
+        border-radius: 20px;
+        width: calc(100% - 40px);
+    }
+
+    /* Страница оформления билета */
+    .main-content {
+        flex-direction: column;
+    }
+    .right-section {
+        width: 100%;
+        position: static;
+        margin-top: 20px;
+    }
+
+    /* Футер */
+    .footer, .footer-container {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 20px;
+        overflow-x: hidden;
+    }
+    .footer-top {
+        flex-direction: column;
+        gap: 40px;
+    }
+    .footer-brand-block {
+        width: 100%;
+        text-align: center;
+    }
+    .contact-row {
+        justify-content: center;
+    }
+    .footer-nav-grid {
+        grid-template-columns: repeat(2, 1fr);
+        text-align: center;
+    }
+    .footer-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* =========================================
+   МОБИЛЬНЫЕ УСТРОЙСТВА (Max-width: 768px)
+========================================= */
+@media (max-width: 768px) {
+
+    /* --- HEADER --- */
+    .header-nav {
+        display: none; /* Скрываем основное меню, оставляем иконки/бургер */
+    }
+    .buy-ticket {
+        display: none; /* Скрываем текст, можно оставить только иконку */
+    }
+    .list-icon {
+        display: none;
+    }
+    .burger-icon {
+        display: flex;
+    }
+    .header-right {
+        gap: 15px;
+    }
+
+    /* --- HERO --- */
+    .hero-section {
+        height: 250px;
+    }
+    .hero-button-left, .hero-button-right {
+        width: 44px;
+        height: 44px;
+    }
+    .hero-button-left .chevron-left,
+    .hero-button-right .chevron-right {
+        width: 24px;
+        height: 24px;
+    }
+
+    /* --- КАРТОЧКИ (Делаем резиновыми под свайп) --- */
+    .museum-section .museum-card,
+    .virtual-exhibition-card,
+    .poster-section .poster-card {
+        width: 85vw !important; /* Занимают 85% экрана, чтобы было видно край следующей */
+        min-width: 280px !important;
+        scroll-snap-align: center;
+        flex-shrink: 0;
+        height: auto; /* Снимаем жесткую высоту */
+        min-height: auto;
+        padding: 0 !important;
+        padding-bottom: 20px !important;
+    }
+
+    .virtual-card-content, .poster-card-content {
+        padding: 0 20px;
+    }
+
+    .poster-page .museum-cards {
+        grid-template-columns: 1fr;
+        padding: 0 10px;
+    }
+
+    .poster-page .museum-card {
+        width: 100% !important;
+        min-width: unset !important;
+        height: auto;
+        min-height: auto;
+    }
+
+    /* Фикс внутренних элементов карточек Музея */
+    .museum-content-wrapper,
+    .virtual-card-image-container,
+    .poster-image-container,
+    .poster-section .poster-card-image {
+        width: 100% !important;
+        box-sizing: border-box;
+        padding: 0 !important;
+        margin-top: 0 !important;
+        border-radius: 20px 20px 0 0 !important;
+    }
+    .museum-card-title {
+        width: 100%;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+        line-height: 1.3;
+        margin-bottom: 10px;
+    }
+    .museum-card-image {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 430 / 200;
+        border-radius: 20px 20px 0 0 !important;
+    }
+    .museum-card-info {
+        width: 100% !important;
+        box-sizing: border-box;
+        border-radius: 0 0 20px 20px !important;
+        height: auto !important;
+    }
+    .museum-card-buttons {
+        width: 100% !important;
+        box-sizing: border-box;
+        justify-content: space-between !important;
+        padding: 0 20px !important;
+        gap: 10px !important;
+        margin-top: 20px !important;
+    }
+    .museum-card-button {
+        width: 48% !important;
+        font-size: 14px !important;
+        padding: 0 !important;
+    }
+
+    .poster-image-container,
+    .poster-section .poster-card-image {
+        height: auto !important;
+        aspect-ratio: 205 / 285;
+    }
+
+    /* --- КАРТА --- */
+    .map-container {
+        border-radius: 15px;
+    }
+    .map-content {
+        padding: 20px;
+    }
+
+    /* --- ЭКСКУРСИИ / ИСТОРИЯ --- */
+    .excursion-card {
+        flex-direction: column-reverse;
+        border-radius: 20px;
+    }
+    .card-content {
+        padding: 25px 20px;
+    }
+    .excursion-title {
+        font-size: 26px;
+    }
+    .timeline-row {
+        gap: 10px;
+        padding-bottom: 30px;
+    }
+    .timeline-date {
+        font-size: 22px;
+    }
+
+    /* --- СТРАНИЦА ОФОРМЛЕНИЯ (Order Page) --- */
+    .calendar-grid {
+        gap: 5px;
+    }
+    .calendar-day {
+        height: 60px;
+        font-size: 16px;
+        border-radius: 10px;
+    }
+    .calendar-day small {
+        font-size: 10px;
+    }
+    .calendar-section, .tickets-section, .booking-panel {
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    /* --- FOOTER --- */
+    .footer-nav-grid {
+        grid-template-columns: 1fr; /* Одна колонка для ссылок */
+        gap: 30px;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    .ministry-block {
+        flex-direction: column;
+    }
+    /* Увеличиваем кликабельную область ссылок в карточках */
+    .virtual-card-link,
+    .poster-link {
+        padding: 12px 0;
+        display: inline-block;
+    }
+}
+
+/* =========================================
+   МАЛЕНЬКИЕ МОБИЛКИ (Max-width: 480px)
+========================================= */
+@media (max-width: 480px) {
+    /* Заголовки */
+    .about-us-title, .page-title, .afisha-title,
+    .museum-title, .virtual-exhibitions-title, .poster-title, .title {
+        font-size: 28px !important;
+    }
+
+    /* Шапка */
+    .logo {
+        width: 110px;
+    }
+    .header {
+        height: 70px;
+    }
+
+    /* Навигация (prev/next) */
+    .museum-navigation,
+    .virtual-exhibitions-navigation,
+    .poster-section .poster-navigation {
+        width: 180px;
+    }
+
+    /* Билеты (Order page) */
+    .tickets-header {
+        display: none; /* Убираем заголовки таблицы */
+    }
+    .ticket-row {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 15px;
+        padding: 20px 0;
+    }
+    .ticket-title {
+        justify-content: center;
+    }
+    .quantity-control {
+        justify-content: center;
+    }
+    .total-section {
+        flex-direction: column;
+        gap: 15px;
+        font-size: 18px;
+    }
+
+    /* Теги */
+    .tags {
+        flex-wrap: wrap;
+    }
+}

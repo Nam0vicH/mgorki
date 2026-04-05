@@ -148,3 +148,85 @@ body {
 .buy-ticket:hover {
   color: #FCD619;
 }
+
+
+/* Бургер-меню */
+.burger-icon {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 1000;
+  position: relative;
+}
+
+.burger-icon span {
+  width: 100%;
+  height: 3px;
+  background-color: #000;
+  border-radius: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Анимация крестика для бургера */
+.burger-icon.active span:nth-child(1) {
+  transform: translateY(10.5px) rotate(45deg);
+}
+.burger-icon.active span:nth-child(2) {
+  opacity: 0;
+  transform: translateX(10px);
+}
+.burger-icon.active span:nth-child(3) {
+  transform: translateY(-10.5px) rotate(-45deg);
+}
+
+.mobile-menu {
+  position: absolute;
+  top: calc(100% + 15px); /* Чуть ниже шапки */
+  right: 20px; /* Отступ справа как у шапки */
+  width: 260px; /* Компактная ширина */
+  background: #FFFFFF;
+  border-radius: 20px; /* Форма пилюли/карточки */
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1); /* Легкая тень */
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  padding: 25px 20px;
+  /* Анимация slide-down + fade-in */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.mobile-menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mobile-nav-link {
+  font-family: 'Gerbera-Medium', Arial, sans-serif;
+  font-size: 18px;
+  color: #000;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  display: block;
+}
+
+.mobile-nav-link:hover {
+  color: #FCD619;
+}
+
+.buy-ticket-mobile {
+  color: #FCD619;
+  margin-top: 10px;
+}

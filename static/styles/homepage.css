@@ -38,6 +38,7 @@
 }
 
 .hero-indicator {
+  position: relative;
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -45,6 +46,16 @@
   cursor: pointer;
   transition: all 0.3s ease;
   border: 2px solid transparent;
+}
+
+.hero-indicator::after {
+  content: '';
+  position: absolute;
+  top: -16px;
+  bottom: -16px;
+  left: -16px;
+  right: -16px;
+  border-radius: 50%;
 }
 
 .hero-indicator:hover {
@@ -794,9 +805,8 @@
     width: 1440px;
     margin: 60px auto 80px;
     padding-top: 0;
-    /* ОПТИМИЗАЦИЯ: Ленивая отрисовка */
-    content-visibility: auto;
-    contain-intrinsic-size: 1440px 400px;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .map-title {

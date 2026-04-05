@@ -22,5 +22,21 @@
             <div class="language-ru">RU</div>
             <div class="chevron-icon"></div>
         </div>
+
+        <!-- Burger Icon (Мобильное меню) -->
+        <div class="burger-icon" id="burgerIcon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Мобильное меню (Dropdown) -->
+        <div class="mobile-menu" id="mobileMenu">
+            <nav class="mobile-nav">
+                <a href="{{ url_for('poster') }}" class="mobile-nav-link">Музеи и экспозиции</a>
+                <a href="{{ url_for('about_the_museum') }}" class="mobile-nav-link">О музее</a>
+                <a href="{{ url_for('order') }}" class="mobile-nav-link buy-ticket-mobile">Купить билет</a>
+            </nav>
+        </div>
     </div>
 </header>
