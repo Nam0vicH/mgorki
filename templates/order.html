@@ -447,11 +447,8 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    alert('Заказ успешно создан! Номер заказа: ' + result.order_number);
-                    // Сброс формы и редирект на главную
-                    document.getElementById('order-form').reset();
-                    document.getElementById('payment-method').value = 'bank_card';
-                    window.location.href = '/';
+                    // Перенаправление на страницу оплаты
+                    window.location.href = '/payment/' + result.order_id;
                 } else {
                     alert('Ошибка при создании заказа: ' + result.error);
                 }

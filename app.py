@@ -26,6 +26,12 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 app.config['SECRET_KEY'] = 'your-secret-key-here'
 
+# Автоматически генерируем расписание сеансов на 7 дней вперед при запуске проекта
+try:
+    db.generate_weekly_schedule()
+except Exception as e:
+    print(f"Не удалось сгенерировать расписание при запуске: {e}")
+
 
 # ===================================================================================
 # МАРШРУТЫ
@@ -170,6 +176,56 @@ def create_order():
         import traceback
         traceback.print_exc()
         return jsonify({'success': False, 'error': str(e)})
+
+
+@app.route('/payment/<int:order_id>')
+def payment(order_id):
+    """Страница оплаты заказа"""
+    order = db.get_order_by_id(order_id)
+    if not order:
+        abort(404)
+    if order.get('payment_status') == 'paid':
+        return redirect(url_for('ticket', order_id=order_id))
+    return render_template('payment.html', order=order)
+
+
+@app.route('/process-payment/<int:order_id>', methods=['POST'])
+def process_payment(order_id):
+    """Обработка оплаты (демонстрация)"""
+    order = db.get_order_by_id(order_id)
+    if not order:
+        abort(404)
+
+    # Обновляем статус оплаты в БД
+    db.execute_query("UPDATE orders SET payment_status = 'paid' WHERE id = %s", (order_id,), fetch=False)
+
+    return redirect(url_for('ticket', order_id=order_id))
+
+
+@app.route('/ticket/<int:order_id>')
+def ticket(order_id):
+    """Страница с билетом и QR-кодом после успешной оплаты"""
+    order = db.get_order_by_id(order_id)
+    if not order:
+        abort(404)
+    if order.get('payment_status') != 'paid':
+        return redirect(url_for('payment', order_id=order_id))
+
+    # Формируем URL для QR-кода на основе токена
+    qr_data = request.host_url.rstrip('/') + url_for('verify_qr', token=order.get('qr_code_token'))
+    # Используем публичный API для генерации картинки QR
+    qr_image_url = f"https://api.qrserver.com/v1/create-qr-code/?size=250x250&data={qr_data}"
+
+    return render_template('ticket.html', order=order, qr_image_url=qr_image_url)
+
+
+@app.route('/qr/<token>')
+def verify_qr(token):
+    """Маршрут для проверки QR-кода (заглушка)"""
+    order = db.execute_query("SELECT * FROM orders WHERE qr_code_token = %s", (token,))
+    if not order:
+        return "Недействительный QR-код"
+    return f"Билет действителен. Заказ: {order[0]['order_number']}"
 
 
 @app.route('/museum_programs/<int:exhibition_id>')

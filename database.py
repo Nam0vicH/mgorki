@@ -109,6 +109,45 @@ def update_session_tickets(session_id, available, sold):
     return execute_query(query, (available, sold, session_id), fetch=False)
 
 
+def generate_weekly_schedule():
+    """Создает расписание билетов на 7 дней вперед при каждом запуске проекта"""
+    connection = get_connection()
+    if not connection:
+        return
+    try:
+        cursor = connection.cursor()
+
+        # 1. Удаляем всё, что старше сегодняшнего дня
+        cursor.execute("DELETE FROM session_schedule WHERE session_date < CURDATE()")
+
+        # 2. Создаем расписание на 7 дней вперед (от 0 до 6)
+        query = """
+            INSERT IGNORE INTO session_schedule
+            (session_date, session_time, day_of_week, total_tickets, available_tickets, sold_tickets, is_active)
+            VALUES (
+                CURDATE() + INTERVAL %s DAY,
+                %s,
+                ELT(DAYOFWEEK(CURDATE() + INTERVAL %s DAY), 'ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'),
+                50, 50, 0, 1
+            )
+        """
+
+        times = ['10:00:00', '14:00:00', '18:00:00']
+
+        for i in range(7):
+            for t in times:
+                cursor.execute(query, (i, t, i))
+
+        connection.commit()
+        print("Недельное расписание билетов успешно сгенерировано/обновлено.")
+    except Error as e:
+        print(f"Ошибка при генерации расписания: {e}")
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+
+
 # ===================================================================================
 # ФУНКЦИИ ДЛЯ ticket_bookings
 # ===================================================================================

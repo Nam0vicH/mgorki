@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}Оплата заказа - Горки Ленинские{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/order.css') }}">
+<style>
+    .payment-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    .payment-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .payment-header h1 {
+        font-family: 'Vetrino', sans-serif;
+        font-size: 28px;
+        color: #333;
+    }
+    .payment-details {
+        margin-bottom: 30px;
+        padding: 20px;
+        background: #f9f9f9;
+        border-radius: 8px;
+        font-family: 'Gerbera-Regular', Arial, sans-serif;
+    }
+    .payment-details p {
+        margin: 5px 0;
+        font-size: 16px;
+        color: #555;
+    }
+    .payment-details strong {
+        color: #333;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-family: 'Gerbera-Regular', Arial, sans-serif;
+        font-weight: bold;
+        color: #333;
+    }
+    .form-group input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-family: 'Gerbera-Regular', Arial, sans-serif;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+    .form-row {
+        display: flex;
+        gap: 15px;
+    }
+    .form-row .form-group {
+        flex: 1;
+    }
+    .payment-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 30px;
+    }
+    .btn-pay {
+        background-color: #ffd700;
+        color: #333;
+        border: none;
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: background 0.3s;
+        font-family: 'Gerbera-Regular', Arial, sans-serif;
+    }
+    .btn-pay:hover {
+        background-color: #e6c200;
+    }
+    .btn-autofill {
+        background-color: #eee;
+        color: #333;
+        border: 1px solid #ccc;
+        padding: 10px 20px;
+        font-size: 14px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.3s;
+        font-family: 'Gerbera-Regular', Arial, sans-serif;
+    }
+    .btn-autofill:hover {
+        background-color: #ddd;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="payment-container">
+    <div class="payment-header">
+        <h1>Оплата заказа</h1>
+    </div>
+
+    <div class="payment-details">
+        <p>Номер заказа: <strong>{{ order.order_number }}</strong></p>
+        <p>Покупатель: <strong>{{ order.full_name }}</strong></p>
+        <p>Сумма к оплате: <strong>{{ order.total_amount }} руб.</strong></p>
+    </div>
+
+    <form action="{{ url_for('process_payment', order_id=order.id) }}" method="POST" id="payment-form">
+        <div class="form-group">
+            <label for="card_number">Номер карты</label>
+            <input type="text" id="card_number" name="card_number" placeholder="0000 0000 0000 0000" required>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="expiry_date">Срок действия (ММ/ГГ)</label>
+                <input type="text" id="expiry_date" name="expiry_date" placeholder="12/25" required>
+            </div>
+            <div class="form-group">
+                <label for="cvc">CVC/CVV</label>
+                <input type="password" id="cvc" name="cvc" placeholder="123" required maxlength="3">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="cardholder">Имя владельца карты (латиницей)</label>
+            <input type="text" id="cardholder" name="cardholder" placeholder="IVAN IVANOV" required>
+        </div>
+
+        <div class="payment-actions">
+            <button type="button" class="btn-autofill" onclick="autofill()">Демо: Автозаполнение</button>
+            <button type="submit" class="btn-pay">Оплатить {{ order.total_amount }} руб.</button>
+        </div>
+    </form>
+</div>
+
+<script>
+function autofill() {
+    document.getElementById('card_number').value = '4276 1234 5678 9012';
+    document.getElementById('expiry_date').value = '12/26';
+    document.getElementById('cvc').value = '123';
+    document.getElementById('cardholder').value = 'IVAN IVANOV';
+}
+</script>
+{% endblock %}
