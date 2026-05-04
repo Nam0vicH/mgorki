@@ -275,11 +275,41 @@
 
                 <!-- Image Side -->
                 <div class="map-image-wrapper">
-                    <img src="../static/images/img/888.jpg"
-                         alt="Карта расположения"
-                         class="map-image"
-                         loading="lazy"
-                         decoding="async">
+                    <div id="map"></div>
+                        <script type="text/javascript">
+                            // Функция ymaps.ready() будет вызвана, когда загрузятся все компоненты API
+                            ymaps.ready(init);
+
+                            function init() {
+                                // Создание карты
+                                var myMap = new ymaps.Map("map", {
+                                    // Координаты центра карты [Широта, Долгота]
+                                    // Например, Москва: 55.751574, 37.573856
+                                    center: [55.504742, 37.765188],
+                                    // Уровень масштабирования (от 0 до 19)
+                                    zoom: 12
+                                });
+
+                                // Создание гео-точки (плейсмарка)
+                                var myPlacemark = new ymaps.Placemark([55.504742, 37.765188], {
+                                    // Контент, который появится при наведении
+                                    hintContent: 'Это наша точка!',
+                                    // Контент, который появится при клике на метку (балун)
+                                    balloonContent: 'Здесь находится наш офис'
+                                }, {
+                                    // Опции (например, можно изменить иконку)
+                                    preset: 'islands#redDotIcon' // Красная метка с точкой
+                                });
+
+                                // Добавление метки на карту
+                                myMap.geoObjects.add(myPlacemark);
+
+                                // Отключаем прокрутку страницы при зуме карты колесиком мыши
+                                document.getElementById('map').addEventListener('wheel', function(e) {
+                                    e.preventDefault();
+                                }, { passive: false });
+                                }
+                            </script>
                 </div>
             </div>
         </section>
