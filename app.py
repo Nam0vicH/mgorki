@@ -271,13 +271,13 @@ def admin_edit(category, content_id):
         short_desc = request.form.get('short_desc')
         main_text = request.form.get('main_text')
 
-        date_event = request.form.get('date_of_the_event')  # Получаем дату с формы
-        if date_event == '':  # Если дата не выбрана, отправляем None в SQL
+        date_event = request.form.get('date_of_the_event')
+        if date_event == '':
             date_event = None
 
         location_event = request.form.get('location_of_the_event')
         if not location_event:
-            location_event = ""  # Чтобы не было ошибки с null=No, если не заполнено
+            location_event = ""
 
         b_txt1 = request.form.get('block_text_1')
         b_txt2 = request.form.get('block_text_2')
