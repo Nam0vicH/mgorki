@@ -125,17 +125,17 @@
                     <input type="hidden" id="payment-method" name="payment_method" value="bank_card">
 
                     <div class="form-group">
-                        <label class="form-label">ФАМИЛИЯ ИМЯ ОТЧЕСТВО</label>
+                        <label for="full-name" class="form-label">ФАМИЛИЯ ИМЯ ОТЧЕСТВО</label>
                         <input type="text" class="form-input" id="full-name" name="full_name" required>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">E-mail</label>
+                        <label for="email" class="form-label">E-mail</label>
                         <input type="email" class="form-input" id="email" name="email" required>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Телефон</label>
+                        <label for="phone" class="form-label">Телефон</label>
                         <div
                             style="display: flex; align-items: center; border: 1px solid #e0e0e0; border-radius: 4px; padding: 10px;">
                             <input type="tel" id="phone" name="phone" style="border: none; outline: none; flex: 1;"
@@ -177,92 +177,35 @@
     <script>
         // Данные о билетах и ценах
         const ticketPrices = {
-        {%
-            for category in ticket_categories %
-        }
-        {
-            {
-                category.id
-            }
-        }
-        :
-        {
-            {
-                category.price
-            }
-        }
-        ,
-        {%
-            endfor %
-        }
-        }
-        ;
+            {% for category in ticket_categories %}
+            {{ category.id }}: {{ category.price }},
+            {% endfor %}
+        };
 
         // Данные о названиях категорий
         const ticketNames = {
-        {%
-            for category in ticket_categories %
-        }
-        {
-            {
-                category.id
-            }
-        }
-        :
-        "{{ category.title }}",
-        { % endfor %
-        }
-        }
-        ;
+            {% for category in ticket_categories %}
+            {{ category.id }}: "{{ category.title }}",
+            {% endfor %}
+        };
 
         // Флаг разрешения Пушкинской карты для каждой категории
         const pushkinCardAllowed = {
-        {%
-            for category in ticket_categories %
-        }
-        {
-            {
-                category.id
-            }
-        }
-        :
-        {
-            {
-                1
-                if category.pushkin_card_allowed else
-                0
-            }
-        }
-        ,
-        {%
-            endfor %
-        }
-        }
-        ;
+            {% for category in ticket_categories %}
+            {{ category.id }}: {{ 1 if category.pushkin_card_allowed else 0 }},
+            {% endfor %}
+        };
 
         // Данные о сеансах из БД
         const sessionsData = [
-            { %
-        for session in sessions %}
-        {
-            date: "{{ session.session_date }}",
-                time
-        :
-            "{{ '%02d:%02d' % (session.session_time.seconds // 3600, (session.session_time.seconds % 3600) // 60) }}",
-                available
-        :
+            {% for session in sessions %}
             {
-                {
-                    session.available_tickets
-                }
-            }
-        }
-        ,
-        {%
-            endfor %
-        }
-        ]
-        ;
+                date: "{{ session.session_date }}",
+                time: "{{ '%02d:%02d' % (session.session_time.seconds // 3600, (session.session_time.seconds % 3600) // 60) }}",
+                available: {{ session.available_tickets }}
+            },
+            {% endfor %}
+        ];
 
         let selectedDate = null;
         let selectedTime = null;
@@ -300,7 +243,7 @@
             timeSlotsContainer.innerHTML = '';
 
             // Создаем слоты для каждого времени
-            availableTimes.forEach((session, index) => {
+            availableTimes.forEach(session => {
                 const timeSlot = document.createElement('div');
                 timeSlot.className = 'time-slot';
                 timeSlot.setAttribute('data-time', session.time);
@@ -361,7 +304,7 @@
                     currentQuantity--;
                 }
 
-                quantitySpan.textContent = currentQuantity;
+                quantitySpan.textContent = String(currentQuantity);
                 ticketQuantities[categoryId] = currentQuantity;
                 updateBookingInfo();
             });
@@ -595,7 +538,8 @@
 
             phoneInput.addEventListener('keydown', function (e) {
                 // Разрешаем: backspace, delete, стрелки, tab, home, end
-                if ([8, 46, 37, 38, 39, 40, 9, 36, 35].includes(e.keyCode)) return;
+                const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown', 'Tab', 'Home', 'End'];
+                if (allowedKeys.includes(e.key)) return;
                 // Блокируем всё кроме цифр (учитываем Shift+цифра = спецсимвол)
                 if (e.ctrlKey || e.metaKey) return; // ctrl+c/v/a
                 if (!/^[0-9]$/.test(e.key)) e.preventDefault();
@@ -614,5 +558,5 @@
             });
         })();
     </script>
-
-    {% endblock %}
+</div>
+{% endblock %}
