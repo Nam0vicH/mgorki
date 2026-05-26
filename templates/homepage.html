@@ -10,527 +10,528 @@
 {% block content %}
 
 
-    <!-- Homepage -->
-    <homepage class="homepage">
-        <!-- Heroe section -->
-        <section class="hero-section">
-            <!-- Background Rectangle -->
-            <div class="hero-background" id="heroBackground"></div>
+<!-- Homepage -->
+<homepage class="homepage">
+    <!-- Heroe section -->
+    <section class="hero-section">
+        <!-- Background Rectangle -->
+        <div class="hero-background" id="heroBackground"></div>
 
-            <!-- Left Navigation Button -->
-            <button class="hero-button-left" id="heroPrev">
-                <span class="chevron-left">←</span>
+        <!-- Left Navigation Button -->
+        <button class="hero-button-left" id="heroPrev">
+            <span class="chevron-left">←</span>
+        </button>
+
+        <!-- Right Navigation Button -->
+        <button class="hero-button-right" id="heroNext">
+            <span class="chevron-right">→</span>
+        </button>
+
+        <!-- Slide Indicators -->
+        <div class="hero-indicators"></div>
+    </section>
+
+
+    <!-- Museum section -->
+    <section class="museum-section">
+        <!-- Section Title -->
+        <h2 class="museum-title">Музеи</h2>
+
+        <!-- Museum Cards -->
+        <div class="museum-cards">
+            {% for museum in museums %}
+            <div class="museum-card">
+                <!-- Контейнер для картинки и темного блока с текстом -->
+                <div class="museum-content-wrapper">
+                    <img src="{{ url_for('static', filename=museum.img_card) }}"
+                         alt="{{ museum.title_card }}"
+                         class="museum-card-image"
+                         loading="lazy"
+                         decoding="async">
+
+                    <div class="museum-card-info">
+                        <div class="museum-card-header">
+                            <h3 class="museum-card-title">{{ museum.title_card }}</h3>
+                            <div class="museum-badges">
+                                <span class="museum-badge">0+</span>
+                                <span class="museum-badge">от 800 ₽</span>
+                            </div>
+                        </div>
+                        <p class="museum-card-description">
+                            {{ museum.short_description_card }}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Кнопки -->
+                <div class="museum-card-buttons">
+                    <a href="{{ url_for('about_us', museum_id=museum.id) }}" class="museum-card-button">Подробнее</a>
+                    <a href="{{ url_for('order', museum_id=museum.id) }}" class="museum-card-button">Купить билет</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Navigation -->
+        <div class="museum-navigation">
+            <button class="museum-nav-button prev">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M15 18L9 12L15 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                </svg>
             </button>
-
-            <!-- Right Navigation Button -->
-            <button class="hero-button-right" id="heroNext">
-                <span class="chevron-right">→</span>
+            <span class="museum-nav-counter">1 / 2</span>
+            <button class="museum-nav-button next">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M9 18L15 12L9 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                </svg>
             </button>
-
-            <!-- Slide Indicators -->
-            <div class="hero-indicators"></div>
-        </section>
+        </div>
+    </section>
 
 
-        <!-- Museum section -->
-        <section class="museum-section">
-            <!-- Section Title -->
-            <h2 class="museum-title">Музеи</h2>
+    <!-- Museum Programs section (бывший virtual-exhibitions) -->
+    <section class="virtual-exhibitions">
+        <!-- Section Title -->
+        <h2 class="virtual-exhibitions-title">Музейная программа</h2>
 
-            <!-- Museum Cards -->
-            <div class="museum-cards">
-                {% for museum in museums %}
-                <div class="museum-card">
-                    <!-- Контейнер для картинки и темного блока с текстом -->
-                    <div class="museum-content-wrapper">
-                        <img src="{{ url_for('static', filename=museum.img_card) }}"
-                             alt="{{ museum.title_card }}"
-                             class="museum-card-image"
-                             loading="lazy"
-                             decoding="async">
+        <!-- Cards -->
+        <div class="virtual-exhibitions-cards">
+            {% for exhibition in virtual_exhibitions %}
+            <div class="virtual-exhibition-card">
 
-                        <div class="museum-card-info">
-                            <div class="museum-card-header">
-                                <h3 class="museum-card-title">{{ museum.title_card }}</h3>
-                                <div class="museum-badges">
-                                    <span class="museum-badge">0+</span>
-                                    <span class="museum-badge">от 800 ₽</span>
-                                </div>
-                            </div>
-                            <p class="museum-card-description">
-                                {{ museum.short_description_card }}
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Кнопки -->
-                    <div class="museum-card-buttons">
-                        <a href="{{ url_for('about_us', museum_id=museum.id) }}" class="museum-card-button">Подробнее</a>
-                        <a href="{{ url_for('order', museum_id=museum.id) }}" class="museum-card-button">Купить билет</a>
-                    </div>
+                <!-- Картинка -->
+                <div class="virtual-card-image-container">
+                    <img src="{{ url_for('static', filename=exhibition.img_card) }}"
+                         alt="{{ exhibition.title_card }}"
+                         class="virtual-exhibition-card-image"
+                         loading="lazy"
+                         decoding="async">
                 </div>
-                {% endfor %}
-            </div>
 
-            <!-- Navigation -->
-            <div class="museum-navigation">
-                <button class="museum-nav-button prev">
-                    <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M15 18L9 12L15 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                </button>
-                <span class="museum-nav-counter">1 / 2</span>
-                <button class="museum-nav-button next">
-                    <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M9 18L15 12L9 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                </button>
-            </div>
-        </section>
+                <!-- Контент -->
+                <div class="virtual-card-content">
+                    <h3 class="virtual-card-title">{{ exhibition.title_card }}</h3>
 
+                    <p class="virtual-card-description">
+                        {{ exhibition.short_description_card }}
+                    </p>
 
-<!-- Museum Programs section (бывший virtual-exhibitions) -->
-        <section class="virtual-exhibitions">
-            <!-- Section Title -->
-            <h2 class="virtual-exhibitions-title">Музейная программа</h2>
+                    <!-- Разделитель -->
+                    <div class="virtual-card-divider"></div>
 
-            <!-- Cards -->
-            <div class="virtual-exhibitions-cards">
-                {% for exhibition in virtual_exhibitions %}
-                <div class="virtual-exhibition-card">
-
-                    <!-- Картинка -->
-                    <div class="virtual-card-image-container">
-                        <img src="{{ url_for('static', filename=exhibition.img_card) }}"
-                             alt="{{ exhibition.title_card }}"
-                             class="virtual-exhibition-card-image"
-                             loading="lazy"
-                             decoding="async">
+                    <!-- Дата и время -->
+                    <div class="virtual-meta">
+                        <span class="virtual-icon calendar-icon"></span>
+                        <span class="virtual-meta-text">{{ exhibition.date_of_the_event }}</span>
                     </div>
 
-                    <!-- Контент -->
-                    <div class="virtual-card-content">
-                        <h3 class="virtual-card-title">{{ exhibition.title_card }}</h3>
-
-                        <p class="virtual-card-description">
-                            {{ exhibition.short_description_card }}
-                        </p>
-
-                        <!-- Разделитель -->
-                        <div class="virtual-card-divider"></div>
-
-                        <!-- Дата и время -->
-                        <div class="virtual-meta">
-                            <span class="virtual-icon calendar-icon"></span>
-                            <span class="virtual-meta-text">{{ exhibition.date_of_the_event }}</span>
-                        </div>
-
-                        <!-- Место проведения -->
-                        <div class="virtual-meta">
-                            <span class="virtual-icon location-icon"></span>
-                            <span class="virtual-meta-text">{{ exhibition.location_of_the_event }}</span>
-                        </div>
-
-                        <!-- Ссылка -->
-                        <a href="{{ url_for('museum_programs', exhibition_id=exhibition.id) }}" class="virtual-card-link">
-                            Узнать подробнее ↗
-                        </a>
+                    <!-- Место проведения -->
+                    <div class="virtual-meta">
+                        <span class="virtual-icon location-icon"></span>
+                        <span class="virtual-meta-text">{{ exhibition.location_of_the_event }}</span>
                     </div>
+
+                    <!-- Ссылка -->
+                    <a href="{{ url_for('museum_programs', exhibition_id=exhibition.id) }}" class="virtual-card-link">
+                        Узнать подробнее ↗
+                    </a>
                 </div>
-                {% endfor %}
             </div>
+            {% endfor %}
+        </div>
 
-            <!-- Navigation -->
-            <div class="virtual-exhibitions-navigation">
-                <button class="virtual-exhibitions-nav-button prev">
-                    <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M15 18L9 12L15 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                </button>
-                <span class="virtual-exhibitions-nav-counter">1 / 2</span>
-                <button class="virtual-exhibitions-nav-button next">
-                    <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M9 18L15 12L9 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                </button>
-            </div>
-        </section>
+        <!-- Navigation -->
+        <div class="virtual-exhibitions-navigation">
+            <button class="virtual-exhibitions-nav-button prev">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M15 18L9 12L15 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <span class="virtual-exhibitions-nav-counter">1 / 2</span>
+            <button class="virtual-exhibitions-nav-button next">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M9 18L15 12L9 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+    </section>
 
-        <!-- Poster section -->
-        <section class="poster-section">
-            <!-- Section Title -->
-            <h2 class="poster-title">Афиша</h2>
+    <!-- Poster section -->
+    <section class="poster-section">
+        <!-- Section Title -->
+        <h2 class="poster-title">Афиша</h2>
 
-            <!-- Poster Cards -->
-            <div class="poster-cards">
-                {% for event in events %}
-                <div class="poster-card">
-                    <!-- Верхняя часть: Картинка -->
-                    <div class="poster-image-container">
-                        <img src="{{ url_for('static', filename=event.img_card) }}"
-                             alt="{{ event.title_card }}"
-                             class="poster-card-image"
-                             loading="lazy"
-                             decoding="async">
-                    </div>
-
-                    <!-- Нижняя часть: Контент -->
-                    <div class="poster-card-content">
-                        <h3 class="poster-card-title">{{ event.title_card }}</h3>
-
-                        <p class="poster-card-description">
-                            {{ event.short_description_card }}
-                        </p>
-
-                        <!-- Пунктирный разделитель -->
-                        <div class="poster-divider"></div>
-
-                        <!-- Дата и время -->
-                        <div class="poster-meta">
-                            <span class="poster-icon calendar-icon"></span>
-                            <span class="poster-meta-text">{{ event.date_of_the_event }}</span>
-                        </div>
-
-                        <!-- Место проведения -->
-                        <div class="poster-meta">
-                            <span class="poster-icon location-icon"></span>
-                            <span class="poster-meta-text">{{ event.location_of_the_event }}</span>
-                        </div>
-
-                        <!-- Ссылка -->
-                        <a href="{{ url_for('order', event=event.id) }}" class="poster-link">
-                            Узнать подробнее ↗
-                        </a>
-
-                        <!-- Штрих-код -->
-                        <div class="poster-barcode"></div>
-                    </div>
+        <!-- Poster Cards -->
+        <div class="poster-cards">
+            {% for event in events %}
+            <div class="poster-card">
+                <!-- Верхняя часть: Картинка -->
+                <div class="poster-image-container">
+                    <img src="{{ url_for('static', filename=event.img_card) }}"
+                         alt="{{ event.title_card }}"
+                         class="poster-card-image"
+                         loading="lazy"
+                         decoding="async">
                 </div>
-                {% endfor %}
+
+                <!-- Нижняя часть: Контент -->
+                <div class="poster-card-content">
+                    <h3 class="poster-card-title">{{ event.title_card }}</h3>
+
+                    <p class="poster-card-description">
+                        {{ event.short_description_card }}
+                    </p>
+
+                    <!-- Пунктирный разделитель -->
+                    <div class="poster-divider"></div>
+
+                    <!-- Дата и время -->
+                    <div class="poster-meta">
+                        <span class="poster-icon calendar-icon"></span>
+                        <span class="poster-meta-text">{{ event.date_of_the_event }}</span>
+                    </div>
+
+                    <!-- Место проведения -->
+                    <div class="poster-meta">
+                        <span class="poster-icon location-icon"></span>
+                        <span class="poster-meta-text">{{ event.location_of_the_event }}</span>
+                    </div>
+
+                    <!-- Ссылка -->
+                    <a href="{{ url_for('order', event=event.id) }}" class="poster-link">
+                        Узнать подробнее ↗
+                    </a>
+
+                    <!-- Штрих-код -->
+                    <div class="poster-barcode"></div>
+                </div>
             </div>
+            {% endfor %}
+        </div>
 
-            <!-- Navigation -->
-            <div class="poster-navigation">
-                <button class="poster-nav-button prev">
-                    <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M15 18L9 12L15 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                </button>
-                <span class="poster-nav-counter">1 / 2</span>
-                <button class="poster-nav-button next">
-                    <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M9 18L15 12L9 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                </button>
-            </div>
-        </section>
+        <!-- Navigation -->
+        <div class="poster-navigation">
+            <button class="poster-nav-button prev">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M15 18L9 12L15 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <span class="poster-nav-counter">1 / 2</span>
+            <button class="poster-nav-button next">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M9 18L15 12L9 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+    </section>
 
 
-        <!-- Map section -->
-        <section class="map-section">
-            <!-- Section Title -->
-            <h2 class="map-title">Как добраться</h2>
+    <!-- Map section -->
+    <section class="map-section">
+        <!-- Section Title -->
+        <h2 class="map-title">Как добраться</h2>
 
-            <!-- Map Container -->
-            <div class="map-container">
-                <!-- Text Content Side -->
-                <div class="map-content">
-                    <div class="map-info-row">
-                        <!-- General Questions -->
-                        <div class="map-info-block">
-                            <h3 class="map-info-header">По общим вопросам</h3>
-                            <div class="map-info-text">
-                                <a href="tel:+74959570727">+7 (495) 957 07 27</a>
-                                <a href="tel:+74959570700">+7 (495) 957 07 00</a>
-                                <p>ВТ, СР, ВС: 10:00 — 18:00</p>
-                                <p>ЧТ, ПТ, СБ: 10:00 — 21:00</p>
-                            </div>
-                        </div>
-
-                        <!-- Excursions Information -->
-                        <div class="map-info-block">
-                            <h3 class="map-info-header">Экскурсии</h3>
-                            <div class="map-info-text">
-                                <a href="tel:+74959570727">+7 (495) 957-07-27, доб.4</a>
-                                <p>ВТ, СР: 10:00 — 17:00</p>
-                                <p>ЧТ, ПТ, СБ: 10:00 — 19:00</p>
-                            </div>
+        <!-- Map Container -->
+        <div class="map-container">
+            <!-- Text Content Side -->
+            <div class="map-content">
+                <div class="map-info-row">
+                    <!-- General Questions -->
+                    <div class="map-info-block">
+                        <h3 class="map-info-header">По общим вопросам</h3>
+                        <div class="map-info-text">
+                            <a href="tel:+74959570727">+7 (495) 957 07 27</a>
+                            <a href="tel:+74959570700">+7 (495) 957 07 00</a>
+                            <p>ВТ, СР, ВС: 10:00 — 18:00</p>
+                            <p>ЧТ, ПТ, СБ: 10:00 — 21:00</p>
                         </div>
                     </div>
 
-                    <!-- Address -->
-                    <div class="map-address-block">
-                        <h3 class="map-info-header">Адрес</h3>
-                        <p class="map-address-text">
-                            142712, Московская область, городской округ Ленинский, посёлок городского типа Горки Ленинские, улица Центральная, дом 1
-                        </p>
+                    <!-- Excursions Information -->
+                    <div class="map-info-block">
+                        <h3 class="map-info-header">Экскурсии</h3>
+                        <div class="map-info-text">
+                            <a href="tel:+74959570727">+7 (495) 957-07-27, доб.4</a>
+                            <p>ВТ, СР: 10:00 — 17:00</p>
+                            <p>ЧТ, ПТ, СБ: 10:00 — 19:00</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Image Side -->
-                <div class="map-image-wrapper">
-                    <div id="map"></div>
-                        <script type="text/javascript">
-                            // Функция ymaps.ready() будет вызвана, когда загрузятся все компоненты API
-                            ymaps.ready(init);
-
-                            function init() {
-                                // Создание карты
-                                var myMap = new ymaps.Map("map", {
-                                    // Координаты центра карты [Широта, Долгота]
-                                    // Например, Москва: 55.751574, 37.573856
-                                    center: [55.504742, 37.765188],
-                                    // Уровень масштабирования (от 0 до 19)
-                                    zoom: 12
-                                });
-
-                                // Создание гео-точки (плейсмарка)
-                                var myPlacemark = new ymaps.Placemark([55.504742, 37.765188], {
-                                    // Контент, который появится при наведении
-                                    hintContent: 'Это наша точка!',
-                                    // Контент, который появится при клике на метку (балун)
-                                    balloonContent: 'Здесь находится наш офис'
-                                }, {
-                                    // Опции (например, можно изменить иконку)
-                                    preset: 'islands#redDotIcon' // Красная метка с точкой
-                                });
-
-                                // Добавление метки на карту
-                                myMap.geoObjects.add(myPlacemark);
-
-                                // Отключаем прокрутку страницы при зуме карты колесиком мыши
-                                document.getElementById('map').addEventListener('wheel', function(e) {
-                                    e.preventDefault();
-                                }, { passive: false });
-                                }
-                            </script>
+                <!-- Address -->
+                <div class="map-address-block">
+                    <h3 class="map-info-header">Адрес</h3>
+                    <p class="map-address-text">
+                        142712, Московская область, городской округ Ленинский, посёлок городского типа Горки Ленинские,
+                        улица Центральная, дом 1
+                    </p>
                 </div>
             </div>
-        </section>
+
+            <!-- Image Side -->
+            <div class="map-image-wrapper">
+                <div id="map"></div>
+                <script type="text/javascript">
+                    // Функция ymaps.ready() будет вызвана, когда загрузятся все компоненты API
+                    ymaps.ready(init);
+
+                    function init() {
+                        // Создание карты
+                        var myMap = new ymaps.Map("map", {
+                            // Координаты центра карты [Широта, Долгота]
+                            // Например, Москва: 55.751574, 37.573856
+                            center: [55.504742, 37.765188],
+                            // Уровень масштабирования (от 0 до 19)
+                            zoom: 12
+                        });
+
+                        // Создание гео-точки (плейсмарка)
+                        var myPlacemark = new ymaps.Placemark([55.504742, 37.765188], {
+                            // Контент, который появится при наведении
+                            hintContent: 'Это наша точка!',
+                            // Контент, который появится при клике на метку (балун)
+                            balloonContent: 'Здесь находится наш офис'
+                        }, {
+                            // Опции (например, можно изменить иконку)
+                            preset: 'islands#redDotIcon' // Красная метка с точкой
+                        });
+
+                        // Добавление метки на карту
+                        myMap.geoObjects.add(myPlacemark);
+
+                        // Отключаем прокрутку страницы при зуме карты колесиком мыши
+                        document.getElementById('map').addEventListener('wheel', function (e) {
+                            e.preventDefault();
+                        }, {passive: false});
+                    }
+                </script>
+            </div>
+        </div>
+    </section>
 
 
     <!-- Hero Slider Script -->
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Hero slider functionality
-        const heroBackground = document.getElementById('heroBackground');
-        const heroPrev = document.getElementById('heroPrev');
-        const heroNext = document.getElementById('heroNext');
-        const indicatorsContainer = document.querySelector('.hero-indicators');
+        document.addEventListener('DOMContentLoaded', function () {
+            // Hero slider functionality
+            const heroBackground = document.getElementById('heroBackground');
+            const heroPrev = document.getElementById('heroPrev');
+            const heroNext = document.getElementById('heroNext');
+            const indicatorsContainer = document.querySelector('.hero-indicators');
 
-        if (!heroBackground || !heroPrev || !heroNext || !indicatorsContainer) {
-            console.error('Hero elements not found');
-            return;
-        }
-
-        const heroImages = [
-            '{{ url_for("static", filename="images/hero/Page_1.jpg") }}',
-            '{{ url_for("static", filename="images/hero/Page_2.jpg") }}',
-            '{{ url_for("static", filename="images/hero/Page_3.jpg") }}',
-            '{{ url_for("static", filename="images/hero/Page_4.jpg") }}'
-        ];
-
-        indicatorsContainer.innerHTML = '';
-
-        heroImages.forEach((_, index) => {
-            const dot = document.createElement('span');
-            dot.classList.add('hero-indicator');
-            if (index === 0) dot.classList.add('active');
-
-            dot.addEventListener('click', () => {
-                updateSlide(index);
-            });
-
-            indicatorsContainer.appendChild(dot);
-        });
-
-        const heroIndicators = document.querySelectorAll('.hero-indicator');
-        let currentSlide = 0;
-
-        function updateSlide(index) {
-            // Update background image
-            heroBackground.style.opacity = '0';
-
-            setTimeout(() => {
-                heroBackground.style.backgroundImage = `url('${heroImages[index]}')`;
-                heroBackground.style.opacity = '1';
-                currentSlide = index;
-
-                // Update indicators
-                heroIndicators.forEach((indicator, i) => {
-                    if (i === index) {
-                        indicator.classList.add('active');
-                    } else {
-                        indicator.classList.remove('active');
-                    }
-                });
-            }, 250);
-        }
-
-        function nextSlide() {
-            const next = (currentSlide + 1) % heroImages.length;
-            updateSlide(next);
-        }
-
-        function prevSlide() {
-            const prev = (currentSlide - 1 + heroImages.length) % heroImages.length;
-            updateSlide(prev);
-        }
-
-        // Event listeners
-        heroNext.addEventListener('click', nextSlide);
-        heroPrev.addEventListener('click', prevSlide);
-
-        heroIndicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', () => {
-                updateSlide(index);
-            });
-        });
-
-        // Auto-play (optional - every 5 seconds)
-        let autoPlayInterval = setInterval(nextSlide, 5000);
-
-        // Pause auto-play on hover
-        const heroSection = document.querySelector('.hero-section');
-        heroSection.addEventListener('mouseenter', () => {
-            clearInterval(autoPlayInterval);
-        });
-
-        heroSection.addEventListener('mouseleave', () => {
-            autoPlayInterval = setInterval(nextSlide, 5000);
-        });
-    });
-
-    // Cards Slider Script
-    document.addEventListener('DOMContentLoaded', function() {
-        const slidersConfig = [
-            {
-                containerSelector: '.museum-cards',
-                cardSelector: '.museum-card',
-                prevBtnSelector: '.museum-navigation .prev',
-                nextBtnSelector: '.museum-navigation .next',
-                counterSelector: '.museum-nav-counter'
-            },
-            {
-                containerSelector: '.virtual-exhibitions-cards',
-                cardSelector: '.virtual-exhibition-card',
-                prevBtnSelector: '.virtual-exhibitions-navigation .prev',
-                nextBtnSelector: '.virtual-exhibitions-navigation .next',
-                counterSelector: '.virtual-exhibitions-nav-counter'
-            },
-            {
-                containerSelector: '.poster-cards',
-                cardSelector: '.poster-card',
-                prevBtnSelector: '.poster-navigation .prev',
-                nextBtnSelector: '.poster-navigation .next',
-                counterSelector: '.poster-nav-counter'
+            if (!heroBackground || !heroPrev || !heroNext || !indicatorsContainer) {
+                console.error('Hero elements not found');
+                return;
             }
-        ];
 
-        function initSlider(config) {
-            const container = document.querySelector(config.containerSelector);
-            if (!container) return;
+            const heroImages = [
+                '{{ url_for("static", filename="images/hero/Page_1.jpg") }}',
+                '{{ url_for("static", filename="images/hero/Page_2.jpg") }}',
+                '{{ url_for("static", filename="images/hero/Page_3.jpg") }}',
+                '{{ url_for("static", filename="images/hero/Page_4.jpg") }}'
+            ];
 
-            const cards = Array.from(container.querySelectorAll(config.cardSelector));
-            const prevBtn = document.querySelector(config.prevBtnSelector);
-            const nextBtn = document.querySelector(config.nextBtnSelector);
-            const counter = document.querySelector(config.counterSelector);
+            indicatorsContainer.innerHTML = '';
 
-            if (!cards.length || !prevBtn || !nextBtn) return;
+            heroImages.forEach((_, index) => {
+                const dot = document.createElement('span');
+                dot.classList.add('hero-indicator');
+                if (index === 0) dot.classList.add('active');
 
-            const isMobile = window.innerWidth <= 1200;
-
-            if (isMobile) {
-                // Мобильная логика со скроллом
-                cards.forEach(card => {
-                    card.style.display = '';
-                    card.classList.remove('animating');
+                dot.addEventListener('click', () => {
+                    updateSlide(index);
                 });
 
-                const getScrollAmount = () => {
-                    const cardWidth = cards[0].offsetWidth;
-                    const gap = 20;
-                    return cardWidth + gap;
-                };
+                indicatorsContainer.appendChild(dot);
+            });
 
-                nextBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    container.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+            const heroIndicators = document.querySelectorAll('.hero-indicator');
+            let currentSlide = 0;
+
+            function updateSlide(index) {
+                // Update background image
+                heroBackground.style.opacity = '0';
+
+                setTimeout(() => {
+                    heroBackground.style.backgroundImage = `url('${heroImages[index]}')`;
+                    heroBackground.style.opacity = '1';
+                    currentSlide = index;
+
+                    // Update indicators
+                    heroIndicators.forEach((indicator, i) => {
+                        if (i === index) {
+                            indicator.classList.add('active');
+                        } else {
+                            indicator.classList.remove('active');
+                        }
+                    });
+                }, 250);
+            }
+
+            function nextSlide() {
+                const next = (currentSlide + 1) % heroImages.length;
+                updateSlide(next);
+            }
+
+            function prevSlide() {
+                const prev = (currentSlide - 1 + heroImages.length) % heroImages.length;
+                updateSlide(prev);
+            }
+
+            // Event listeners
+            heroNext.addEventListener('click', nextSlide);
+            heroPrev.addEventListener('click', prevSlide);
+
+            heroIndicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    updateSlide(index);
                 });
+            });
 
-                prevBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    container.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
-                });
+            // Auto-play (optional - every 5 seconds)
+            let autoPlayInterval = setInterval(nextSlide, 5000);
 
-                container.addEventListener('scroll', () => {
-                    if (counter) {
-                        const index = Math.round(container.scrollLeft / getScrollAmount());
-                        counter.textContent = `${Math.min(index + 1, cards.length)} / ${cards.length}`;
-                    }
-                });
+            // Pause auto-play on hover
+            const heroSection = document.querySelector('.hero-section');
+            heroSection.addEventListener('mouseenter', () => {
+                clearInterval(autoPlayInterval);
+            });
 
-                if (counter) counter.textContent = `1 / ${cards.length}`;
-            } else {
-                // Десктопная логика с display: none
-                const itemsPerPage = 3;
-                let currentPage = 1;
-                const totalPages = Math.ceil(cards.length / itemsPerPage);
+            heroSection.addEventListener('mouseleave', () => {
+                autoPlayInterval = setInterval(nextSlide, 5000);
+            });
+        });
 
-                const updateView = () => {
-                    if(counter) {
-                        counter.classList.add('counter-fade');
-                        setTimeout(() => {
-                            counter.textContent = `${currentPage} / ${totalPages}`;
-                            counter.classList.remove('counter-fade');
-                        }, 200);
-                    }
+        // Cards Slider Script
+        document.addEventListener('DOMContentLoaded', function () {
+            const slidersConfig = [
+                {
+                    containerSelector: '.museum-cards',
+                    cardSelector: '.museum-card',
+                    prevBtnSelector: '.museum-navigation .prev',
+                    nextBtnSelector: '.museum-navigation .next',
+                    counterSelector: '.museum-nav-counter'
+                },
+                {
+                    containerSelector: '.virtual-exhibitions-cards',
+                    cardSelector: '.virtual-exhibition-card',
+                    prevBtnSelector: '.virtual-exhibitions-navigation .prev',
+                    nextBtnSelector: '.virtual-exhibitions-navigation .next',
+                    counterSelector: '.virtual-exhibitions-nav-counter'
+                },
+                {
+                    containerSelector: '.poster-cards',
+                    cardSelector: '.poster-card',
+                    prevBtnSelector: '.poster-navigation .prev',
+                    nextBtnSelector: '.poster-navigation .next',
+                    counterSelector: '.poster-nav-counter'
+                }
+            ];
 
+            function initSlider(config) {
+                const container = document.querySelector(config.containerSelector);
+                if (!container) return;
+
+                const cards = Array.from(container.querySelectorAll(config.cardSelector));
+                const prevBtn = document.querySelector(config.prevBtnSelector);
+                const nextBtn = document.querySelector(config.nextBtnSelector);
+                const counter = document.querySelector(config.counterSelector);
+
+                if (!cards.length || !prevBtn || !nextBtn) return;
+
+                const isMobile = window.innerWidth <= 1200;
+
+                if (isMobile) {
+                    // Мобильная логика со скроллом
                     cards.forEach(card => {
-                        card.style.display = 'none';
-                        card.classList.remove('animating');
-                        card.style.animationDelay = '0s';
-                    });
-
-                    const startIndex = (currentPage - 1) * itemsPerPage;
-                    const endIndex = startIndex + itemsPerPage;
-                    const visibleCards = cards.slice(startIndex, endIndex);
-
-                    visibleCards.forEach((card, index) => {
                         card.style.display = '';
-                        void card.offsetWidth;
-                        card.classList.add('animating');
-                        card.style.animationDelay = `${index * 0.1}s`;
+                        card.classList.remove('animating');
                     });
-                };
 
-                nextBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    currentPage = (currentPage < totalPages) ? currentPage + 1 : 1;
+                    const getScrollAmount = () => {
+                        const cardWidth = cards[0].offsetWidth;
+                        const gap = 20;
+                        return cardWidth + gap;
+                    };
+
+                    nextBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        container.scrollBy({left: getScrollAmount(), behavior: 'smooth'});
+                    });
+
+                    prevBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        container.scrollBy({left: -getScrollAmount(), behavior: 'smooth'});
+                    });
+
+                    container.addEventListener('scroll', () => {
+                        if (counter) {
+                            const index = Math.round(container.scrollLeft / getScrollAmount());
+                            counter.textContent = `${Math.min(index + 1, cards.length)} / ${cards.length}`;
+                        }
+                    });
+
+                    if (counter) counter.textContent = `1 / ${cards.length}`;
+                } else {
+                    // Десктопная логика с display: none
+                    const itemsPerPage = 3;
+                    let currentPage = 1;
+                    const totalPages = Math.ceil(cards.length / itemsPerPage);
+
+                    const updateView = () => {
+                        if (counter) {
+                            counter.classList.add('counter-fade');
+                            setTimeout(() => {
+                                counter.textContent = `${currentPage} / ${totalPages}`;
+                                counter.classList.remove('counter-fade');
+                            }, 200);
+                        }
+
+                        cards.forEach(card => {
+                            card.style.display = 'none';
+                            card.classList.remove('animating');
+                            card.style.animationDelay = '0s';
+                        });
+
+                        const startIndex = (currentPage - 1) * itemsPerPage;
+                        const endIndex = startIndex + itemsPerPage;
+                        const visibleCards = cards.slice(startIndex, endIndex);
+
+                        visibleCards.forEach((card, index) => {
+                            card.style.display = '';
+                            void card.offsetWidth;
+                            card.classList.add('animating');
+                            card.style.animationDelay = `${index * 0.1}s`;
+                        });
+                    };
+
+                    nextBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        currentPage = (currentPage < totalPages) ? currentPage + 1 : 1;
+                        updateView();
+                    });
+
+                    prevBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        currentPage = (currentPage > 1) ? currentPage - 1 : totalPages;
+                        updateView();
+                    });
+
                     updateView();
-                });
-
-                prevBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    currentPage = (currentPage > 1) ? currentPage - 1 : totalPages;
-                    updateView();
-                });
-
-                updateView();
+                }
             }
-        }
 
-        slidersConfig.forEach(config => initSlider(config));
-    });
+            slidersConfig.forEach(config => initSlider(config));
+        });
     </script>
 
 
-    </homepage>
+</homepage>
 
 {% endblock %}

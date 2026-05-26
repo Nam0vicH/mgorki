@@ -2,545 +2,545 @@
    GLOBAL STYLES & RESET
    ========================= */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Gerbera-Regular', Arial, sans-serif;
-    background: #F1F2ED; /* Основной фон сайта */
-    color: #333333;
-    -webkit-font-smoothing: antialiased;
+  font-family: 'Gerbera-Regular', Arial, sans-serif;
+  background: #F1F2ED; /* Основной фон сайта */
+  color: #333333;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* =========================
    LAYOUT CONTAINERS
    ========================= */
 .order-page-container {
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 40px 60px 80px; /* Больше воздуха снизу */
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 40px 60px 80px; /* Больше воздуха снизу */
 }
 
 .title {
-    text-align: center;
-    font-family: 'Vetrino', sans-serif;
-    font-size: 48px; /* Чуть крупнее для величественности */
-    font-weight: 400;
-    margin-bottom: 50px;
-    color: #000000;
+  text-align: center;
+  font-family: 'Vetrino', sans-serif;
+  font-size: 48px; /* Чуть крупнее для величественности */
+  font-weight: 400;
+  margin-bottom: 50px;
+  color: #000000;
 }
 
 .main-content {
-    display: flex;
-    gap: 40px; /* Увеличили отступ между колонками */
-    align-items: flex-start;
+  display: flex;
+  gap: 40px; /* Увеличили отступ между колонками */
+  align-items: flex-start;
 }
 
 .left-section {
-    flex: 1;
+  flex: 1;
 }
 
 .right-section {
-    width: 360px; /* Чуть шире для удобства формы */
-    position: sticky;
-    top: 20px; /* Прилипание при скролле */
+  width: 360px; /* Чуть шире для удобства формы */
+  position: sticky;
+  top: 20px; /* Прилипание при скролле */
 }
 
 /* =========================
    MUSEUM INFO BLOCK
    ========================= */
 .museum-info {
-    margin-bottom: 40px;
+  margin-bottom: 40px;
 }
 
 .museum-title {
-    font-family: 'Gerbera-Medium', Arial, sans-serif;
-    font-size: 24px;
-    margin-bottom: 12px;
-    color: #000000;
+  font-family: 'Gerbera-Medium', Arial, sans-serif;
+  font-size: 24px;
+  margin-bottom: 12px;
+  color: #000000;
 }
 
 .museum-description {
-    font-family: 'Gerbera-Regular', Arial, sans-serif;
-    font-size: 16px;
-    color: #555555;
-    line-height: 1.6;
-    max-width: 800px;
+  font-family: 'Gerbera-Regular', Arial, sans-serif;
+  font-size: 16px;
+  color: #555555;
+  line-height: 1.6;
+  max-width: 800px;
 }
 
 /* =========================
    CALENDAR SECTION
    ========================= */
 .calendar-section {
-    background: #FFFFFF;
-    border-radius: 30px; /* Крупное скругление (стиль карточек) */
-    padding: 30px;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-    border: none; /* Убираем жесткие границы */
+  background: #FFFFFF;
+  border-radius: 30px; /* Крупное скругление (стиль карточек) */
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  border: none; /* Убираем жесткие границы */
 }
 
 .calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
 }
 
 .calendar-nav {
-    background: none;
-    border: none;
-    font-family: 'Gerbera-Medium', Arial, sans-serif;
-    font-size: 20px;
-    cursor: pointer;
-    color: #000000;
-    transition: color 0.3s;
-    padding: 10px;
-    min-width: 44px;
-    min-height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background: none;
+  border: none;
+  font-family: 'Gerbera-Medium', Arial, sans-serif;
+  font-size: 20px;
+  cursor: pointer;
+  color: #000000;
+  transition: color 0.3s;
+  padding: 10px;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .calendar-nav:hover {
-    color: #FCD619; /* Фирменный желтый */
+  color: #FCD619; /* Фирменный желтый */
 }
 
 /* Сетка календаря */
 .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 10px; /* Отступы между днями */
-    border: none;
-    margin-bottom: 30px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px; /* Отступы между днями */
+  border: none;
+  margin-bottom: 30px;
 }
 
 .calendar-day-header {
-    text-align: center;
-    font-family: 'Gerbera-Medium', Arial, sans-serif;
-    font-size: 14px;
-    color: #888;
-    padding-bottom: 10px;
-    background: transparent;
-    border: none;
-    text-transform: uppercase;
-    font-size: 12px;
-    letter-spacing: 1px;
+  text-align: center;
+  font-family: 'Gerbera-Medium', Arial, sans-serif;
+  font-size: 14px;
+  color: #888;
+  padding-bottom: 10px;
+  background: transparent;
+  border: none;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1px;
 }
 
 .calendar-day-header.weekend {
-    color: #FCD619; /* Желтый для выходных */
+  color: #FCD619; /* Желтый для выходных */
 }
 
 .calendar-day {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 90px;
-    border-radius: 16px; /* Мягкий квадрат */
-    background: #F9F9F9;
-    cursor: pointer;
-    font-family: 'Gerbera-Regular', Arial, sans-serif;
-    font-size: 20px;
-    color: #333;
-    border: 1px solid transparent;
-    transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90px;
+  border-radius: 16px; /* Мягкий квадрат */
+  background: #F9F9F9;
+  cursor: pointer;
+  font-family: 'Gerbera-Regular', Arial, sans-serif;
+  font-size: 20px;
+  color: #333;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
 }
 
 .calendar-day small {
-    font-size: 12px;
-    color: #999;
-    margin-top: 6px;
+  font-size: 12px;
+  color: #999;
+  margin-top: 6px;
 }
 
 .calendar-day:hover {
-    background: #FFFFFF;
-    border-color: #FCD619;
-    box-shadow: 0 4px 10px rgba(252, 214, 25, 0.15);
-    transform: translateY(-2px);
+  background: #FFFFFF;
+  border-color: #FCD619;
+  box-shadow: 0 4px 10px rgba(252, 214, 25, 0.15);
+  transform: translateY(-2px);
 }
 
 .calendar-day.selected {
-    background: #FCD619; /* Фирменный желтый */
-    color: #000000;
-    border-color: #FCD619;
+  background: #FCD619; /* Фирменный желтый */
+  color: #000000;
+  border-color: #FCD619;
 }
 
 .calendar-day.selected small {
-    color: #000000;
-    opacity: 0.7;
+  color: #000000;
+  opacity: 0.7;
 }
 
 /* =========================
    TIME SLOTS (BUBBLE STYLE)
    ========================= */
 .time-slots {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
 }
 
 .time-slot {
-    padding: 12px 24px;
-    background: #FFFFFF;
-    border: 1px solid #E0E0E0;
-    border-radius: 50px; /* Полный Bubble */
-    font-family: 'Gerbera-Medium', Arial, sans-serif;
-    font-size: 14px;
-    color: #333;
-    cursor: pointer;
-    transition: all 0.2s ease;
+  padding: 12px 24px;
+  background: #FFFFFF;
+  border: 1px solid #E0E0E0;
+  border-radius: 50px; /* Полный Bubble */
+  font-family: 'Gerbera-Medium', Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .time-slot:hover {
-    border-color: #FCD619;
-    transform: translateY(-1px);
+  border-color: #FCD619;
+  transform: translateY(-1px);
 }
 
 .time-slot.selected {
-    background: #FCD619;
-    border-color: #FCD619;
-    color: #000000;
-    box-shadow: 0 4px 10px rgba(252, 214, 25, 0.3);
+  background: #FCD619;
+  border-color: #FCD619;
+  color: #000000;
+  box-shadow: 0 4px 10px rgba(252, 214, 25, 0.3);
 }
 
 /* =========================
    TICKETS SECTION
    ========================= */
 .tickets-section {
-    background: #FFFFFF;
-    border-radius: 30px;
-    padding: 30px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-    border: none;
+  background: #FFFFFF;
+  border-radius: 30px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  border: none;
 }
 
 .tickets-header {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #F0F0F0;
-    margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #F0F0F0;
+  margin-bottom: 10px;
 }
 
 .header-category, .header-price, .header-quantity {
-    font-family: 'Gerbera-Medium', Arial, sans-serif;
-    font-size: 12px;
-    color: #999;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+  font-family: 'Gerbera-Medium', Arial, sans-serif;
+  font-size: 12px;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .header-price, .header-quantity {
-    text-align: center;
+  text-align: center;
 }
 
 .ticket-row {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 20px;
-    align-items: center;
-    padding: 25px 0;
-    border-bottom: 1px solid #F0F0F0;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 20px;
+  align-items: center;
+  padding: 25px 0;
+  border-bottom: 1px solid #F0F0F0;
 }
 
 .ticket-row:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .ticket-title {
-    font-family: 'Gerbera-Medium', Arial, sans-serif;
-    font-size: 18px;
-    color: #000;
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  font-family: 'Gerbera-Medium', Arial, sans-serif;
+  font-size: 18px;
+  color: #000;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .pushkin-icon {
-    width: 18px;
-    height: auto;
+  width: 18px;
+  height: auto;
 }
 
 .ticket-description {
-    font-size: 13px;
-    color: #777;
+  font-size: 13px;
+  color: #777;
 }
 
 .ticket-price {
-    font-family: 'Gerbera-Medium', Arial, sans-serif;
-    font-size: 18px;
-    color: #000;
-    text-align: center;
+  font-family: 'Gerbera-Medium', Arial, sans-serif;
+  font-size: 18px;
+  color: #000;
+  text-align: center;
 }
 
 /* Кнопки количества (+/-) */
 .quantity-control {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
 }
 
 .quantity-btn {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: #F5F5F5; /* Светлый фон */
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    color: #333;
-    transition: all 0.2s ease;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #F5F5F5; /* Светлый фон */
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #333;
+  transition: all 0.2s ease;
 }
 
 .quantity-btn:hover {
-    background: #FCD619; /* Желтый при наведении */
-    color: #000;
-    transform: scale(1.1);
+  background: #FCD619; /* Желтый при наведении */
+  color: #000;
+  transform: scale(1.1);
 }
 
 .quantity {
-    font-family: 'Gerbera-Bold', Arial, sans-serif;
-    font-size: 18px;
-    min-width: 20px;
-    text-align: center;
+  font-family: 'Gerbera-Bold', Arial, sans-serif;
+  font-size: 18px;
+  min-width: 20px;
+  text-align: center;
 }
 
 /* =========================
    RIGHT SIDE: BOOKING PANEL
    ========================= */
 .booking-panel {
-    background: #FFFFFF;
-    border-radius: 30px;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    border: none;
+  background: #FFFFFF;
+  border-radius: 30px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: none;
 }
 
 .booking-info {
-    background: #F9F9F9;
-    padding: 20px;
-    border-radius: 20px;
-    margin-bottom: 25px;
+  background: #F9F9F9;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 25px;
 }
 
 .museum-name {
-    font-family: 'Gerbera-Bold', Arial, sans-serif;
-    font-size: 16px;
-    color: #000;
-    margin-bottom: 10px;
-    line-height: 1.4;
+  font-family: 'Gerbera-Bold', Arial, sans-serif;
+  font-size: 16px;
+  color: #000;
+  margin-bottom: 10px;
+  line-height: 1.4;
 }
 
 .booking-date {
-    display: block;
-    font-family: 'Gerbera-Regular', Arial, sans-serif;
-    font-size: 14px;
-    color: #555;
-    margin-top: 5px;
+  display: block;
+  font-family: 'Gerbera-Regular', Arial, sans-serif;
+  font-size: 14px;
+  color: #555;
+  margin-top: 5px;
 }
 
 /* Inputs styling */
 .form-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .form-label {
-    display: block;
-    font-family: 'Gerbera-Medium', Arial, sans-serif;
-    font-size: 12px;
-    color: #555;
-    margin-bottom: 8px;
-    margin-left: 10px; /* Выравнивание по скруглению инпута */
+  display: block;
+  font-family: 'Gerbera-Medium', Arial, sans-serif;
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 8px;
+  margin-left: 10px; /* Выравнивание по скруглению инпута */
 }
 
 /* Кнопка "Показать/Скрыть билеты" */
 .show-all-tickets {
-    display: flex; /* Чтобы стрелочка и текст встали ровно */
-    align-items: center;
-    justify-content: center;
-    gap: 10px; /* Отступ между стрелкой и текстом */
-    width: 100%;
+  display: flex; /* Чтобы стрелочка и текст встали ровно */
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Отступ между стрелкой и текстом */
+  width: 100%;
 
-    background: #FFFFFF;
-    border: 1px solid #E0E0E0; /* Нежная серая обводка вместо грубой черной */
-    border-radius: 50px; /* Полное скругление (Bubble) */
+  background: #FFFFFF;
+  border: 1px solid #E0E0E0; /* Нежная серая обводка вместо грубой черной */
+  border-radius: 50px; /* Полное скругление (Bubble) */
 
-    padding: 15px 25px;
-    margin-bottom: 25px;
+  padding: 15px 25px;
+  margin-bottom: 25px;
 
-    font-family: 'Gerbera-Medium', Arial, sans-serif;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #555555; /* Мягкий цвет текста */
+  font-family: 'Gerbera-Medium', Arial, sans-serif;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #555555; /* Мягкий цвет текста */
 
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
 }
 
 .show-all-tickets:hover {
-    border-color: #FCD619; /* Желтая обводка при наведении */
-    color: #000000;
-    background: #FFFDF5; /* Едва заметный желтоватый фон */
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(252, 214, 25, 0.1);
+  border-color: #FCD619; /* Желтая обводка при наведении */
+  color: #000000;
+  background: #FFFDF5; /* Едва заметный желтоватый фон */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(252, 214, 25, 0.1);
 }
 
 .show-all-tickets:active {
-    transform: translateY(0);
-    box-shadow: none;
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 .form-input {
-    width: 100%;
-    padding: 15px 20px;
-    background: #F5F5F5;
-    border: 1px solid transparent;
-    border-radius: 50px; /* Инпуты-баблы */
-    font-family: 'Gerbera-Regular', Arial, sans-serif;
-    font-size: 14px;
-    transition: all 0.3s;
+  width: 100%;
+  padding: 15px 20px;
+  background: #F5F5F5;
+  border: 1px solid transparent;
+  border-radius: 50px; /* Инпуты-баблы */
+  font-family: 'Gerbera-Regular', Arial, sans-serif;
+  font-size: 14px;
+  transition: all 0.3s;
 }
 
 .form-input:focus {
-    outline: none;
-    background: #FFFFFF;
-    border-color: #FCD619;
-    box-shadow: 0 0 0 4px rgba(252, 214, 25, 0.1);
+  outline: none;
+  background: #FFFFFF;
+  border-color: #FCD619;
+  box-shadow: 0 0 0 4px rgba(252, 214, 25, 0.1);
 }
 
 .checkbox-group {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 25px;
-    padding: 0 5px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 25px;
+  padding: 0 5px;
 }
 
 .checkbox {
-    margin-top: 3px;
-    accent-color: #FCD619;
-    width: 16px;
-    height: 16px;
+  margin-top: 3px;
+  accent-color: #FCD619;
+  width: 16px;
+  height: 16px;
 }
 
 .checkbox-label {
-    font-size: 12px;
-    color: #777;
-    line-height: 1.4;
+  font-size: 12px;
+  color: #777;
+  line-height: 1.4;
 }
 
 /* TOTAL & PAY BUTTON */
 .total-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-    padding-top: 20px;
-    border-top: 1px solid #F0F0F0;
-    font-family: 'Gerbera-Bold', Arial, sans-serif;
-    font-size: 20px;
-    color: #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #F0F0F0;
+  font-family: 'Gerbera-Bold', Arial, sans-serif;
+  font-size: 20px;
+  color: #000;
 }
 
 .price-display {
-    color: #000; /* Черный, а не золотой, для строгости */
+  color: #000; /* Черный, а не золотой, для строгости */
 }
 
 /* THE MAIN BUTTON - BUBBLE STYLE */
 .pay-button {
-    background: #FCD619; /* Фирменный желтый */
-    color: #000000;
-    border: none;
-    padding: 18px 30px;
-    border-radius: 50px; /* Максимальное скругление */
-    cursor: pointer;
-    width: 100%;
-    margin-bottom: 15px;
-    font-family: 'Gerbera-Medium', Arial, sans-serif;
-    font-size: 16px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 20px rgba(252, 214, 25, 0.3);
+  background: #FCD619; /* Фирменный желтый */
+  color: #000000;
+  border: none;
+  padding: 18px 30px;
+  border-radius: 50px; /* Максимальное скругление */
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 15px;
+  font-family: 'Gerbera-Medium', Arial, sans-serif;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(252, 214, 25, 0.3);
 }
 
 .pay-button:hover {
-    background: #EEC814;
-    transform: translateY(-2px);
-    box-shadow: 0 15px 25px rgba(252, 214, 25, 0.4);
+  background: #EEC814;
+  transform: translateY(-2px);
+  box-shadow: 0 15px 25px rgba(252, 214, 25, 0.4);
 }
 
 .pay-button:active {
-    transform: translateY(1px);
-    box-shadow: 0 5px 10px rgba(252, 214, 25, 0.3);
+  transform: translateY(1px);
+  box-shadow: 0 5px 10px rgba(252, 214, 25, 0.3);
 }
 
 .payment-info {
-    text-align: center;
-    font-size: 12px;
-    color: #999;
-    background: transparent;
-    border: none;
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+  background: transparent;
+  border: none;
 }
 
 /* =========================
    RESPONSIVE
    ========================= */
 @media (max-width: 1024px) {
-    .main-content {
-        flex-direction: column;
-    }
+  .main-content {
+    flex-direction: column;
+  }
 
-    .right-section {
-        width: 100%;
-        position: static;
-        margin-top: 40px;
-    }
+  .right-section {
+    width: 100%;
+    position: static;
+    margin-top: 40px;
+  }
 
-    .calendar-grid {
-        gap: 5px;
-    }
+  .calendar-grid {
+    gap: 5px;
+  }
 
-    .calendar-day {
-        height: 70px;
-        font-size: 16px;
-    }
+  .calendar-day {
+    height: 70px;
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 600px) {
-    .order-page-container {
-        padding: 20px;
-    }
+  .order-page-container {
+    padding: 20px;
+  }
 
-    .title {
-        font-size: 32px;
-    }
+  .title {
+    font-size: 32px;
+  }
 
-    .tickets-header {
-        display: none; /* Скрываем заголовки таблицы на мобилке */
-    }
+  .tickets-header {
+    display: none; /* Скрываем заголовки таблицы на мобилке */
+  }
 
-    .ticket-row {
-        grid-template-columns: 1fr;
-        gap: 15px;
-        text-align: center;
-    }
+  .ticket-row {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    text-align: center;
+  }
 
-    .ticket-title {
-        justify-content: center;
-    }
+  .ticket-title {
+    justify-content: center;
+  }
 }

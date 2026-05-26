@@ -10,13 +10,13 @@
 
 {% block content %}
 
-    <!-- Order Page Container -->
-    <div class="order-page-container">
-        <!-- Page Title -->
-        <h1 class="title">Покупка билетов</h1>
+<!-- Order Page Container -->
+<div class="order-page-container">
+    <!-- Page Title -->
+    <h1 class="title">Покупка билетов</h1>
 
-        <!-- Main Content -->
-        <div class="main-content">
+    <!-- Main Content -->
+    <div class="main-content">
         <!-- Left Section -->
         <div class="left-section">
             <!-- Museum Info -->
@@ -43,9 +43,10 @@
                     {% set unique_dates = sessions | map(attribute='session_date') | unique | list %}
                     {% for date in unique_dates[:7] %}
                     {% set session = sessions | selectattr('session_date', 'equalto', date) | first %}
-                    <div class="calendar-day {% if loop.first %}selected{% endif %} {% if session.day_of_week in ['СБ', 'ВС'] %}weekend{% endif %}"
-                         data-date="{{ date }}"
-                         data-day-of-week="{{ session.day_of_week }}">
+                    <div
+                        class="calendar-day {% if loop.first %}selected{% endif %} {% if session.day_of_week in ['СБ', 'ВС'] %}weekend{% endif %}"
+                        data-date="{{ date }}"
+                        data-day-of-week="{{ session.day_of_week }}">
                         {{ date.day }}<br><small>{{ date.strftime('%b') }}</small>
                     </div>
                     {% endfor %}
@@ -71,7 +72,8 @@
                         <div class="ticket-title">
                             {{ category.title }}
                             {% if category.pushkin_card_allowed %}
-                            <img src="{{ url_for('static', filename='images/icon/pushkin-icon.png') }}" alt="Пушкинская карта" class="pushkin-icon">
+                            <img src="{{ url_for('static', filename='images/icon/pushkin-icon.png') }}"
+                                 alt="Пушкинская карта" class="pushkin-icon">
                             {% endif %}
                         </div>
                         {% if category.description %}
@@ -80,9 +82,11 @@
                     </div>
                     <div class="ticket-price">{{ category.price }} ₽</div>
                     <div class="quantity-control">
-                        <button class="quantity-btn" data-action="decrease" data-category-id="{{ category.id }}">−</button>
+                        <button class="quantity-btn" data-action="decrease" data-category-id="{{ category.id }}">−
+                        </button>
                         <span class="quantity" data-category-id="{{ category.id }}">0</span>
-                        <button class="quantity-btn" data-action="increase" data-category-id="{{ category.id }}">+</button>
+                        <button class="quantity-btn" data-action="increase" data-category-id="{{ category.id }}">+
+                        </button>
                     </div>
                 </div>
                 {% endfor %}
@@ -105,7 +109,8 @@
                     <div class="price-display" id="total-price">= 0 ₽</div>
                 </div>
 
-                <button class="show-all-tickets" id="toggle-tickets-btn" style="display: none;">▼ ПОКАЗАТЬ ВСЕ БИЛЕТЫ</button>
+                <button class="show-all-tickets" id="toggle-tickets-btn" style="display: none;">▼ ПОКАЗАТЬ ВСЕ БИЛЕТЫ
+                </button>
 
                 <div class="total-section">
                     <span>ИТОГО:</span>
@@ -131,8 +136,10 @@
 
                     <div class="form-group">
                         <label class="form-label">Телефон</label>
-                        <div style="display: flex; align-items: center; border: 1px solid #e0e0e0; border-radius: 4px; padding: 10px;">
-                            <input type="tel" id="phone" name="phone" style="border: none; outline: none; flex: 1;" placeholder="+7 (___) ___-__-__" maxlength="18" required>
+                        <div
+                            style="display: flex; align-items: center; border: 1px solid #e0e0e0; border-radius: 4px; padding: 10px;">
+                            <input type="tel" id="phone" name="phone" style="border: none; outline: none; flex: 1;"
+                                   placeholder="+7 (___) ___-__-__" maxlength="18" required>
                         </div>
                     </div>
 
@@ -152,11 +159,14 @@
                     <button type="submit" class="pay-button">ОПЛАТИТЬ</button>
                 </form>
 
-                <button type="button" id="pushkin-pay-btn" class="pay-button pushkin-pay-button" disabled style="margin-top: 10px; background-color: #9e9e9e; cursor: not-allowed;">
-                    <img src="{{ url_for('static', filename='images/icon/pushkin-icon.png') }}" alt="" style="height: 18px; vertical-align: middle; margin-right: 6px;">
+                <button type="button" id="pushkin-pay-btn" class="pay-button pushkin-pay-button" disabled
+                        style="margin-top: 10px; background-color: #9e9e9e; cursor: not-allowed;">
+                    <img src="{{ url_for('static', filename='images/icon/pushkin-icon.png') }}" alt=""
+                         style="height: 18px; vertical-align: middle; margin-right: 6px;">
                     ОПЛАТИТЬ ПУШКИНСКОЙ КАРТОЙ
                 </button>
-                <div id="pushkin-pay-info" class="payment-info" style="margin-top: 8px; font-size: 12px; color: #999; text-align: center;">
+                <div id="pushkin-pay-info" class="payment-info"
+                     style="margin-top: 8px; font-size: 12px; color: #999; text-align: center;">
                     ОПЛАТА ПУШКИНСКОЙ КАРТОЙ<br>НЕДОСТУПНА
                 </div>
             </div>
@@ -167,35 +177,92 @@
     <script>
         // Данные о билетах и ценах
         const ticketPrices = {
-            {% for category in ticket_categories %}
-            {{ category.id }}: {{ category.price }},
-            {% endfor %}
-        };
+        {%
+            for category in ticket_categories %
+        }
+        {
+            {
+                category.id
+            }
+        }
+        :
+        {
+            {
+                category.price
+            }
+        }
+        ,
+        {%
+            endfor %
+        }
+        }
+        ;
 
         // Данные о названиях категорий
         const ticketNames = {
-            {% for category in ticket_categories %}
-            {{ category.id }}: "{{ category.title }}",
-            {% endfor %}
-        };
+        {%
+            for category in ticket_categories %
+        }
+        {
+            {
+                category.id
+            }
+        }
+        :
+        "{{ category.title }}",
+        { % endfor %
+        }
+        }
+        ;
 
         // Флаг разрешения Пушкинской карты для каждой категории
         const pushkinCardAllowed = {
-            {% for category in ticket_categories %}
-            {{ category.id }}: {{ 1 if category.pushkin_card_allowed else 0 }},
-            {% endfor %}
-        };
+        {%
+            for category in ticket_categories %
+        }
+        {
+            {
+                category.id
+            }
+        }
+        :
+        {
+            {
+                1
+                if category.pushkin_card_allowed else
+                0
+            }
+        }
+        ,
+        {%
+            endfor %
+        }
+        }
+        ;
 
         // Данные о сеансах из БД
         const sessionsData = [
-            {% for session in sessions %}
+            { %
+        for session in sessions %}
+        {
+            date: "{{ session.session_date }}",
+                time
+        :
+            "{{ '%02d:%02d' % (session.session_time.seconds // 3600, (session.session_time.seconds % 3600) // 60) }}",
+                available
+        :
             {
-                date: "{{ session.session_date }}",
-                time: "{{ '%02d:%02d' % (session.session_time.seconds // 3600, (session.session_time.seconds % 3600) // 60) }}",
-                available: {{ session.available_tickets }}
-            },
-            {% endfor %}
-        ];
+                {
+                    session.available_tickets
+                }
+            }
+        }
+        ,
+        {%
+            endfor %
+        }
+        ]
+        ;
 
         let selectedDate = null;
         let selectedTime = null;
@@ -204,7 +271,7 @@
 
         // Обработка выбора даты
         document.querySelectorAll('.calendar-day').forEach(day => {
-            day.addEventListener('click', function() {
+            day.addEventListener('click', function () {
                 document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
                 this.classList.add('selected');
                 selectedDate = this.getAttribute('data-date');
@@ -240,7 +307,7 @@
                 timeSlot.textContent = session.time;
 
                 // Добавляем обработчик клика
-                timeSlot.addEventListener('click', function() {
+                timeSlot.addEventListener('click', function () {
                     document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
                     this.classList.add('selected');
                     selectedTime = this.getAttribute('data-time');
@@ -276,7 +343,7 @@
 
         // Обработка кнопок количества билетов
         document.querySelectorAll('.quantity-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function () {
                 // Проверяем, что выбрана дата и время
                 if (!selectedDate || !selectedTime) {
                     alert('Пожалуйста, сначала выберите дату и время сеанса');
@@ -301,7 +368,7 @@
         });
 
         // Обработка кнопки "Показать все билеты"
-        document.getElementById('toggle-tickets-btn').addEventListener('click', function() {
+        document.getElementById('toggle-tickets-btn').addEventListener('click', function () {
             ticketsExpanded = !ticketsExpanded;
             updateBookingInfo();
         });
@@ -342,7 +409,7 @@
                 for (let i = 0; i < displayCount; i++) {
                     const ticket = selectedTicketsList[i];
                     const ticketText = ticket.quantity === 1 ? 'билет' :
-                                      ticket.quantity < 5 ? 'билета' : 'билетов';
+                        ticket.quantity < 5 ? 'билета' : 'билетов';
                     ticketsHTML += `
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: 14px;">
                             <div>
@@ -392,7 +459,7 @@
                 }
             }
 
-            const pushkinBtn  = document.getElementById('pushkin-pay-btn');
+            const pushkinBtn = document.getElementById('pushkin-pay-btn');
             const pushkinInfo = document.getElementById('pushkin-pay-info');
 
             // Кнопка активна: выбраны только пушкинские билеты + дата/время
@@ -416,7 +483,7 @@
         }
 
         // Обработка отправки формы
-        document.getElementById('order-form').addEventListener('submit', async function(e) {
+        document.getElementById('order-form').addEventListener('submit', async function (e) {
             e.preventDefault();
 
             // Проверка выбора даты и времени
@@ -459,7 +526,7 @@
         });
 
         // Инициализация при загрузке страницы
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Блокируем выбор билетов при загрузке
             disableTicketSelection();
 
@@ -475,7 +542,7 @@
         });
 
         // ======== Кнопка оплаты Пушкинской картой ========
-        document.getElementById('pushkin-pay-btn').addEventListener('click', function() {
+        document.getElementById('pushkin-pay-btn').addEventListener('click', function () {
             // Проверка даты и времени
             if (!selectedDate || !selectedTime) {
                 alert('Пожалуйста, выберите дату и время сеанса');
@@ -492,11 +559,11 @@
             }
             // Устанавливаем метод оплаты и сабмитим форму
             document.getElementById('payment-method').value = 'pushkin_card';
-            document.getElementById('order-form').dispatchEvent(new Event('submit', { cancelable: true }));
+            document.getElementById('order-form').dispatchEvent(new Event('submit', {cancelable: true}));
         });
 
         // ======== Маска телефона РФ: +7 (XXX) XXX-XX-XX ========
-        (function() {
+        (function () {
             const phoneInput = document.getElementById('phone');
 
             function formatPhone(digits) {
@@ -521,12 +588,12 @@
                 return raw.substring(0, 10);
             }
 
-            phoneInput.addEventListener('input', function() {
+            phoneInput.addEventListener('input', function () {
                 const digits = getDigits(this.value);
                 this.value = formatPhone(digits);
             });
 
-            phoneInput.addEventListener('keydown', function(e) {
+            phoneInput.addEventListener('keydown', function (e) {
                 // Разрешаем: backspace, delete, стрелки, tab, home, end
                 if ([8, 46, 37, 38, 39, 40, 9, 36, 35].includes(e.keyCode)) return;
                 // Блокируем всё кроме цифр (учитываем Shift+цифра = спецсимвол)
@@ -534,13 +601,13 @@
                 if (!/^[0-9]$/.test(e.key)) e.preventDefault();
             });
 
-            phoneInput.addEventListener('focus', function() {
+            phoneInput.addEventListener('focus', function () {
                 if (this.value === '' || this.value === '+7') {
                     this.value = '+7 (';
                 }
             });
 
-            phoneInput.addEventListener('blur', function() {
+            phoneInput.addEventListener('blur', function () {
                 if (this.value === '+7 (' || this.value === '+7') {
                     this.value = '';
                 }
@@ -548,4 +615,4 @@
         })();
     </script>
 
-{% endblock %}
+    {% endblock %}

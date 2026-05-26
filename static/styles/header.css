@@ -174,10 +174,12 @@ body {
 .burger-icon.active span:nth-child(1) {
   transform: translateY(10.5px) rotate(45deg);
 }
+
 .burger-icon.active span:nth-child(2) {
   opacity: 0;
   transform: translateX(10px);
 }
+
 .burger-icon.active span:nth-child(3) {
   transform: translateY(-10.5px) rotate(-45deg);
 }
@@ -189,7 +191,7 @@ body {
   width: 260px; /* Компактная ширина */
   background: #FFFFFF;
   border-radius: 20px; /* Форма пилюли/карточки */
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1); /* Легкая тень */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Легкая тень */
   z-index: 1001;
   display: flex;
   flex-direction: column;

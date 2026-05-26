@@ -152,13 +152,16 @@ def generate_weekly_schedule():
 # ФУНКЦИИ ДЛЯ ticket_bookings
 # ===================================================================================
 
-def create_booking(session_id, ticket_category_id, user_email, user_phone, quantity, total_price, payment_method, booking_code):
+def create_booking(session_id, ticket_category_id, user_email, user_phone, quantity, total_price, payment_method,
+                   booking_code):
     query = """
         INSERT INTO ticket_bookings
         (session_id, ticket_category_id, user_email, user_phone, quantity, total_price, payment_method, booking_status, booking_code)
         VALUES (%s, %s, %s, %s, %s, %s, %s, 'pending', %s)
     """
-    return execute_query(query, (session_id, ticket_category_id, user_email, user_phone, quantity, total_price, payment_method, booking_code), fetch=False)
+    return execute_query(query,
+                         (session_id, ticket_category_id, user_email, user_phone, quantity, total_price, payment_method,
+                          booking_code), fetch=False)
 
 
 # ===================================================================================
@@ -172,7 +175,9 @@ def create_order(full_name, email, phone, country_code, booking_id, order_number
         VALUES (%s, %s, %s, %s, %s, %s, 'new', %s, %s, %s, 'unpaid')
     """
     qr_code_url = f"/qr/{qr_code_token}"
-    return execute_query(query, (full_name, email, phone, country_code, booking_id, order_number, qr_code_token, qr_code_url, total_amount), fetch=False)
+    return execute_query(query,
+                         (full_name, email, phone, country_code, booking_id, order_number, qr_code_token, qr_code_url,
+                          total_amount), fetch=False)
 
 
 def get_order_by_id(order_id):
@@ -180,6 +185,7 @@ def get_order_by_id(order_id):
     query = "SELECT * FROM orders WHERE id = %s"
     result = execute_query(query, (order_id,))
     return result[0] if result else None
+
 
 # ===================================================================================
 # ФУНКЦИИ ДЛЯ АДМИНКИ
@@ -206,6 +212,7 @@ def insert_content(category, title, short_desc, img_card,
               b_img1, b_txt1, b_img2, b_txt2, b_img3, b_txt3)
     return execute_query(query, params, fetch=False)
 
+
 def update_content(content_id, title, short_desc, img_card,
                    date_event, location_event,
                    main_image, main_text,
@@ -227,15 +234,18 @@ def update_content(content_id, title, short_desc, img_card,
               b_img1, b_txt1, b_img2, b_txt2, b_img3, b_txt3, content_id)
     return execute_query(query, params, fetch=False)
 
+
 def delete_content(content_id):
     """Удалить контент"""
     query = "DELETE FROM data_content WHERE id = %s"
     return execute_query(query, (content_id,), fetch=False)
 
+
 def get_all_orders():
     """Получить все заказы для админки"""
     query = "SELECT * FROM orders ORDER BY id DESC"
     return execute_query(query)
+
 
 def update_order_status(order_id, status):
     """Обновить статус заказа"""

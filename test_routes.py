@@ -7,6 +7,7 @@ import database as db
 
 test_bp = Blueprint('test_routes', __name__)
 
+
 @test_bp.route('/test-db')
 def test_db():
     """Тестирование подключения к БД"""

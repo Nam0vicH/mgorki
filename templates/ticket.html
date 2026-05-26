@@ -9,30 +9,35 @@
         margin: 50px auto;
         background: #fff;
         border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         overflow: hidden;
         font-family: 'Gerbera-Regular', Arial, sans-serif;
     }
+
     .ticket-header {
         background-color: #ffd700;
         color: #333;
         padding: 30px;
         text-align: center;
     }
+
     .ticket-header h1 {
         margin: 0;
         font-family: 'Vetrino', sans-serif;
         font-size: 28px;
     }
+
     .ticket-body {
         padding: 40px 30px;
         text-align: center;
     }
+
     .success-icon {
         color: #28a745;
         font-size: 48px;
         margin-bottom: 20px;
     }
+
     .qr-code-wrapper {
         margin: 30px 0;
         padding: 20px;
@@ -41,25 +46,30 @@
         border-radius: 12px;
         border: 1px dashed #ccc;
     }
+
     .qr-code-wrapper img {
         width: 250px;
         height: 250px;
         display: block;
     }
+
     .ticket-details {
         text-align: left;
         margin-top: 20px;
         border-top: 1px solid #eee;
         padding-top: 20px;
     }
+
     .ticket-details p {
         margin: 10px 0;
         font-size: 16px;
         color: #555;
     }
+
     .ticket-details strong {
         color: #333;
     }
+
     .btn-home {
         display: inline-block;
         background-color: #333;
@@ -72,6 +82,7 @@
         margin-top: 30px;
         transition: background 0.3s;
     }
+
     .btn-home:hover {
         background-color: #555;
     }
@@ -89,7 +100,7 @@
         </div>
         <h2>Оплата прошла успешно!</h2>
         <p>Покажите этот QR-код на входе</p>
-        
+
         <div class="qr-code-wrapper">
             <img src="{{ qr_image_url }}" alt="QR Code билета">
         </div>

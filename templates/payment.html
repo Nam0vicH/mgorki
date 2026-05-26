@@ -11,17 +11,20 @@
         padding: 30px;
         background: #fff;
         border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     }
+
     .payment-header {
         text-align: center;
         margin-bottom: 30px;
     }
+
     .payment-header h1 {
         font-family: 'Vetrino', sans-serif;
         font-size: 28px;
         color: #333;
     }
+
     .payment-details {
         margin-bottom: 30px;
         padding: 20px;
@@ -29,17 +32,21 @@
         border-radius: 8px;
         font-family: 'Gerbera-Regular', Arial, sans-serif;
     }
+
     .payment-details p {
         margin: 5px 0;
         font-size: 16px;
         color: #555;
     }
+
     .payment-details strong {
         color: #333;
     }
+
     .form-group {
         margin-bottom: 20px;
     }
+
     .form-group label {
         display: block;
         margin-bottom: 8px;
@@ -47,6 +54,7 @@
         font-weight: bold;
         color: #333;
     }
+
     .form-group input {
         width: 100%;
         padding: 12px 15px;
@@ -56,19 +64,23 @@
         font-size: 16px;
         box-sizing: border-box;
     }
+
     .form-row {
         display: flex;
         gap: 15px;
     }
+
     .form-row .form-group {
         flex: 1;
     }
+
     .payment-actions {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-top: 30px;
     }
+
     .btn-pay {
         background-color: #ffd700;
         color: #333;
@@ -81,9 +93,11 @@
         transition: background 0.3s;
         font-family: 'Gerbera-Regular', Arial, sans-serif;
     }
+
     .btn-pay:hover {
         background-color: #e6c200;
     }
+
     .btn-autofill {
         background-color: #eee;
         color: #333;
@@ -95,6 +109,7 @@
         transition: background 0.3s;
         font-family: 'Gerbera-Regular', Arial, sans-serif;
     }
+
     .btn-autofill:hover {
         background-color: #ddd;
     }
@@ -141,11 +156,11 @@
 </div>
 
 <script>
-function autofill() {
-    document.getElementById('card_number').value = '4276 1234 5678 9012';
-    document.getElementById('expiry_date').value = '12/26';
-    document.getElementById('cvc').value = '123';
-    document.getElementById('cardholder').value = 'IVAN IVANOV';
-}
+    function autofill() {
+        document.getElementById('card_number').value = '4276 1234 5678 9012';
+        document.getElementById('expiry_date').value = '12/26';
+        document.getElementById('cvc').value = '123';
+        document.getElementById('cardholder').value = 'IVAN IVANOV';
+    }
 </script>
 {% endblock %}
