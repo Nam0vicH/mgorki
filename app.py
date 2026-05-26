@@ -15,7 +15,7 @@ import database as db
 
 # Получаем абсолютный путь к текущей директории
 template_dir = os.path.abspath(os.path.dirname(__file__))
-static_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'static'))
+static_dir = os.path.abspath(os.path.join(template_dir, 'static'))
 
 app = Flask(__name__,
             template_folder=os.path.join(template_dir, 'templates'),
@@ -100,7 +100,7 @@ def create_order():
         email = request.form.get('email')
         phone = request.form.get('phone')
         country_code = request.form.get('country_code', '+7')
-        subscribe_news = request.form.get('subscribe_news') == 'on'
+        # subscribe_news = request.form.get('subscribe_news') == 'on'
         accept_terms = request.form.get('accept_terms') == 'on'
         payment_method = request.form.get('payment_method', 'bank_card')
 
@@ -174,29 +174,29 @@ def create_order():
             'total_amount': float(total_amount)
         })
 
-    except Exception as e:
-        print(f"Error creating order: {str(e)}")
+    except Exception as err:
+        print(f"Error creating order: {str(err)}")
         import traceback
         traceback.print_exc()
-        return jsonify({'success': False, 'error': str(e)})
+        return jsonify({'success': False, 'error': str(err)})
 
 
 @app.route('/payment/<int:order_id>')
 def payment(order_id):
     """Страница оплаты заказа"""
-    order = db.get_order_by_id(order_id)
-    if not order:
+    order_data = db.get_order_by_id(order_id)
+    if not order_data:
         abort(404)
-    if order.get('payment_status') == 'paid':
+    if order_data.get('payment_status') == 'paid':
         return redirect(url_for('ticket', order_id=order_id))
-    return render_template('payment.html', order=order)
+    return render_template('payment.html', order=order_data)
 
 
 @app.route('/process-payment/<int:order_id>', methods=['POST'])
 def process_payment(order_id):
     """Обработка оплаты (демонстрация)"""
-    order = db.get_order_by_id(order_id)
-    if not order:
+    order_data = db.get_order_by_id(order_id)
+    if not order_data:
         abort(404)
 
     # Обновляем статус оплаты в БД
@@ -208,27 +208,27 @@ def process_payment(order_id):
 @app.route('/ticket/<int:order_id>')
 def ticket(order_id):
     """Страница с билетом и QR-кодом после успешной оплаты"""
-    order = db.get_order_by_id(order_id)
-    if not order:
+    order_data = db.get_order_by_id(order_id)
+    if not order_data:
         abort(404)
-    if order.get('payment_status') != 'paid':
+    if order_data.get('payment_status') != 'paid':
         return redirect(url_for('payment', order_id=order_id))
 
     # Формируем URL для QR-кода на основе токена
-    qr_data = request.host_url.rstrip('/') + url_for('verify_qr', token=order.get('qr_code_token'))
+    qr_data = request.host_url.rstrip('/') + url_for('verify_qr', token=order_data.get('qr_code_token'))
     # Используем публичный API для генерации картинки QR
     qr_image_url = f"https://api.qrserver.com/v1/create-qr-code/?size=250x250&data={qr_data}"
 
-    return render_template('ticket.html', order=order, qr_image_url=qr_image_url)
+    return render_template('ticket.html', order=order_data, qr_image_url=qr_image_url)
 
 
 @app.route('/qr/<token>')
 def verify_qr(token):
     """Маршрут для проверки QR-кода (заглушка)"""
-    order = db.execute_query("SELECT * FROM orders WHERE qr_code_token = %s", (token,))
-    if not order:
+    order_data = db.execute_query("SELECT * FROM orders WHERE qr_code_token = %s", (token,))
+    if not order_data:
         return "Недействительный QR-код"
-    return f"Билет действителен. Заказ: {order[0]['order_number']}"
+    return f"Билет действителен. Заказ: {order_data[0]['order_number']}"
 
 
 @app.route('/museum_programs/<int:exhibition_id>')
@@ -300,7 +300,10 @@ def admin_dashboard():
     return render_template('admin/content_list.html',
                            title_page="Дашборд (Музеи)",
                            items=db.get_content_by_category('museums'),
-                           category='museums')
+                           category='museums',
+                           count_museums=count_museums,
+                           count_orders=count_orders,
+                           recent_orders=recent_orders)
 
 
 @app.route('/admin/content/<category>')
@@ -342,7 +345,8 @@ def admin_edit(category, content_id):
         b_txt2 = request.form.get('block_text_2')
         b_txt3 = request.form.get('block_text_3')
 
-        def save_file(file_obj, current_path):
+        from werkzeug.datastructures import FileStorage
+        def save_file(file_obj: FileStorage | None, current_path: str) -> str:
             if file_obj and file_obj.filename:
                 folder_map = {
                     'museums': 'museums',
@@ -382,10 +386,10 @@ def admin_edit(category, content_id):
     return render_template('admin/edit_form.html', item=item, category=category)
 
 
-@app.route('/admin/delete/<int:id>')
+@app.route('/admin/delete/<int:item_id>')
 @login_required
-def admin_delete(id):
-    db.delete_content(id)
+def admin_delete(item_id):
+    db.delete_content(item_id)
     return redirect(request.referrer or url_for('admin_dashboard'))
 
 
