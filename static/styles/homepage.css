@@ -538,7 +538,7 @@
   margin-top: 15px; /* Отступ от даты/места до ссылки */
   font-family: 'Gerbera-Regular', Arial, sans-serif;
   font-size: 15px;
-  color: #8C9E46;
+  color: #FCD619;
   text-decoration: none;
   transition: opacity 0.3s;
 }
@@ -741,7 +741,7 @@
   margin-bottom: 25px;
   font-family: 'Gerbera-Regular', Arial, sans-serif;
   font-size: 15px;
-  color: #8C9E46;
+  color: #FCD619;
   text-decoration: none;
   transition: opacity 0.3s;
 }

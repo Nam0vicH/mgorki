@@ -118,7 +118,7 @@ def generate_weekly_schedule():
         cursor = connection.cursor()
 
         # 1. Удаляем всё, что старше сегодняшнего дня
-        cursor.execute("DELETE FROM session_schedule WHERE session_date < CURDATE()")
+        cursor.execute("UPDATE session_schedule SET is_active = 0 WHERE session_date < CURDATE()")
 
         # 2. Создаем расписание на 7 дней вперед (от 0 до 6)
         query = """
