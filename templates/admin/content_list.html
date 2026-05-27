@@ -43,7 +43,7 @@
             <td>
                 <a href="{{ url_for('admin_edit', category=category, content_id=item.id) }}"
                    class="btn btn-primary btn-sm">Изм</a>
-                <a href="{{ url_for('admin_delete', id=item.id) }}" class="btn btn-danger btn-sm"
+                <a href="{{ url_for('admin_delete', item_id=item.id) }}" class="btn btn-danger btn-sm"
                    onclick="return confirm('Удалить?')">Удл</a>
             </td>
         </tr>

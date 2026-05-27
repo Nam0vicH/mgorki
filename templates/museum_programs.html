@@ -14,10 +14,10 @@
 <div class="page-wrapper">
 
     <!-- Карточка экскурсии -->
-    <div class="excursion-card">
+    <div class="poster-detail-layout">
 
         <!-- Левая часть: Контент -->
-        <div class="card-content">
+        <div class="poster-detail-content">
 
             <!-- Теги (Цена и Возраст) -->
             <div class="tags">
@@ -48,7 +48,7 @@
         </div>
 
         <!-- Правая часть: Изображение -->
-        <div class="card-image-container">
+        <div class="poster-detail-photo">
             <img src="{{ url_for('static', filename=exhibition.img_card) }}" alt="{{ exhibition.title_card }}"
                 loading="lazy" decoding="async">
         </div>

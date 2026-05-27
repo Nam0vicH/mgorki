@@ -60,6 +60,18 @@ def get_content_by_id(content_id):
     return result[0] if result else None
 
 
+def search_content(query_text):
+    """Поиск по названию или описанию (выставки, экскурсии, афиша)"""
+    query = """
+        SELECT id, category, title_card, short_description_card, img_card 
+        FROM data_content 
+        WHERE (title_card LIKE %s OR short_description_card LIKE %s)
+          AND category IN ('virtual_exhibitions', 'poster', 'museums')
+    """
+    like_param = f"%{query_text}%"
+    return execute_query(query, (like_param, like_param))
+
+
 # ===================================================================================
 # ФУНКЦИИ ДЛЯ ticket_categories
 # ===================================================================================

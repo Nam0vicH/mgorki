@@ -258,6 +258,41 @@ def about_the_museum():
     return render_template('about_the_museum.html')
 
 
+@app.route('/api/search')
+def api_search():
+    q = request.args.get('q', '')
+    if not q or len(q) < 2:
+        return jsonify([])
+    
+    results = db.search_content(q)
+    formatted = []
+    
+    for r in (results or []):
+        url = '#'
+        if r['category'] == 'museums':
+            url = url_for('about_us', museum_id=r['id'])
+        elif r['category'] == 'virtual_exhibitions':
+            url = url_for('museum_programs', exhibition_id=r['id'])
+        elif r['category'] == 'poster':
+            url = url_for('poster_detail', poster_id=r['id'])
+            
+        desc = r['short_description_card'] or ''
+        # Очищаем от HTML тегов если есть
+        import re
+        desc = re.sub(r'<[^>]+>', '', desc)
+        if len(desc) > 100:
+            desc = desc[:100] + '...'
+            
+        formatted.append({
+            'title': r['title_card'],
+            'desc': desc,
+            'url': url,
+            'image': url_for('static', filename=r['img_card']) if r['img_card'] else ''
+        })
+        
+    return jsonify(formatted)
+
+
 # ===================================================================================
 # АДМИН ПАНЕЛЬ
 # ===================================================================================
@@ -319,7 +354,7 @@ def admin_dashboard():
 def admin_content(category):
     titles = {
         'museums': 'Музеи',
-        'virtual_exhibitions': 'Виртуальные выставки',
+        'virtual_exhibitions': 'Музейные программы',
         'poster': 'Афиша'
     }
     items = db.get_content_by_category(category) or []

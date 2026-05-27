@@ -27,4 +27,81 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     }
+
+    // --- Логика поиска ---
+    const searchIcon = document.querySelector('.search-icon');
+    const searchModal = document.getElementById('searchModal');
+    const searchClose = document.getElementById('searchClose');
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+    
+    if (searchIcon && searchModal) {
+        // Открытие поиска
+        searchIcon.addEventListener('click', () => {
+            searchModal.classList.add('active');
+            setTimeout(() => searchInput.focus(), 100);
+        });
+        
+        // Закрытие по крестику
+        searchClose.addEventListener('click', () => {
+            searchModal.classList.remove('active');
+        });
+        
+        // Закрытие при клике по фону
+        searchModal.addEventListener('click', (e) => {
+            if (e.target === searchModal) {
+                searchModal.classList.remove('active');
+            }
+        });
+        
+        // Закрытие по Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && searchModal.classList.contains('active')) {
+                searchModal.classList.remove('active');
+            }
+        });
+        
+        let debounceTimer;
+        searchInput.addEventListener('input', (e) => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                const query = e.target.value.trim();
+                
+                if (query.length >= 2) {
+                    fetch('/api/search?q=' + encodeURIComponent(query))
+                        .then(res => res.json())
+                        .then(data => {
+                            searchResults.innerHTML = '';
+                            if (data.length === 0) {
+                                searchResults.innerHTML = '<p style="text-align:center; color:#666; font-family:\'Gerbera-Regular\'; margin-top:20px;">Ничего не найдено</p>';
+                                return;
+                            }
+                            data.forEach(item => {
+                                const el = document.createElement('a');
+                                el.href = item.url;
+                                el.className = 'search-result-item';
+                                
+                                const imgHtml = item.image 
+                                    ? `<img src="${item.image}" class="search-result-img" alt="">` 
+                                    : '<div class="search-result-img" style="background:#eee"></div>';
+                                    
+                                el.innerHTML = `
+                                    ${imgHtml}
+                                    <div class="search-result-info">
+                                        <h4>${item.title}</h4>
+                                        <p>${item.desc}</p>
+                                    </div>
+                                `;
+                                searchResults.appendChild(el);
+                            });
+                        })
+                        .catch(err => {
+                            console.error('Ошибка поиска:', err);
+                        });
+                } else {
+                    searchResults.innerHTML = '';
+                }
+            }, 300);
+        });
+    }
 });

@@ -243,7 +243,10 @@
                 const timeSlot = document.createElement('div');
                 timeSlot.className = 'time-slot';
                 timeSlot.setAttribute('data-time', session.time);
-                timeSlot.textContent = session.time;
+                timeSlot.innerHTML = `
+                    <div style="font-weight: bold;">${session.time}</div>
+                    <div style="font-size: 11px; margin-top: 4px; color: #666;">Доступно: ${session.available}</div>
+                `;
 
                 // Добавляем обработчик клика
                 timeSlot.addEventListener('click', function () {

@@ -11,10 +11,11 @@
 
     <!-- Right Section -->
     <div class="header-right">
-        <!-- List Icon (Иконка списка)-->
-        <div class="list-icon"></div>
-        <!-- Buy Ticket Button (Кнопка купить билет)-->
-        <a href="{{ url_for('order') }}" class="buy-ticket">Купить билет</a>
+        <!-- Buy Ticket Pill -->
+        <a href="{{ url_for('order') }}" class="buy-ticket-pill">
+            <div class="list-icon"></div>
+            <span class="buy-ticket-text">Купить билет</span>
+        </a>
         <!-- Search Icon (Иконка поиска)-->
         <div class="search-icon"></div>
 
@@ -36,3 +37,15 @@
         </div>
     </div>
 </header>
+
+<!-- Search Modal -->
+<div class="search-modal" id="searchModal">
+    <div class="search-modal-content">
+        <button class="search-close" id="searchClose">&times;</button>
+        <h2 style="font-family: 'Vetrino', serif; font-size: 32px; margin-bottom: 20px; color: #000;">Поиск по сайту</h2>
+        <input type="text" id="searchInput" class="search-input" placeholder="Введите название выставки, экскурсии или мероприятия..." autocomplete="off">
+        <div id="searchResults" class="search-results">
+            <!-- Results will go here -->
+        </div>
+    </div>
+</div>
