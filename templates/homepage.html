@@ -43,11 +43,8 @@
             <div class="museum-card">
                 <!-- Контейнер для картинки и темного блока с текстом -->
                 <div class="museum-content-wrapper">
-                    <img src="{{ url_for('static', filename=museum.img_card) }}"
-                         alt="{{ museum.title_card }}"
-                         class="museum-card-image"
-                         loading="lazy"
-                         decoding="async">
+                    <img src="{{ url_for('static', filename=museum.img_card) }}" alt="{{ museum.title_card }}"
+                        class="museum-card-image" loading="lazy" decoding="async">
 
                     <div class="museum-card-info">
                         <div class="museum-card-header">
@@ -77,14 +74,14 @@
             <button class="museum-nav-button prev">
                 <svg viewBox="0 0 24 24" fill="none">
                     <path d="M15 18L9 12L15 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
-                          stroke-linejoin="round"/>
+                        stroke-linejoin="round" />
                 </svg>
             </button>
             <span class="museum-nav-counter">1 / 2</span>
             <button class="museum-nav-button next">
                 <svg viewBox="0 0 24 24" fill="none">
                     <path d="M9 18L15 12L9 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
-                          stroke-linejoin="round"/>
+                        stroke-linejoin="round" />
                 </svg>
             </button>
         </div>
@@ -103,11 +100,8 @@
 
                 <!-- Картинка -->
                 <div class="virtual-card-image-container">
-                    <img src="{{ url_for('static', filename=exhibition.img_card) }}"
-                         alt="{{ exhibition.title_card }}"
-                         class="virtual-exhibition-card-image"
-                         loading="lazy"
-                         decoding="async">
+                    <img src="{{ url_for('static', filename=exhibition.img_card) }}" alt="{{ exhibition.title_card }}"
+                        class="virtual-exhibition-card-image" loading="lazy" decoding="async">
                 </div>
 
                 <!-- Контент -->
@@ -123,13 +117,15 @@
 
                     <!-- Дата и время -->
                     <div class="virtual-meta">
-                        <span class="virtual-icon calendar-icon"></span>
+                        <img src="{{ url_for('static', filename='images/icon/calendar_dark.png') }}"
+                            class="virtual-icon" alt="Дата">
                         <span class="virtual-meta-text">{{ exhibition.date_of_the_event }}</span>
                     </div>
 
                     <!-- Место проведения -->
                     <div class="virtual-meta">
-                        <span class="virtual-icon location-icon"></span>
+                        <img src="{{ url_for('static', filename='images/icon/location_dark.png') }}"
+                            class="virtual-icon" alt="Место">
                         <span class="virtual-meta-text">{{ exhibition.location_of_the_event }}</span>
                     </div>
 
@@ -147,14 +143,14 @@
             <button class="virtual-exhibitions-nav-button prev">
                 <svg viewBox="0 0 24 24" fill="none">
                     <path d="M15 18L9 12L15 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
-                          stroke-linejoin="round"/>
+                        stroke-linejoin="round" />
                 </svg>
             </button>
             <span class="virtual-exhibitions-nav-counter">1 / 2</span>
             <button class="virtual-exhibitions-nav-button next">
                 <svg viewBox="0 0 24 24" fill="none">
                     <path d="M9 18L15 12L9 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
-                          stroke-linejoin="round"/>
+                        stroke-linejoin="round" />
                 </svg>
             </button>
         </div>
@@ -171,11 +167,8 @@
             <div class="poster-card">
                 <!-- Верхняя часть: Картинка -->
                 <div class="poster-image-container">
-                    <img src="{{ url_for('static', filename=event.img_card) }}"
-                         alt="{{ event.title_card }}"
-                         class="poster-card-image"
-                         loading="lazy"
-                         decoding="async">
+                    <img src="{{ url_for('static', filename=event.img_card) }}" alt="{{ event.title_card }}"
+                        class="poster-card-image" loading="lazy" decoding="async">
                 </div>
 
                 <!-- Нижняя часть: Контент -->
@@ -191,13 +184,15 @@
 
                     <!-- Дата и время -->
                     <div class="poster-meta">
-                        <span class="poster-icon calendar-icon"></span>
+                        <img src="{{ url_for('static', filename='images/icon/calendar_dark.png') }}" class="poster-icon"
+                            alt="Дата">
                         <span class="poster-meta-text">{{ event.date_of_the_event }}</span>
                     </div>
 
                     <!-- Место проведения -->
                     <div class="poster-meta">
-                        <span class="poster-icon location-icon"></span>
+                        <img src="{{ url_for('static', filename='images/icon/location_dark.png') }}" class="poster-icon"
+                            alt="Место">
                         <span class="poster-meta-text">{{ event.location_of_the_event }}</span>
                     </div>
 
@@ -218,14 +213,14 @@
             <button class="poster-nav-button prev">
                 <svg viewBox="0 0 24 24" fill="none">
                     <path d="M15 18L9 12L15 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
-                          stroke-linejoin="round"/>
+                        stroke-linejoin="round" />
                 </svg>
             </button>
             <span class="poster-nav-counter">1 / 2</span>
             <button class="poster-nav-button next">
                 <svg viewBox="0 0 24 24" fill="none">
                     <path d="M9 18L15 12L9 6" stroke="#251E1E" stroke-width="2" stroke-linecap="round"
-                          stroke-linejoin="round"/>
+                        stroke-linejoin="round" />
                 </svg>
             </button>
         </div>
@@ -308,7 +303,7 @@
                         // Отключаем прокрутку страницы при зуме карты колесиком мыши
                         document.getElementById('map').addEventListener('wheel', function (e) {
                             e.preventDefault();
-                        }, {passive: false});
+                        }, { passive: false });
                     }
                 </script>
             </div>
@@ -462,12 +457,12 @@
 
                     nextBtn.addEventListener('click', (e) => {
                         e.preventDefault();
-                        container.scrollBy({left: getScrollAmount(), behavior: 'smooth'});
+                        container.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
                     });
 
                     prevBtn.addEventListener('click', (e) => {
                         e.preventDefault();
-                        container.scrollBy({left: -getScrollAmount(), behavior: 'smooth'});
+                        container.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
                     });
 
                     container.addEventListener('scroll', () => {
