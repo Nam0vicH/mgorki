@@ -107,13 +107,6 @@ body {
   cursor: pointer;
 }
 
-/* Language Selector */
-.language-selector {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
 /* Chevron Icon */
 .chevron-icon {
   width: 20px;

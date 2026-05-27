@@ -475,18 +475,15 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   transition: all 0.3s ease;
-  box-shadow: 0 10px 20px rgba(252, 214, 25, 0.3);
 }
 
 .pay-button:hover {
   background: #EEC814;
   transform: translateY(-2px);
-  box-shadow: 0 15px 25px rgba(252, 214, 25, 0.4);
 }
 
 .pay-button:active {
   transform: translateY(1px);
-  box-shadow: 0 5px 10px rgba(252, 214, 25, 0.3);
 }
 
 .payment-info {

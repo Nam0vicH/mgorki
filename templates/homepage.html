@@ -115,24 +115,29 @@
                     <!-- Разделитель -->
                     <div class="virtual-card-divider"></div>
 
-                    <!-- Дата и время -->
-                    <div class="virtual-meta">
-                        <img src="{{ url_for('static', filename='images/icon/calendar_dark.png') }}"
-                            class="virtual-icon" alt="Дата">
-                        <span class="virtual-meta-text">{{ exhibition.date_of_the_event }}</span>
-                    </div>
+                    <!-- Контейнер для мета и кнопки -->
+                    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 10px;">
+                        <div>
+                            <!-- Дата и время -->
+                            <div class="virtual-meta">
+                                <img src="{{ url_for('static', filename='images/icon/calendar_dark.png') }}"
+                                    class="virtual-icon" alt="Дата">
+                                <span class="virtual-meta-text">{{ exhibition.date_of_the_event }}</span>
+                            </div>
 
-                    <!-- Место проведения -->
-                    <div class="virtual-meta">
-                        <img src="{{ url_for('static', filename='images/icon/location_dark.png') }}"
-                            class="virtual-icon" alt="Место">
-                        <span class="virtual-meta-text">{{ exhibition.location_of_the_event }}</span>
-                    </div>
+                            <!-- Место проведения -->
+                            <div class="virtual-meta" style="margin-bottom: 0;">
+                                <img src="{{ url_for('static', filename='images/icon/location_dark.png') }}"
+                                    class="virtual-icon" alt="Место">
+                                <span class="virtual-meta-text">{{ exhibition.location_of_the_event }}</span>
+                            </div>
+                        </div>
 
-                    <!-- Ссылка -->
-                    <a href="{{ url_for('museum_programs', exhibition_id=exhibition.id) }}" class="virtual-card-link">
-                        Узнать подробнее ↗
-                    </a>
+                        <!-- Ссылка-кнопка -->
+                        <a href="{{ url_for('museum_programs', exhibition_id=exhibition.id) }}" class="museum-card-button" style="width: auto; padding: 0 20px;">
+                            Подробнее
+                        </a>
+                    </div>
                 </div>
             </div>
             {% endfor %}
@@ -182,24 +187,29 @@
                     <!-- Пунктирный разделитель -->
                     <div class="poster-divider"></div>
 
-                    <!-- Дата и время -->
-                    <div class="poster-meta">
-                        <img src="{{ url_for('static', filename='images/icon/calendar_dark.png') }}" class="poster-icon"
-                            alt="Дата">
-                        <span class="poster-meta-text">{{ event.date_of_the_event }}</span>
-                    </div>
+                    <!-- Контейнер для мета и кнопки -->
+                    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 25px;">
+                        <div>
+                            <!-- Дата и время -->
+                            <div class="poster-meta">
+                                <img src="{{ url_for('static', filename='images/icon/calendar_dark.png') }}" class="poster-icon"
+                                    alt="Дата">
+                                <span class="poster-meta-text">{{ event.date_of_the_event }}</span>
+                            </div>
 
-                    <!-- Место проведения -->
-                    <div class="poster-meta">
-                        <img src="{{ url_for('static', filename='images/icon/location_dark.png') }}" class="poster-icon"
-                            alt="Место">
-                        <span class="poster-meta-text">{{ event.location_of_the_event }}</span>
-                    </div>
+                            <!-- Место проведения -->
+                            <div class="poster-meta" style="margin-bottom: 0;">
+                                <img src="{{ url_for('static', filename='images/icon/location_dark.png') }}" class="poster-icon"
+                                    alt="Место">
+                                <span class="poster-meta-text">{{ event.location_of_the_event }}</span>
+                            </div>
+                        </div>
 
-                    <!-- Ссылка -->
-                    <a href="{{ url_for('order', event=event.id) }}" class="poster-link">
-                        Узнать подробнее ↗
-                    </a>
+                        <!-- Ссылка-кнопка -->
+                        <a href="{{ url_for('order', event=event.id) }}" class="museum-card-button" style="width: auto; padding: 0 20px;">
+                            Подробнее
+                        </a>
+                    </div>
 
                     <!-- Штрих-код -->
                     <div class="poster-barcode"></div>

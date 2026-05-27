@@ -94,7 +94,6 @@
 .footer-ticket-btn:hover {
   background: #FCD619;
   color: #1F1F1F;
-  box-shadow: 0 0 20px rgba(252, 214, 25, 0.3);
   transform: translateY(-2px);
 }
 
