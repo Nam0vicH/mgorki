@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}{{ poster.title_card }} - Афиша{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/museum_programs.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/responsive.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+    <!-- Layout для афиши: два отдельных контейнера -->
+    <div class="poster-detail-layout">
+
+        <!-- Контейнер с текстом -->
+        <div class="poster-detail-content">
+            <!-- Заголовок -->
+            <h1 class="excursion-title" style="margin-top: 15px;">
+                {{ poster.title_card }}
+            </h1>
+
+            <!-- Текст описания -->
+            <div class="description-text">
+                {{ poster.short_description_card|safe }}
+                {% if poster.main_text %}
+                    <br><br>{{ poster.main_text|safe }}
+                {% endif %}
+            </div>
+
+            <!-- Список характеристик -->
+            <ul class="details-list">
+                {% if poster.date_of_the_event %}
+                <li>Дата проведения: {{ poster.date_of_the_event }}</li>
+                {% endif %}
+                {% if poster.location_of_the_event %}
+                <li>Место проведения: {{ poster.location_of_the_event }}</li>
+                {% endif %}
+            </ul>
+
+            <!-- Кнопка заказа -->
+            <a href="{{ url_for('order', museum_id=poster.id) }}" class="buy-btn">Купить билет</a>
+        </div>
+
+        <!-- Контейнер только с картинкой -->
+        <div class="poster-detail-photo">
+            <img src="{{ url_for('static', filename=poster.img_card) }}" alt="{{ poster.title_card }}"
+                loading="lazy" decoding="async">
+        </div>
+
+    </div>
+</div>
+{% endblock %}

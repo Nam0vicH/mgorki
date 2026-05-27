@@ -37,11 +37,12 @@
 .card-image-container img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
   position: absolute;
   top: 0;
   left: 0;
+  background-color: transparent;
 }
 
 .breadcrumbs {
@@ -112,7 +113,7 @@
 
 .details-list li::before {
   content: "•";
-  color: #9cb961;
+  color: #FCD619;
   font-size: 20px;
   margin-right: 10px;
   line-height: 0;
@@ -149,5 +150,51 @@
 
   .card-image-container img {
     position: relative;
+  }
+}
+
+/* Layout для афиши: два отдельных контейнера */
+.poster-detail-layout {
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+.poster-detail-content {
+  flex: 1;
+  background-color: #ffffff;
+  border-radius: 30px;
+  padding: 40px 50px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.poster-detail-photo {
+  flex: 0 0 40%; /* или 45%, зависит от ширины постера */
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  display: flex;
+}
+
+.poster-detail-photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+@media (max-width: 900px) {
+  .poster-detail-layout {
+    flex-direction: column-reverse;
+  }
+  
+  .poster-detail-photo {
+    flex: none;
+    width: 100%;
   }
 }

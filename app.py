@@ -245,6 +245,14 @@ def poster():
     return render_template('poster.html', museums=museums)
 
 
+@app.route('/poster_detail/<int:poster_id>')
+def poster_detail(poster_id):
+    poster_obj = db.get_content_by_id(poster_id)
+    if not poster_obj:
+        abort(404)
+    return render_template('poster_detail.html', poster=poster_obj)
+
+
 @app.route('/about_the_museum')
 def about_the_museum():
     return render_template('about_the_museum.html')
