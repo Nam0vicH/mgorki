@@ -81,6 +81,11 @@ def get_all_ticket_categories():
     query = "SELECT * FROM ticket_categories"
     return execute_query(query)
 
+def get_ticket_categories_by_type(category_type):
+    """Получить категории билетов по типу (museum, poster)"""
+    query = "SELECT * FROM ticket_categories WHERE category = %s"
+    return execute_query(query, (category_type,))
+
 
 def get_ticket_category_by_id(category_id):
     """Получить категорию билета по ID"""
@@ -93,16 +98,17 @@ def get_ticket_category_by_id(category_id):
 # ФУНКЦИИ ДЛЯ session_schedule
 # ===================================================================================
 
-def get_active_sessions(start_date, end_date):
-    """Получить активные сеансы в диапазоне дат"""
+def get_active_sessions(event_id, start_date, end_date):
+    """Получить активные сеансы в диапазоне дат для конкретного события"""
     query = """
         SELECT * FROM session_schedule
         WHERE is_active = 1
+        AND event_id = %s
         AND session_date >= %s
         AND session_date <= %s
         ORDER BY session_date, session_time
     """
-    return execute_query(query, (start_date, end_date))
+    return execute_query(query, (event_id, start_date, end_date))
 
 
 def get_session_by_date_time(session_date, session_time):
@@ -127,16 +133,19 @@ def generate_weekly_schedule():
     if not connection:
         return
     try:
-        cursor = connection.cursor()
-
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute("SELECT id FROM data_content")
+        events = cursor.fetchall()
+        
         # 1. Удаляем всё, что старше сегодняшнего дня
         cursor.execute("UPDATE session_schedule SET is_active = 0 WHERE session_date < CURDATE()")
 
         # 2. Создаем расписание на 7 дней вперед (от 0 до 6)
         query = """
             INSERT IGNORE INTO session_schedule
-            (session_date, session_time, day_of_week, total_tickets, available_tickets, sold_tickets, is_active)
+            (event_id, session_date, session_time, day_of_week, total_tickets, available_tickets, sold_tickets, is_active)
             VALUES (
+                %s,
                 CURDATE() + INTERVAL %s DAY,
                 %s,
                 ELT(DAYOFWEEK(CURDATE() + INTERVAL %s DAY), 'ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'),
@@ -146,9 +155,10 @@ def generate_weekly_schedule():
 
         times = ['10:00:00', '14:00:00', '18:00:00']
 
-        for i in range(7):
-            for t in times:
-                cursor.execute(query, (i, t, i))
+        for event in events:
+            for i in range(7):
+                for t in times:
+                    cursor.execute(query, (event['id'], i, t, i))
 
         connection.commit()
         print("Недельное расписание билетов успешно сгенерировано/обновлено.")

@@ -43,10 +43,8 @@
                     {% set unique_dates = sessions | map(attribute='session_date') | unique | list %}
                     {% for date in unique_dates[:7] %}
                     {% set session = sessions | selectattr('session_date', 'equalto', date) | first %}
-                    <div
-                        class="calendar-day {% if loop.first %}selected{% endif %} {% if session.day_of_week in ['СБ', 'ВС'] %}weekend{% endif %}"
-                        data-date="{{ date }}"
-                        data-day-of-week="{{ session.day_of_week }}">
+                    <div class="calendar-day {% if loop.first %}selected{% endif %} {% if session.day_of_week in ['СБ', 'ВС'] %}weekend{% endif %}"
+                        data-date="{{ date }}" data-day-of-week="{{ session.day_of_week }}">
                         {{ date.day }}<br><small>{{ date.strftime('%b') }}</small>
                     </div>
                     {% endfor %}
@@ -67,13 +65,13 @@
                 </div>
 
                 {% for category in ticket_categories %}
-                <div class="ticket-row">
+                <div class="ticket-row {% if loop.index0 >= 4 %}extra-ticket-row{% endif %}" {% if loop.index0 >= 4 %}style="display: none;"{% endif %}>
                     <div class="ticket-info">
                         <div class="ticket-title">
                             {{ category.title }}
                             {% if category.pushkin_card_allowed %}
                             <img src="{{ url_for('static', filename='images/icon/pushkin-icon.png') }}"
-                                 alt="Пушкинская карта" class="pushkin-icon">
+                                alt="Пушкинская карта" class="pushkin-icon">
                             {% endif %}
                         </div>
                         {% if category.description %}
@@ -90,6 +88,11 @@
                     </div>
                 </div>
                 {% endfor %}
+
+                {% if ticket_categories|length > 4 %}
+                <button type="button" id="toggle-category-btn" class="show-all-tickets"
+                    style="margin-top: 20px; margin-bottom: 0;">▼ ПОКАЗАТЬ ВСЕ БИЛЕТЫ</button>
+                {% endif %}
             </div>
         </div>
 
@@ -136,7 +139,8 @@
 
                     <div class="form-group">
                         <label for="phone" class="form-label">Телефон</label>
-                        <input type="tel" class="form-input" id="phone" name="phone" placeholder="+7 (___) ___-__-__" maxlength="18" required>
+                        <input type="tel" class="form-input" id="phone" name="phone" placeholder="+7 (___) ___-__-__"
+                            maxlength="18" required>
                     </div>
 
                     <div class="checkbox-group">
@@ -156,13 +160,13 @@
                 </form>
 
                 <button type="button" id="pushkin-pay-btn" class="pay-button pushkin-pay-button" disabled
-                        style="margin-top: 10px; background-color: #9e9e9e; cursor: not-allowed;">
+                    style="margin-top: 10px; background-color: #9e9e9e; cursor: not-allowed;">
                     <img src="{{ url_for('static', filename='images/icon/pushkin-icon.png') }}" alt=""
-                         style="height: 18px; vertical-align: middle; margin-right: 6px;">
+                        style="height: 18px; vertical-align: middle; margin-right: 6px;">
                     ОПЛАТИТЬ ПУШКИНСКОЙ КАРТОЙ
                 </button>
                 <div id="pushkin-pay-info" class="payment-info"
-                     style="margin-top: 8px; font-size: 12px; color: #999; text-align: center;">
+                    style="margin-top: 8px; font-size: 12px; color: #999; text-align: center;">
                     ОПЛАТА ПУШКИНСКОЙ КАРТОЙ<br>НЕДОСТУПНА
                 </div>
             </div>
@@ -481,6 +485,20 @@
             }
 
             updateBookingInfo();
+
+            // Логика кнопки показа всех категорий билетов
+            const toggleCategoryBtn = document.getElementById('toggle-category-btn');
+            if (toggleCategoryBtn) {
+                let categoriesExpanded = false;
+                toggleCategoryBtn.addEventListener('click', function () {
+                    categoriesExpanded = !categoriesExpanded;
+                    const extraRows = document.querySelectorAll('.extra-ticket-row');
+                    extraRows.forEach(row => {
+                        row.style.display = categoriesExpanded ? '' : 'none';
+                    });
+                    this.textContent = categoriesExpanded ? '▲ СКРЫТЬ БИЛЕТЫ' : '▼ ПОКАЗАТЬ ВСЕ БИЛЕТЫ';
+                });
+            }
         });
 
         // ======== Кнопка оплаты Пушкинской картой ========
@@ -501,7 +519,7 @@
             }
             // Устанавливаем метод оплаты и сабмитим форму
             document.getElementById('payment-method').value = 'pushkin_card';
-            document.getElementById('order-form').dispatchEvent(new Event('submit', {cancelable: true}));
+            document.getElementById('order-form').dispatchEvent(new Event('submit', { cancelable: true }));
         });
 
         // ======== Маска телефона РФ: +7 (XXX) XXX-XX-XX ========

@@ -82,8 +82,13 @@ def order(museum_id=None):
     today = datetime.now().date()
     week_later = today + timedelta(days=7)
 
-    sessions = db.get_active_sessions(today, week_later) or []
-    ticket_categories = db.get_all_ticket_categories() or []
+    event_id = museum['id'] if museum else 1
+    sessions = db.get_active_sessions(event_id, today, week_later) or []
+    
+    event_category = museum['category'] if museum else 'museums'
+    ticket_cat_type = 'poster' if event_category == 'poster' else 'museum'
+    
+    ticket_categories = db.get_ticket_categories_by_type(ticket_cat_type) or []
 
     return render_template('order.html',
                            museum=museum,
