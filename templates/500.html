@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Внутренняя ошибка сервера (500) - Музей-заповедник Горки Ленинские{% endblock %}
+
+{% block extra_css %}
+<style>
+    .error-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 60vh;
+        text-align: center;
+        padding: 60px 20px;
+        color: #1F1F1F;
+        font-family: 'Gerbera-Regular', Arial, sans-serif;
+    }
+
+    .error-code {
+        font-family: 'Vetrino', sans-serif;
+        font-size: 150px;
+        line-height: 1;
+        color: #1F1F1F;
+        margin: 0;
+        position: relative;
+    }
+
+    .error-code::after {
+        content: '';
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: 4px;
+        background-color: #FCD619;
+    }
+
+    .error-title {
+        font-family: 'Gerbera-Bold', sans-serif;
+        font-size: 32px;
+        margin-top: 40px;
+        margin-bottom: 15px;
+    }
+
+    .error-desc {
+        font-size: 18px;
+        color: #555;
+        max-width: 500px;
+        margin-bottom: 40px;
+        line-height: 1.5;
+    }
+
+    .error-btn {
+        display: inline-block;
+        padding: 15px 40px;
+        background-color: #FCD619;
+        color: #1F1F1F;
+        text-decoration: none;
+        border-radius: 50px;
+        font-family: 'Gerbera-Bold', sans-serif;
+        font-size: 16px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        border: 2px solid #FCD619;
+    }
+
+    .error-btn:hover {
+        background-color: transparent;
+        color: #1F1F1F;
+        transform: translateY(-3px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="error-container">
+    <h1 class="error-code">500</h1>
+    <h2 class="error-title">Внутренняя ошибка сервера</h2>
+    <p class="error-desc">
+        Что-то пошло не так в наших архивах. Мы уже занимаемся решением проблемы. Пожалуйста, попробуйте позже.
+    </p>
+    <a href="{{ url_for('homepage') }}" class="error-btn">Вернуться на главную</a>
+</div>
+{% endblock %}

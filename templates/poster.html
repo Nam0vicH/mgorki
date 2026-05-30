@@ -17,31 +17,53 @@
     <div class="museum-cards">
         {% for museum in museums %}
         <div class="museum-card">
-            <div class="museum-content-wrapper">
-                <img src="{{ url_for('static', filename=museum.img_card) }}"
-                     alt="{{ museum.title_card }}"
-                     class="museum-card-image"
-                     loading="lazy"
-                     decoding="async">
+            <!-- Обложка -->
+            <img src="{{ url_for('static', filename=museum.img_card) }}"
+                 alt="{{ museum.title_card }}"
+                 class="museum-card-image"
+                 loading="lazy"
+                 decoding="async">
 
-                <div class="museum-card-info">
-                    <div class="museum-card-header">
-                        <h3 class="museum-card-title">{{ museum.title_card }}</h3>
-                        <div class="museum-badges">
-                            <span class="museum-badge">0+</span>
-                            <span class="museum-badge">от 800 ₽</span>
-                        </div>
+            <!-- Тело карточки -->
+            <div class="museum-card-body">
+                <!-- Заголовок + бейджи -->
+                <div class="museum-card-header">
+                    <h3 class="museum-card-title">{{ museum.title_card }}</h3>
+                    <div class="museum-badges">
+                        <span class="museum-badge">0+</span>
+                        <span class="museum-badge">от 800 ₽</span>
                     </div>
-                    <p class="museum-card-description">
-                        {{ museum.short_description_card }}
-                    </p>
                 </div>
-            </div>
 
-            <!-- Действия с карточкой -->
-            <div class="museum-card-buttons">
-                <a href="{{ url_for('about_us', museum_id=museum.id) }}" class="museum-card-button">Подробнее</a>
-                <a href="{{ url_for('order', museum_id=museum.id) }}" class="museum-card-button">Купить билет</a>
+                <!-- Описание -->
+                <p class="museum-card-description">
+                    {{ museum.short_description_card }}
+                </p>
+
+                <!-- Разделитель -->
+                <div class="museum-card-divider"></div>
+
+                <!-- Подвал: мета-инфо + кнопки -->
+                <div class="museum-card-footer">
+                    <div class="museum-card-meta">
+                        {% if museum.date_of_the_event %}
+                        <div class="museum-meta-row">
+                            <span class="museum-meta-icon calendar"></span>
+                            <span class="museum-meta-text">{{ museum.date_of_the_event }}</span>
+                        </div>
+                        {% endif %}
+                        {% if museum.location_of_the_event %}
+                        <div class="museum-meta-row">
+                            <span class="museum-meta-icon location"></span>
+                            <span class="museum-meta-text">{{ museum.location_of_the_event }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="museum-card-buttons">
+                        <a href="{{ url_for('about_us', museum_id=museum.id) }}" class="museum-card-button">Подробнее</a>
+                        <a href="{{ url_for('order', museum_id=museum.id) }}" class="museum-card-button">Купить билет</a>
+                    </div>
+                </div>
             </div>
         </div>
         {% endfor %}

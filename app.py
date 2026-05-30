@@ -448,5 +448,21 @@ def admin_orders():
     return render_template('admin/orders_list.html', orders=orders)
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template('500.html'), 500
+
+@app.errorhandler(502)
+def bad_gateway(e):
+    return render_template('502.html'), 502
+
+@app.errorhandler(504)
+def gateway_timeout(e):
+    return render_template('504.html'), 504
+
 if __name__ == '__main__':
     app.run(debug=True)
