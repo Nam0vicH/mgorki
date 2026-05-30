@@ -49,7 +49,13 @@
 
                 <!-- Контент -->
                 <div class="museum-card-content">
-                    <h3 class="museum-card-title">{{ museum.title_card }}</h3>
+                    <div class="museum-card-header" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; gap: 12px;">
+                        <h3 class="museum-card-title">{{ museum.title_card }}</h3>
+                        <div class="museum-badges" style="display: flex; gap: 8px; flex-shrink: 0; padding-top: 2px;">
+                            <span class="museum-badge" style="background: #FCD619; border-radius: 12px; height: 22px; display: flex; align-items: center; justify-content: center; padding: 0 10px; font-family: 'Gerbera-Medium', Arial, sans-serif; font-size: 11px; color: #000000; white-space: nowrap;">0+</span>
+                            <span class="museum-badge" style="background: #FCD619; border-radius: 12px; height: 22px; display: flex; align-items: center; justify-content: center; padding: 0 10px; font-family: 'Gerbera-Medium', Arial, sans-serif; font-size: 11px; color: #000000; white-space: nowrap;">от 800 ₽</span>
+                        </div>
+                    </div>
 
                     <p class="museum-card-description">
                         {{ museum.short_description_card }}
@@ -59,7 +65,7 @@
                     <div class="museum-card-divider"></div>
 
                     <!-- Контейнер для мета и кнопки -->
-                    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 10px;">
+                    <div class="card-action-row">
                         <div>
                             <!-- Дата и время -->
                             <div class="virtual-meta">
@@ -76,10 +82,15 @@
                             </div>
                         </div>
 
-                        <!-- Ссылка-кнопка -->
-                        <a href="{{ url_for('about_us', museum_id=museum.id) }}" class="museum-card-button" style="width: auto; padding: 0 20px;">
-                            Подробнее
-                        </a>
+                        <!-- Ссылки-кнопки -->
+                        <div class="card-buttons-layout">
+                            <a href="{{ url_for('about_us', museum_id=museum.id) }}" class="museum-card-button stretched-link" style="width: auto; padding: 0 20px;">
+                                Подробнее
+                            </a>
+                            <a href="{{ url_for('order', museum_id=museum.id) }}" class="museum-card-button card-interactive" style="width: auto; padding: 0 20px;">
+                                Купить билет
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -133,7 +144,7 @@
                     <div class="virtual-card-divider"></div>
 
                     <!-- Контейнер для мета и кнопки -->
-                    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 10px;">
+                    <div class="card-action-row">
                         <div>
                             <!-- Дата и время -->
                             <div class="virtual-meta">
@@ -151,9 +162,11 @@
                         </div>
 
                         <!-- Ссылка-кнопка -->
-                        <a href="{{ url_for('museum_programs', exhibition_id=exhibition.id) }}" class="museum-card-button" style="width: auto; padding: 0 20px;">
-                            Подробнее
-                        </a>
+                        <div class="card-buttons-layout">
+                            <a href="{{ url_for('museum_programs', exhibition_id=exhibition.id) }}" class="museum-card-button stretched-link" style="width: auto; padding: 0 20px;">
+                                Подробнее
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -205,7 +218,7 @@
                     <div class="poster-divider"></div>
 
                     <!-- Контейнер для мета и кнопки -->
-                    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 25px;">
+                    <div class="card-action-row poster-action-row">
                         <div>
                             <!-- Дата и время -->
                             <div class="poster-meta">
@@ -223,9 +236,11 @@
                         </div>
 
                         <!-- Ссылка-кнопка -->
-                        <a href="{{ url_for('poster_detail', poster_id=event.id) }}" class="museum-card-button" style="width: auto; padding: 0 20px;">
-                            Подробнее
-                        </a>
+                        <div class="card-buttons-layout">
+                            <a href="{{ url_for('poster_detail', poster_id=event.id) }}" class="museum-card-button stretched-link" style="width: auto; padding: 0 20px;">
+                                Подробнее
+                            </a>
+                        </div>
                     </div>
 
                     <!-- Штрих-код -->

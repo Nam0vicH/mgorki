@@ -184,7 +184,7 @@
     flex-shrink: 0;
     height: auto;
     min-height: auto;
-    padding: 0 !important;
+    /* padding: 0 !important; Убрано чтобы карточки сохраняли отступы как на пк */
   }
 
   .poster-page .museum-cards {
@@ -200,48 +200,48 @@
   }
 
   /* Фикс внутренних элементов карточек */
+  .museum-card-image-container,
   .virtual-card-image-container,
-  .poster-image-container,
-  .poster-section .poster-card-image {
+  .poster-image-container {
     width: 100% !important;
     box-sizing: border-box;
     border-radius: 15px !important;
   }
 
-  /* Музей-карточка: мобильный адаптив */
-  .museum-card-image {
-    height: 180px !important;
-  }
-
-  .museum-card-body {
-    padding: 15px !important;
-  }
-
-  .museum-card-title {
-    font-size: 17px !important;
+  /* Адаптив для контента карточки (заголовки, текст, кнопки) */
+  .museum-card-title,
+  .virtual-card-title,
+  .poster-card-title {
+    font-size: 18px !important;
     line-height: 1.25;
   }
 
-  .museum-card-description {
+  .museum-card-description,
+  .virtual-card-description,
+  .poster-card-description {
     font-size: 13px !important;
     -webkit-line-clamp: 3;
   }
 
-  .museum-card-footer {
+  .museum-card-button {
+    font-size: 13px !important;
+    padding: 0 15px !important;
+    height: 36px;
+    width: auto !important;
+  }
+
+  .card-action-row {
     flex-direction: column !important;
-    align-items: stretch !important;
+    align-items: flex-start !important;
     gap: 12px !important;
   }
 
-  .museum-card-buttons {
-    width: 100% !important;
-    justify-content: stretch;
-    gap: 10px !important;
-  }
-
-  .museum-card-button {
-    flex: 1;
-    font-size: 14px !important;
+  .card-buttons-layout {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-self: flex-end;
   }
 
   .poster-image-container,

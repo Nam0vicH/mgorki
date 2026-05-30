@@ -209,8 +209,6 @@
   transition: transform 0.5s ease;
 }
 
-}
-
 .museum-card:hover .museum-card-image {
   transform: scale(1.05);
 }
@@ -254,7 +252,42 @@
   margin-bottom: 15px;
 }
 
-/* Кнопки */
+/* Утилита для кликабельности всей карточки */
+.stretched-link::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/* Утилита для интерактивных элементов поверх карточки */
+.card-interactive {
+  position: relative;
+  z-index: 2;
+}
+
+/* Кнопки и мета-контейнер */
+.card-action-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 10px;
+  gap: 15px;
+}
+
+.poster-action-row {
+  margin-bottom: 25px;
+}
+
+.card-buttons-layout {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
 .museum-card-buttons {
   display: flex;
   gap: 10px;
@@ -689,6 +722,11 @@
   height: 100%;
   object-fit: contain;
   aspect-ratio: 200 / 285;
+  transition: transform 0.5s ease;
+}
+
+.poster-section .poster-card:hover .poster-card-image {
+  transform: scale(1.05);
 }
 
 .poster-card-content {
