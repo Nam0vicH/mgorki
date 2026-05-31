@@ -93,6 +93,25 @@ def get_ticket_category_by_id(category_id):
     result = execute_query(query, (category_id,))
     return result[0] if result else None
 
+def insert_ticket_category(category_type, title, description, price):
+    query = """
+        INSERT INTO ticket_categories (category, title, description, price)
+        VALUES (%s, %s, %s, %s)
+    """
+    return execute_query(query, (category_type, title, description, price), fetch=False)
+
+def update_ticket_category(cat_id, category_type, title, description, price):
+    query = """
+        UPDATE ticket_categories 
+        SET category=%s, title=%s, description=%s, price=%s
+        WHERE id=%s
+    """
+    return execute_query(query, (category_type, title, description, price, cat_id), fetch=False)
+
+def delete_ticket_category(cat_id):
+    query = "DELETE FROM ticket_categories WHERE id = %s"
+    return execute_query(query, (cat_id,), fetch=False)
+
 
 # ===================================================================================
 # ФУНКЦИИ ДЛЯ session_schedule
@@ -169,6 +188,47 @@ def generate_weekly_schedule():
             cursor.close()
             connection.close()
 
+def get_all_sessions_with_events():
+    query = """
+        SELECT s.*, d.title_card as event_title
+        FROM session_schedule s
+        JOIN data_content d ON s.event_id = d.id
+        ORDER BY s.session_date DESC, s.session_time ASC
+    """
+    return execute_query(query)
+
+def get_session_by_id(session_id):
+    query = "SELECT * FROM session_schedule WHERE id = %s"
+    res = execute_query(query, (session_id,))
+    return res[0] if res else None
+
+def insert_session(event_id, session_date, session_time, total_tickets, is_active):
+    query = """
+        INSERT INTO session_schedule 
+        (event_id, session_date, session_time, day_of_week, total_tickets, available_tickets, sold_tickets, is_active)
+        VALUES (
+            %s, %s, %s,
+            ELT(DAYOFWEEK(%s), 'ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'),
+            %s, %s, 0, %s
+        )
+    """
+    return execute_query(query, (event_id, session_date, session_time, session_date, total_tickets, total_tickets, is_active), fetch=False)
+
+def update_session(session_id, event_id, session_date, session_time, total_tickets, is_active):
+    query = """
+        UPDATE session_schedule 
+        SET event_id=%s, session_date=%s, session_time=%s, 
+            day_of_week=ELT(DAYOFWEEK(%s), 'ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'),
+            total_tickets=%s, 
+            available_tickets = %s - sold_tickets,
+            is_active=%s
+        WHERE id=%s
+    """
+    return execute_query(query, (event_id, session_date, session_time, session_date, total_tickets, total_tickets, is_active, session_id), fetch=False)
+
+def delete_session(session_id):
+    query = "DELETE FROM session_schedule WHERE id = %s"
+    return execute_query(query, (session_id,), fetch=False)
 
 # ===================================================================================
 # ФУНКЦИИ ДЛЯ ticket_bookings

@@ -1,0 +1,50 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">{{ 'Редактировать' if session_obj else 'Добавить' }} сеанс</h1>
+</div>
+
+<div class="admin-card">
+    <form method="POST" class="admin-form">
+        <div class="form-group">
+            <label class="form-label">Событие (Музей, Программа, Афиша)</label>
+            <select name="event_id" class="form-control" required>
+                {% for event in all_events %}
+                    <option value="{{ event.id }}" {% if session_obj and session_obj.event_id == event.id %}selected{% endif %}>
+                        {{ event.title_card }} ({{ event.category }})
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div style="display: flex; gap: 20px;">
+            <div class="form-group" style="flex: 1;">
+                <label class="form-label">Дата сеанса</label>
+                <input type="date" name="session_date" class="form-control" value="{{ session_obj.session_date if session_obj else '' }}" required>
+            </div>
+
+            <div class="form-group" style="flex: 1;">
+                <label class="form-label">Время сеанса</label>
+                <input type="time" name="session_time" class="form-control" value="{{ session_obj.session_time if session_obj else '' }}" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Всего билетов (вместимость)</label>
+            <input type="number" name="total_tickets" class="form-control" value="{{ session_obj.total_tickets if session_obj else '50' }}" required>
+            <small style="color: #666; display: block; margin-top: 5px;">При изменении вместимости доступные билеты пересчитаются автоматически с учетом уже проданных.</small>
+        </div>
+
+        <div class="form-group" style="display: flex; align-items: center; gap: 10px; margin-top: 20px;">
+            <input type="checkbox" name="is_active" id="is_active" style="width: 20px; height: 20px;" {% if not session_obj or session_obj.is_active %}checked{% endif %}>
+            <label for="is_active" class="form-label" style="margin: 0; cursor: pointer;">Активен (доступен для покупки)</label>
+        </div>
+
+        <div class="form-actions" style="margin-top: 30px;">
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <a href="{{ url_for('admin_sessions') }}" class="btn btn-danger">Отмена</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

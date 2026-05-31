@@ -1,0 +1,47 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="page-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h1 class="page-title">Расписание сеансов</h1>
+    <a href="{{ url_for('admin_sessions_edit', session_id=0) }}" class="btn btn-primary">+ Добавить сеанс</a>
+</div>
+
+<div class="admin-card">
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Событие</th>
+            <th>Дата и Время</th>
+            <th>Билеты (Доступно/Всего)</th>
+            <th>Статус</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for s in sessions %}
+        <tr>
+            <td>{{ s.id }}</td>
+            <td><strong>{{ s.event_title }}</strong></td>
+            <td>{{ s.session_date }}<br>{{ s.session_time }} ({{ s.day_of_week }})</td>
+            <td>
+                <span style="color: {% if s.available_tickets <= 0 %}#e53e3e{% else %}#38a169{% endif %}; font-weight: bold;">
+                    {{ s.available_tickets }}
+                </span> 
+                / {{ s.total_tickets }}
+            </td>
+            <td>
+                <span style="padding: 3px 8px; border-radius: 5px; font-size: 12px; background: {{ '#e6fffa' if s.is_active else '#fff5f5' }}; color: {{ '#319795' if s.is_active else '#e53e3e' }};">
+                    {{ 'Активен' if s.is_active else 'Закрыт' }}
+                </span>
+            </td>
+            <td>
+                <a href="{{ url_for('admin_sessions_edit', session_id=s.id) }}" class="btn btn-primary btn-sm">Изм</a>
+                <a href="{{ url_for('admin_sessions_delete', session_id=s.id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Удалить сеанс?');">Удл</a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

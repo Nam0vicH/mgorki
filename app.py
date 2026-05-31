@@ -484,6 +484,92 @@ def admin_update_order_status(order_id):
     return redirect(url_for('admin_orders'))
 
 
+# --- КАТЕГОРИИ БИЛЕТОВ ---
+
+@app.route('/admin/ticket_categories')
+@login_required
+def admin_ticket_categories():
+    categories = db.get_all_ticket_categories()
+    return render_template('admin/ticket_categories_list.html', categories=categories)
+
+@app.route('/admin/ticket_categories/edit/<int:cat_id>', methods=['GET', 'POST'])
+@login_required
+def admin_ticket_categories_edit(cat_id):
+    category = None
+    if cat_id > 0:
+        category = db.get_ticket_category_by_id(cat_id)
+        
+    if request.method == 'POST':
+        c_type = request.form.get('category')
+        title = request.form.get('title')
+        description = request.form.get('description', '')
+        price = request.form.get('price', 0)
+        
+        if cat_id == 0:
+            db.insert_ticket_category(c_type, title, description, price)
+            flash('Категория успешно добавлена.')
+        else:
+            db.update_ticket_category(cat_id, c_type, title, description, price)
+            flash('Категория успешно обновлена.')
+            
+        return redirect(url_for('admin_ticket_categories'))
+        
+    return render_template('admin/ticket_categories_edit.html', category=category)
+
+@app.route('/admin/ticket_categories/delete/<int:cat_id>')
+@login_required
+def admin_ticket_categories_delete(cat_id):
+    db.delete_ticket_category(cat_id)
+    flash('Категория билета удалена.')
+    return redirect(url_for('admin_ticket_categories'))
+
+
+# --- СЕАНСЫ И РАСПИСАНИЕ ---
+
+@app.route('/admin/sessions')
+@login_required
+def admin_sessions():
+    sessions = db.get_all_sessions_with_events()
+    return render_template('admin/sessions_list.html', sessions=sessions)
+
+@app.route('/admin/sessions/edit/<int:session_id>', methods=['GET', 'POST'])
+@login_required
+def admin_sessions_edit(session_id):
+    session_obj = None
+    if session_id > 0:
+        session_obj = db.get_session_by_id(session_id)
+        
+    events_museums = db.get_content_by_category('museums') or []
+    events_exhibitions = db.get_content_by_category('virtual_exhibitions') or []
+    events_posters = db.get_content_by_category('poster') or []
+    all_events = events_museums + events_exhibitions + events_posters
+    
+    if request.method == 'POST':
+        event_id = request.form.get('event_id')
+        session_date = request.form.get('session_date')
+        session_time = request.form.get('session_time')
+        total_tickets = request.form.get('total_tickets', 50)
+        is_active = 1 if request.form.get('is_active') == 'on' else 0
+        
+        if session_id == 0:
+            db.insert_session(event_id, session_date, session_time, total_tickets, is_active)
+            flash('Сеанс успешно добавлен.')
+        else:
+            db.update_session(session_id, event_id, session_date, session_time, total_tickets, is_active)
+            flash('Сеанс успешно обновлен.')
+            
+        return redirect(url_for('admin_sessions'))
+        
+    return render_template('admin/sessions_edit.html', session_obj=session_obj, all_events=all_events)
+
+@app.route('/admin/sessions/delete/<int:session_id>')
+@login_required
+def admin_sessions_delete(session_id):
+    db.delete_session(session_id)
+    flash('Сеанс удален.')
+    return redirect(url_for('admin_sessions'))
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
