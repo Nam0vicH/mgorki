@@ -411,8 +411,18 @@ def admin_edit(category, content_id):
                 os.makedirs(save_dir, exist_ok=True)
 
                 filename = secure_filename(file_obj.filename)
+                new_path = f"images/{subfolder}/{filename}"
                 file_obj.save(os.path.join(save_dir, filename))
-                return f"images/{subfolder}/{filename}"
+                
+                if current_path and current_path != new_path:
+                    old_file_path = os.path.join(static_dir, current_path)
+                    if os.path.exists(old_file_path):
+                        try:
+                            os.remove(old_file_path)
+                        except Exception as e:
+                            print(f"Error deleting old image: {e}")
+                            
+                return new_path
 
             return current_path
 
@@ -441,7 +451,19 @@ def admin_edit(category, content_id):
 @app.route('/admin/delete/<int:item_id>')
 @login_required
 def admin_delete(item_id):
-    db.delete_content(item_id)
+    item = db.get_content_by_id(item_id)
+    if item:
+        img_fields = ['img_card', 'main_image', 'block_image_1', 'block_image_2', 'block_image_3']
+        for field in img_fields:
+            if item.get(field):
+                file_path = os.path.join(static_dir, item[field])
+                if os.path.exists(file_path):
+                    try:
+                        os.remove(file_path)
+                    except Exception as e:
+                        print(f"Error deleting image {file_path}: {e}")
+                        
+        db.delete_content(item_id)
     return redirect(request.referrer or url_for('admin_dashboard'))
 
 
