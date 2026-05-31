@@ -26,10 +26,18 @@
             </td>
             <td>{{ order.total_amount }} ₽</td>
             <td>
-                    <span
-                        style="padding: 5px 10px; border-radius: 10px; background: {{ '#e6fffa' if order.order_status == 'paid' else '#fff5f5' }}; color: {{ '#00acc1' if order.order_status == 'paid' else '#e53e3e' }}">
-                        {{ order.order_status }}
-                    </span>
+                <form action="{{ url_for('admin_update_order_status', order_id=order.id) }}" method="POST" style="display: flex; gap: 5px; align-items: center; margin: 0;">
+                    <select name="order_status" style="padding: 5px; border-radius: 5px; border: 1px solid #ccc; font-family: inherit; font-size: 14px;">
+                        <option value="new" {% if order.order_status == 'new' %}selected{% endif %}>Новый</option>
+                        <option value="completed" {% if order.order_status == 'completed' %}selected{% endif %}>Завершен</option>
+                        <option value="cancelled" {% if order.order_status == 'cancelled' %}selected{% endif %}>Отменен</option>
+                        <option value="refunded" {% if order.order_status == 'refunded' %}selected{% endif %}>Возврат</option>
+                    </select>
+                    <button type="submit" style="padding: 5px 10px; background: #FCD619; color: #000; border: none; border-radius: 5px; cursor: pointer; font-size: 12px; font-weight: bold;">OK</button>
+                </form>
+                <div style="margin-top: 5px; font-size: 12px; color: #666;">
+                    Оплата: <span style="font-weight: bold; color: {{ '#00acc1' if order.payment_status == 'paid' else '#e53e3e' }}">{{ 'Оплачен' if order.payment_status == 'paid' else 'Не оплачен' }}</span>
+                </div>
             </td>
             <td>{{ order.created_at }}</td>
         </tr>

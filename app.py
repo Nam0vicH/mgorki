@@ -474,6 +474,16 @@ def admin_orders():
     return render_template('admin/orders_list.html', orders=orders)
 
 
+@app.route('/admin/orders/update_status/<int:order_id>', methods=['POST'])
+@login_required
+def admin_update_order_status(order_id):
+    new_status = request.form.get('order_status')
+    if new_status:
+        db.update_order_status(order_id, new_status)
+        flash(f'Статус заказа #{order_id} успешно обновлен.')
+    return redirect(url_for('admin_orders'))
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
