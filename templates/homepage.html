@@ -368,10 +368,16 @@
             }
 
             const heroImages = [
+                {% if hero_images %}
+                    {% for img in hero_images %}
+                        '{{ url_for("static", filename=img.img_card) }}'{{ "," if not loop.last else "" }}
+                    {% endfor %}
+                {% else %}
                 '{{ url_for("static", filename="images/hero/Page_1.jpg") }}',
                 '{{ url_for("static", filename="images/hero/Page_2.jpg") }}',
                 '{{ url_for("static", filename="images/hero/Page_3.jpg") }}',
                 '{{ url_for("static", filename="images/hero/Page_4.jpg") }}'
+                {% endif %}
             ];
 
             indicatorsContainer.innerHTML = '';

@@ -46,11 +46,13 @@ def homepage():
     museums = db.get_content_by_category('museums') or []
     virtual_exhibitions = db.get_content_by_category('virtual_exhibitions') or []
     posters = db.get_content_by_category('poster') or []
+    hero_images = db.get_content_by_category('hero_section') or []
 
     return render_template('homepage.html',
                            museums=museums,
                            virtual_exhibitions=virtual_exhibitions,
-                           events=posters)
+                           events=posters,
+                           hero_images=hero_images)
 
 
 @app.route('/about-us')
@@ -360,7 +362,8 @@ def admin_content(category):
     titles = {
         'museums': 'Музеи',
         'virtual_exhibitions': 'Музейные программы',
-        'poster': 'Афиша'
+        'poster': 'Афиша',
+        'hero_section': 'Главный экран'
     }
     items = db.get_content_by_category(category) or []
     return render_template('admin/content_list.html',
@@ -399,7 +402,8 @@ def admin_edit(category, content_id):
                 folder_map = {
                     'museums': 'museums',
                     'virtual_exhibitions': 'virtual',
-                    'poster': 'posters'
+                    'poster': 'posters',
+                    'hero_section': 'hero'
                 }
 
                 subfolder = folder_map.get(category, 'uploads')

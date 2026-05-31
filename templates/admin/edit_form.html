@@ -15,6 +15,7 @@
             <input type="text" name="title" class="form-control" value="{{ item.title_card if item else '' }}" required>
         </div>
 
+        {% if category != 'hero_section' %}
         <div style="display: flex; gap: 20px;">
             <div class="form-group" style="flex: 1;">
                 <label class="form-label">Дата события (для Афиши)</label>
@@ -32,6 +33,7 @@
             <label class="form-label">Краткое описание</label>
             <textarea name="short_desc" class="form-control" rows="3">{{ (item.short_description_card or '') if item else '' }}</textarea>
         </div>
+        {% endif %}
         <div class="form-group">
             <label class="form-label">Изображение карточки</label>
             {% if item and item.img_card %}
@@ -43,6 +45,7 @@
         </div>
     </div>
 
+    {% if category != 'hero_section' %}
     <!-- ГЛАВНЫЙ БЛОК -->
     <div class="admin-card">
         <h3 style="margin-top: 0;">2. Главный блок страницы</h3>
@@ -87,6 +90,7 @@
         </div>
     </div>
     {% endfor %}
+    {% endif %}
 
     <!-- КНОПКИ -->
     <div
