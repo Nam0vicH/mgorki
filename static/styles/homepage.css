@@ -899,25 +899,25 @@
 
 .map-container {
   position: relative;
-  width: 1109px;
-  min-height: 380px;
+  width: 1440px;
+  max-width: 100%;
   margin: 0 auto;
-  background: #FFFFFF;
-  border-radius: 20px;
-  overflow: hidden;
   display: flex;
-  border: 1px solid rgba(0, 0, 0, 0.03);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transform: translateZ(0);
+  gap: 30px;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .map-content {
-  width: 55%;
+  width: calc(50% - 15px);
   padding: 40px 50px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 35px;
+  background: #FFFFFF;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+  z-index: 2;
 }
 
 .map-info-row {
@@ -980,10 +980,15 @@
 }
 
 .map-image-wrapper {
-  width: 45%;
+  width: calc(50% - 15px);
+  height: 600px;
   position: relative;
   overflow: hidden;
   background-color: #f0f0f0;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transform: translateZ(0);
+  z-index: 2;
 }
 
 .map-image {
@@ -1008,6 +1013,137 @@
   height: 100%;
   background-color: #f0f0f0;
 }
+
+/* =========================
+   6. TRANSPORT TABS
+   ========================= */
+.transport-tabs-container {
+  margin-top: 25px;
+  border-top: 1px solid #EEEEEE;
+  padding-top: 25px;
+}
+
+.transport-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.transport-tab {
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: none;
+  background-color: #F0F2F5;
+  color: #555555;
+  font-family: 'Gerbera-Medium', Arial, sans-serif;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.transport-tab:hover {
+  background-color: #E4E6E9;
+}
+
+.transport-tab.active {
+  background-color: #FCD619;
+  color: #000000;
+}
+
+.transport-content {
+  display: none;
+}
+
+.transport-content.active {
+  display: block;
+  animation: transportFade 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes transportFade {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.transport-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.transport-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.transport-title {
+  font-family: 'Gerbera-Bold', Arial, sans-serif;
+  font-size: 16px;
+  color: #2D3A4B;
+}
+
+.group-title {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.transport-text {
+  font-family: 'Gerbera-Regular', Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #333333;
+  margin: 0;
+}
+
+.transport-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.transport-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.transport-title-row .transport-dot {
+  margin-top: 0;
+}
+
+.transport-double-dots {
+  display: flex;
+  position: relative;
+  width: 22px;
+  height: 12px;
+}
+
+.transport-double-dots .transport-dot {
+  position: absolute;
+  margin-top: 0;
+}
+.transport-double-dots .transport-dot:nth-child(1) { left: 0; z-index: 2; }
+.transport-double-dots .transport-dot:nth-child(2) { left: 10px; z-index: 1; }
+
+.bg-blue { background-color: #2D9CDB; }
+.bg-red { background-color: #EB5757; }
+.bg-green { background-color: #6FCF97; }
+.bg-orange { background-color: #F2994A; }
+.bg-pink { background-color: #F678A7; }
 
 @media screen and (max-width: 1150px) {
   .map-container {

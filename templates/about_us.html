@@ -105,13 +105,62 @@
                     </div>
                 </div>
 
-                <!-- Address -->
-                <div class="map-address-block">
-                    <h3 class="map-info-header">Адрес</h3>
-                    <p class="map-address-text">
-                        142712, Московская область, городской округ Ленинский, посёлок городского типа Горки Ленинские,
-                        улица Центральная, дом 1
-                    </p>
+                <!-- Transport Tabs -->
+                <div class="transport-tabs-container">
+                    <div class="transport-tabs">
+                        <button class="transport-tab active" data-tab="auto">На авто</button>
+                        <button class="transport-tab" data-tab="train">На Ж\Д</button>
+                        <button class="transport-tab" data-tab="bus">На метро \ автобусе</button>
+                    </div>
+                    
+                    <div class="transport-content active" id="tab-auto">
+                        <p class="transport-text">Вы можете построить маршрут до парковки введя в навигаторе посёлок городского типа Горки Ленинские, Северный проезд, 5.</p>
+                    </div>
+                    
+                    <div class="transport-content" id="tab-train">
+                        <ul class="transport-list">
+                            <li>
+                                <div class="transport-title-row">
+                                    <span class="transport-dot bg-blue"></span>
+                                    <strong class="transport-title">От Павелецкого вокзала</strong>
+                                </div>
+                                <p class="transport-text">Электрички от Павелецкого вокзала ходят часто (интервал от 11 минут), но от станции Ленинская есть всего 1 автобусный маршрут №24, с большим интервалом, до остановки Ветлы. Пешком от станции идти около часа – 4.7 км.</p>
+                            </li>
+                            <li>
+                                <div class="transport-title-row">
+                                    <span class="transport-dot bg-red"></span>
+                                    <strong class="transport-title">От Аэропорта Домодедово</strong>
+                                </div>
+                                <p class="transport-text">На аэроэкспрессе до станции Домодедово, далее маршрут №23, до остановки Экспериментальная база, ходит раз в 2.5 часа и 8 минут пешком.</p>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="transport-content" id="tab-bus">
+                        <ul class="transport-list">
+                            <li class="transport-group">
+                                <strong class="transport-title group-title">От Павелецкого вокзала</strong>
+                                <div class="transport-option">
+                                    <span class="transport-dot bg-green"></span>
+                                    <p class="transport-text"><strong>Вариант 1.</strong> От станции метро Павелецкая едем до станции метро Домодедовская, далее маршрут №439 до остановки Экспериментальная база и 8 минут пешком.</p>
+                                </div>
+                                <div class="transport-option">
+                                    <span class="transport-dot bg-orange"></span>
+                                    <p class="transport-text"><strong>Вариант 2.</strong> От станции метро Павелецкая едем до станции метро Домодедовская, далее маршрут № 871 до остановки Южная долины и 17 минут пешком.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="transport-title-row">
+                                    <div class="transport-double-dots">
+                                        <span class="transport-dot bg-pink"></span>
+                                        <span class="transport-dot bg-orange"></span>
+                                    </div>
+                                    <strong class="transport-title">От Аэропорта Домодедово</strong>
+                                </div>
+                                <p class="transport-text">Маршрут №308 до остановки Центр реабилитации, переходим дорогу и садимся на маршрут №871 до остановки Южная долина и 17 минут пешком.</p>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
@@ -131,6 +180,7 @@
                             // Уровень масштабирования (от 0 до 19)
                             zoom: 12
                         });
+                        window.myMapInstance = myMap;
 
                         // Создание гео-точки (плейсмарка)
                         var myPlacemark = new ymaps.Placemark([55.504742, 37.765188], {
@@ -156,6 +206,31 @@
         </div>
     </section>
 
+    <!-- Transport Tabs Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabs = document.querySelectorAll('.transport-tab');
+            const contents = document.querySelectorAll('.transport-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+
+                    tab.classList.add('active');
+                    const targetId = 'tab-' + tab.getAttribute('data-tab');
+                    const targetContent = document.getElementById(targetId);
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                    }
+
+                    if (window.myMapInstance) {
+                        window.myMapInstance.container.fitToViewport();
+                    }
+                });
+            });
+        });
+    </script>
 </div>
 
 {% endblock %}

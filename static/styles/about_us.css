@@ -71,7 +71,6 @@ body {
   justify-content: center;
   text-decoration: none;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(252, 214, 25, 0.4);
 }
 
 .main-ticket-btn:hover {
