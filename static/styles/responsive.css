@@ -247,7 +247,7 @@
   .poster-image-container,
   .poster-section .poster-card-image {
     height: auto !important;
-    aspect-ratio: 205 / 285;
+    aspect-ratio: 3 / 4;
   }
 
   /* --- КАРТА --- */
