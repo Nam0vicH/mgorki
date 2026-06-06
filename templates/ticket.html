@@ -5,6 +5,7 @@
 {% block extra_css %}
 <style>
     .ticket-container {
+        width: 90%;
         max-width: 600px;
         margin: 50px auto;
         background: #fff;
@@ -85,6 +86,29 @@
 
     .btn-home:hover {
         background-color: #555;
+    }
+
+    @media (max-width: 480px) {
+        .ticket-container {
+            width: 92%;
+            margin: 20px auto;
+        }
+        .ticket-header {
+            padding: 20px;
+        }
+        .ticket-body {
+            padding: 25px 15px;
+        }
+        .qr-code-wrapper {
+            padding: 15px;
+        }
+        .qr-code-wrapper img {
+            width: 200px;
+            height: 200px;
+        }
+        .ticket-details p {
+            font-size: 14px;
+        }
     }
 </style>
 {% endblock %}
