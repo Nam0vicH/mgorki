@@ -130,10 +130,10 @@ def get_active_sessions(event_id, start_date, end_date):
     return execute_query(query, (event_id, start_date, end_date))
 
 
-def get_session_by_date_time(session_date, session_time):
-    """Получить сеанс по дате и времени"""
-    query = "SELECT * FROM session_schedule WHERE session_date = %s AND session_time = %s"
-    result = execute_query(query, (session_date, session_time))
+def get_session_by_date_time(event_id, session_date, session_time):
+    """Получить сеанс по дате и времени для конкретного события"""
+    query = "SELECT * FROM session_schedule WHERE event_id = %s AND session_date = %s AND session_time = %s"
+    result = execute_query(query, (event_id, session_date, session_time))
     return result[0] if result else None
 
 

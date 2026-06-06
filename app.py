@@ -113,15 +113,16 @@ def create_order():
 
         session_date = request.form.get('session_date')
         session_time = request.form.get('session_time')
+        museum_id = request.form.get('museum_id')
         tickets_data = json.loads(request.form.get('tickets_data', '{}'))
 
-        if not all([full_name, email, phone, session_date, session_time, accept_terms]):
+        if not all([full_name, email, phone, session_date, session_time, museum_id, accept_terms]):
             return jsonify({'success': False, 'error': 'Заполните все обязательные поля'})
 
         if not tickets_data or sum(tickets_data.values()) == 0:
             return jsonify({'success': False, 'error': 'Выберите хотя бы один билет'})
 
-        session_obj = db.get_session_by_date_time(session_date, session_time)
+        session_obj = db.get_session_by_date_time(museum_id, session_date, session_time)
         if not session_obj:
             return jsonify({'success': False, 'error': 'Сеанс не найден'})
 

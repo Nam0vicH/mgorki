@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/order.css') }}">
 <style>
     .payment-container {
+        width: 90%;
         max-width: 600px;
         margin: 50px auto;
         padding: 30px;
@@ -112,6 +113,37 @@
 
     .btn-autofill:hover {
         background-color: #ddd;
+    }
+
+    @media (max-width: 480px) {
+        .payment-container {
+            width: 92%;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .payment-details {
+            padding: 15px;
+            font-size: 14px;
+        }
+
+        .payment-actions {
+            flex-direction: column-reverse;
+            gap: 15px;
+        }
+
+        .btn-pay {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .btn-autofill {
+            width: 100%;
+            padding: 12px;
+            text-align: center;
+        }
     }
 </style>
 {% endblock %}
