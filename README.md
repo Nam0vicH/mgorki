@@ -3,10 +3,10 @@
 **Современная веб-приложение для управления билетами музеев, виртуальных выставок и афиш событий.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Nam0vicH/mgorki/blob/main/LICENSE)
-![Language Composition](https://img.shields.io/badge/HTML-52.7%25-informational?style=flat-square&color=e34c26)
-![CSS](https://img.shields.io/badge/CSS-33.7%25-informational?style=flat-square&color=563d7c)
-![Python](https://img.shields.io/badge/Python-12.9%25-informational?style=flat-square&color=3776ab)
-![JavaScript](https://img.shields.io/badge/JavaScript-0.7%25-informational?style=flat-square&color=f7df1e)
+![Language Composition](https://img.shields.io/badge/HTML-56.5%25-informational?style=flat-square&color=e34c26)
+![CSS](https://img.shields.io/badge/CSS-27.4%25-informational?style=flat-square&color=563d7c)
+![Python](https://img.shields.io/badge/Python-14.3%25-informational?style=flat-square&color=3776ab)
+![JavaScript](https://img.shields.io/badge/JavaScript-1.8%25-informational?style=flat-square&color=f7df1e)
 
 ---
 
@@ -29,8 +29,7 @@
 
 ## 📝 Описание проекта
 
-**mgorki** — это полнофункциональная платформа для управления билетами музеев. Приложение предоставляет пользователям
-удобный интерфейс для:
+**mgorki** — это полнофункциональная платформа для управления билетами музеев. Приложение предоставляет пользователям удобный интерфейс для:
 
 - 👁️ Просмотра информации о музеях и выставках
 - 🎫 Бронирования и покупки билетов онлайн
@@ -82,9 +81,9 @@
 
 ### Frontend
 
-- **HTML5** — Структура веб-страниц (52.7%)
-- **CSS3** — Стилизация интерфейса (33.7%)
-- **JavaScript** — Интерактивность (0.7%)
+- **HTML5** — Структура веб-страниц (56.5%)
+- **CSS3** — Стилизация интерфейса (27.4%)
+- **JavaScript** — Интерактивность (1.8%)
 - **Jinja2** — Шаблонизатор для Python
 
 ### Дополнительные библиотеки
@@ -114,7 +113,7 @@
 │  │  • Admin Routes (/admin/*, protected)                  │ │
 │  │  • Testing Routes (/test-db, /show-tables, etc.)       │ │
 │  └────────────────────────────────────────────────────────┘ │
-└──────────────────────────┬──────────────────────────────────┘
+└──────────────────────────┬───────────���──────────────────────┘
                            │
 ┌──────────────────────────▼──────────────────────────────────┐
 │               Database Layer (database.py)                  │
@@ -347,7 +346,7 @@ mgorki/
 | `/create-order`         | POST  | Создание нового заказа                         |
 | `/payment/<id>`         | GET   | Страница оплаты заказа                         |
 | `/process-payment/<id>` | POST  | Обработка оплаты                               |
-| `/ticket/<id>`          | GET   | Просмотр билета и QR-кода                      |
+| `/ticket/<id>`          | GET   | Просмотр билета и QR-��ода                      |
 | `/qr/<token>`           | GET   | Верификация QR-кода                            |
 | `/museum_programs/<id>` | GET   | Программы музея                                |
 | `/poster`               | GET   | Афиша событий                                  |
@@ -596,7 +595,7 @@ mgorki/
 
 ### Развертывание на собственном сервере
 
-1. Установите Python и MySQL на сервер
+1. Устан��вите Python и MySQL на сервер
 2. Клонируйте репозиторий
 3. Настройте окружение
 4. Используйте обратный прокси (nginx) и WSGI сервер (Gunicorn/uWSGI)
@@ -668,12 +667,12 @@ sessions = get_active_sessions(today, week_later)
 
 ## 📋 Состав языков
 
-| Язык       | Доля  | Строк кода |
-|------------|-------|------------|
-| HTML       | 52.7% | ~2,500     |
-| CSS        | 33.7% | ~1,600     |
-| Python     | 12.9% | ~735       |
-| JavaScript | 0.7%  | ~35        |
+| Язык       | Доля  |
+|------------|-------|
+| HTML       | 56.5% |
+| CSS        | 27.4% |
+| Python     | 14.3% |
+| JavaScript | 1.8%  |
 
 ---
 
@@ -708,7 +707,7 @@ sessions = get_active_sessions(today, week_later)
 
 Если у вас есть вопросы или проблемы:
 
-1. Проверьте разде�� [Issues](https://github.com/Nam0vicH/mgorki/issues)
+1. Проверьте раздел [Issues](https://github.com/Nam0vicH/mgorki/issues)
 2. Создайте новый issue с описанием проблемы
 3. Приложите логи ошибок и информацию о вашей системе
 
