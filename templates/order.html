@@ -448,6 +448,26 @@
                 return;
             }
 
+            // Валидация полей
+            const fullName = document.getElementById('full-name').value.trim();
+            if (fullName.split(/\s+/).length < 2) {
+                alert('Пожалуйста, введите Фамилию и Имя полностью');
+                return;
+            }
+
+            const email = document.getElementById('email').value.trim();
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert('Пожалуйста, введите корректный E-mail (например, ivan@mail.ru)');
+                return;
+            }
+
+            const phone = document.getElementById('phone').value.trim();
+            if (phone.length < 18) {
+                alert('Пожалуйста, введите номер телефона полностью');
+                return;
+            }
+
             // Собираем данные формы
             const formData = new FormData(this);
 

@@ -119,6 +119,16 @@ def create_order():
         if not all([full_name, email, phone, session_date, session_time, museum_id, accept_terms]):
             return jsonify({'success': False, 'error': 'Заполните все обязательные поля'})
 
+        import re
+        if not re.match(r"^[^\s@]+@[^\s@]+\.[^\s@]+$", email):
+            return jsonify({'success': False, 'error': 'Введите корректный E-mail (например, ivan@mail.ru)'})
+            
+        if len(phone) < 18:
+            return jsonify({'success': False, 'error': 'Введите корректный номер телефона полностью'})
+            
+        if len(full_name.strip().split()) < 2:
+            return jsonify({'success': False, 'error': 'Введите Фамилию и Имя полностью'})
+
         if not tickets_data or sum(tickets_data.values()) == 0:
             return jsonify({'success': False, 'error': 'Выберите хотя бы один билет'})
 
