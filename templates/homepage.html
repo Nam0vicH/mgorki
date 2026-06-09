@@ -49,11 +49,15 @@
 
                 <!-- Контент -->
                 <div class="museum-card-content">
-                    <div class="museum-card-header" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; gap: 12px;">
+                    <div class="museum-card-header"
+                        style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; gap: 12px;">
                         <h3 class="museum-card-title">{{ museum.title_card }}</h3>
                         <div class="museum-badges" style="display: flex; gap: 8px; flex-shrink: 0; padding-top: 2px;">
-                            <span class="museum-badge" style="background: #FCD619; border-radius: 12px; height: 22px; display: flex; align-items: center; justify-content: center; padding: 0 10px; font-family: 'Gerbera-Medium', Arial, sans-serif; font-size: 11px; color: #000000; white-space: nowrap;">0+</span>
-                            <span class="museum-badge" style="background: #FCD619; border-radius: 12px; height: 22px; display: flex; align-items: center; justify-content: center; padding: 0 10px; font-family: 'Gerbera-Medium', Arial, sans-serif; font-size: 11px; color: #000000; white-space: nowrap;">от 800 ₽</span>
+                            <span class="museum-badge"
+                                style="background: #FCD619; border-radius: 12px; height: 22px; display: flex; align-items: center; justify-content: center; padding: 0 10px; font-family: 'Gerbera-Medium', Arial, sans-serif; font-size: 11px; color: #000000; white-space: nowrap;">0+</span>
+                            <span class="museum-badge"
+                                style="background: #FCD619; border-radius: 12px; height: 22px; display: flex; align-items: center; justify-content: center; padding: 0 10px; font-family: 'Gerbera-Medium', Arial, sans-serif; font-size: 11px; color: #000000; white-space: nowrap;">от
+                                800 ₽</span>
                         </div>
                     </div>
 
@@ -86,10 +90,12 @@
 
                         <!-- Ссылки-кнопки -->
                         <div class="card-buttons-layout">
-                            <a href="{{ url_for('about_us', museum_id=museum.id) }}" class="museum-card-button stretched-link" style="width: auto; padding: 0 20px;">
+                            <a href="{{ url_for('about_us', museum_id=museum.id) }}"
+                                class="museum-card-button stretched-link" style="width: auto; padding: 0 20px;">
                                 Подробнее
                             </a>
-                            <a href="{{ url_for('order', museum_id=museum.id) }}" class="museum-card-button card-interactive" style="width: auto; padding: 0 20px;">
+                            <a href="{{ url_for('order', museum_id=museum.id) }}"
+                                class="museum-card-button card-interactive" style="width: auto; padding: 0 20px;">
                                 Купить билет
                             </a>
                         </div>
@@ -169,7 +175,8 @@
 
                         <!-- Ссылка-кнопка -->
                         <div class="card-buttons-layout">
-                            <a href="{{ url_for('museum_programs', exhibition_id=exhibition.id) }}" class="museum-card-button stretched-link" style="width: auto; padding: 0 20px;">
+                            <a href="{{ url_for('museum_programs', exhibition_id=exhibition.id) }}"
+                                class="museum-card-button stretched-link" style="width: auto; padding: 0 20px;">
                                 Подробнее
                             </a>
                         </div>
@@ -229,8 +236,8 @@
                             <!-- Дата и время -->
                             {% if event.date_of_the_event %}
                             <div class="poster-meta">
-                                <img src="{{ url_for('static', filename='images/icon/calendar_dark.png') }}" class="poster-icon"
-                                    alt="Дата">
+                                <img src="{{ url_for('static', filename='images/icon/calendar_dark.png') }}"
+                                    class="poster-icon" alt="Дата">
                                 <span class="poster-meta-text">{{ event.date_of_the_event }}</span>
                             </div>
                             {% endif %}
@@ -238,8 +245,8 @@
                             <!-- Место проведения -->
                             {% if event.location_of_the_event %}
                             <div class="poster-meta" style="margin-bottom: 0;">
-                                <img src="{{ url_for('static', filename='images/icon/location_dark.png') }}" class="poster-icon"
-                                    alt="Место">
+                                <img src="{{ url_for('static', filename='images/icon/location_dark.png') }}"
+                                    class="poster-icon" alt="Место">
                                 <span class="poster-meta-text">{{ event.location_of_the_event }}</span>
                             </div>
                             {% endif %}
@@ -247,7 +254,8 @@
 
                         <!-- Ссылка-кнопка -->
                         <div class="card-buttons-layout">
-                            <a href="{{ url_for('poster_detail', poster_id=event.id) }}" class="museum-card-button stretched-link" style="width: auto; padding: 0 20px;">
+                            <a href="{{ url_for('poster_detail', poster_id=event.id) }}"
+                                class="museum-card-button stretched-link" style="width: auto; padding: 0 20px;">
                                 Подробнее
                             </a>
                         </div>
@@ -318,11 +326,12 @@
                         <button class="transport-tab" data-tab="train">На Ж\Д</button>
                         <button class="transport-tab" data-tab="bus">На метро \ автобусе</button>
                     </div>
-                    
+
                     <div class="transport-content active" id="tab-auto">
-                        <p class="transport-text">Вы можете построить маршрут до парковки введя в навигаторе посёлок городского типа Горки Ленинские, Северный проезд, 5.</p>
+                        <p class="transport-text">Вы можете построить маршрут до парковки введя в навигаторе посёлок
+                            городского типа Горки Ленинские, Северный проезд, 5.</p>
                     </div>
-                    
+
                     <div class="transport-content" id="tab-train">
                         <ul class="transport-list">
                             <li>
@@ -330,29 +339,36 @@
                                     <span class="transport-dot bg-blue"></span>
                                     <strong class="transport-title">От Павелецкого вокзала</strong>
                                 </div>
-                                <p class="transport-text">Электрички от Павелецкого вокзала ходят часто (интервал от 11 минут), но от станции Ленинская есть всего 1 автобусный маршрут №24, с большим интервалом, до остановки Ветлы. Пешком от станции идти около часа – 4.7 км.</p>
+                                <p class="transport-text">Электрички от Павелецкого вокзала ходят часто (интервал от 11
+                                    минут), но от станции Ленинская есть всего 1 автобусный маршрут №24, с большим
+                                    интервалом, до остановки Ветлы. Пешком от станции идти около часа – 4.7 км.</p>
                             </li>
                             <li>
                                 <div class="transport-title-row">
                                     <span class="transport-dot bg-red"></span>
                                     <strong class="transport-title">От Аэропорта Домодедово</strong>
                                 </div>
-                                <p class="transport-text">На аэроэкспрессе до станции Домодедово, далее маршрут №23, до остановки Экспериментальная база, ходит раз в 2.5 часа и 8 минут пешком.</p>
+                                <p class="transport-text">На аэроэкспрессе до станции Домодедово, далее маршрут №23, до
+                                    остановки Экспериментальная база, ходит раз в 2.5 часа и 8 минут пешком.</p>
                             </li>
                         </ul>
                     </div>
-                    
+
                     <div class="transport-content" id="tab-bus">
                         <ul class="transport-list">
                             <li class="transport-group">
                                 <strong class="transport-title group-title">От Павелецкого вокзала</strong>
                                 <div class="transport-option">
                                     <span class="transport-dot bg-green"></span>
-                                    <p class="transport-text"><strong>Вариант 1.</strong> От станции метро Павелецкая едем до станции метро Домодедовская, далее маршрут №439 до остановки Экспериментальная база и 8 минут пешком.</p>
+                                    <p class="transport-text"><strong>Вариант 1.</strong> От станции метро Павелецкая
+                                        едем до станции метро Домодедовская, далее маршрут №439 до остановки
+                                        Экспериментальная база и 8 минут пешком.</p>
                                 </div>
                                 <div class="transport-option">
                                     <span class="transport-dot bg-orange"></span>
-                                    <p class="transport-text"><strong>Вариант 2.</strong> От станции метро Павелецкая едем до станции метро Домодедовская, далее маршрут № 871 до остановки Южная долины и 17 минут пешком.</p>
+                                    <p class="transport-text"><strong>Вариант 2.</strong> От станции метро Павелецкая
+                                        едем до станции метро Домодедовская, далее маршрут № 871 до остановки Южная
+                                        долины и 17 минут пешком.</p>
                                 </div>
                             </li>
                             <li>
@@ -363,7 +379,8 @@
                                     </div>
                                     <strong class="transport-title">От Аэропорта Домодедово</strong>
                                 </div>
-                                <p class="transport-text">Маршрут №308 до остановки Центр реабилитации, переходим дорогу и садимся на маршрут №871 до остановки Южная долина и 17 минут пешком.</p>
+                                <p class="transport-text">Маршрут №308 до остановки Центр реабилитации, переходим дорогу
+                                    и садимся на маршрут №871 до остановки Южная долина и 17 минут пешком.</p>
                             </li>
                         </ul>
                     </div>
@@ -427,7 +444,7 @@
                 return;
             }
 
-            const heroImages = [
+            const desktopImages = [
                 {% if hero_images %}
                     {% for img in hero_images %}
                         '{{ url_for("static", filename=img.img_card) }}'{{ "," if not loop.last else "" }}
@@ -435,39 +452,45 @@
                 {% else %}
                 '{{ url_for("static", filename="images/hero/Page_1.jpg") }}',
                 '{{ url_for("static", filename="images/hero/Page_2.jpg") }}',
-                '{{ url_for("static", filename="images/hero/Page_3.jpg") }}',
                 '{{ url_for("static", filename="images/hero/Page_4.jpg") }}'
                 {% endif %}
             ];
 
-            indicatorsContainer.innerHTML = '';
+            const mobileImages = [
+                '{{ url_for("static", filename="images/hero/Page_1_mobile.png") }}',
+                '{{ url_for("static", filename="images/hero/Page_2_mobile.png") }}',
+                '{{ url_for("static", filename="images/hero/Page_3_mobile.png") }}'
+            ];
 
-            heroImages.forEach((_, index) => {
-                const dot = document.createElement('span');
-                dot.classList.add('hero-indicator');
-                if (index === 0) dot.classList.add('active');
+            function isMobileView() {
+                return window.innerWidth <= 768;
+            }
 
-                dot.addEventListener('click', () => {
-                    updateSlide(index);
-                });
-
-                indicatorsContainer.appendChild(dot);
-            });
-
-            const heroIndicators = document.querySelectorAll('.hero-indicator');
+            let heroImages = isMobileView() ? mobileImages : desktopImages;
             let currentSlide = 0;
 
-            function updateSlide(index) {
-                // Update background image
-                heroBackground.style.opacity = '0';
+            function getHeroIndicators() {
+                return document.querySelectorAll('.hero-indicator');
+            }
 
+            function buildIndicators() {
+                indicatorsContainer.innerHTML = '';
+                heroImages.forEach((_, index) => {
+                    const dot = document.createElement('span');
+                    dot.classList.add('hero-indicator');
+                    if (index === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => updateSlide(index));
+                    indicatorsContainer.appendChild(dot);
+                });
+            }
+
+            function updateSlide(index) {
+                heroBackground.style.opacity = '0';
                 setTimeout(() => {
                     heroBackground.style.backgroundImage = `url('${heroImages[index]}')`;
                     heroBackground.style.opacity = '1';
                     currentSlide = index;
-
-                    // Update indicators
-                    heroIndicators.forEach((indicator, i) => {
+                    getHeroIndicators().forEach((indicator, i) => {
                         if (i === index) {
                             indicator.classList.add('active');
                         } else {
@@ -487,17 +510,14 @@
                 updateSlide(prev);
             }
 
+            // Build initial indicators
+            buildIndicators();
+
             // Event listeners
             heroNext.addEventListener('click', nextSlide);
             heroPrev.addEventListener('click', prevSlide);
 
-            heroIndicators.forEach((indicator, index) => {
-                indicator.addEventListener('click', () => {
-                    updateSlide(index);
-                });
-            });
-
-            // Auto-play (optional - every 5 seconds)
+            // Auto-play every 5 seconds
             let autoPlayInterval = setInterval(nextSlide, 5000);
 
             // Pause auto-play on hover
@@ -505,9 +525,21 @@
             heroSection.addEventListener('mouseenter', () => {
                 clearInterval(autoPlayInterval);
             });
-
             heroSection.addEventListener('mouseleave', () => {
                 autoPlayInterval = setInterval(nextSlide, 5000);
+            });
+
+            // Switch between mobile and desktop images on resize
+            let wasMobile = isMobileView();
+            window.addEventListener('resize', () => {
+                const nowMobile = isMobileView();
+                if (nowMobile !== wasMobile) {
+                    wasMobile = nowMobile;
+                    heroImages = nowMobile ? mobileImages : desktopImages;
+                    currentSlide = 0;
+                    buildIndicators();
+                    updateSlide(0);
+                }
             });
         });
 

@@ -8,8 +8,13 @@
    ПЛАНШЕТЫ И НОУТБУКИ (Max-width: 1200px)
 ========================================= */
 @media (max-width: 1200px) {
+
   /* Глобальные контейнеры */
-  .header, .hero-section, .map-section, .history-page, .order-page-container {
+  .header,
+  .hero-section,
+  .map-section,
+  .history-page,
+  .order-page-container {
     width: 100%;
     max-width: 100%;
     padding-left: 20px;
@@ -37,7 +42,8 @@
   .virtual-exhibitions-cards,
   .poster-section .poster-cards {
     justify-content: flex-start;
-    align-items: flex-start; /* Каждая карточка по высоте своего контента */
+    align-items: flex-start;
+    /* Каждая карточка по высоте своего контента */
     overflow-x: auto;
     padding: 0 20px 30px;
     scroll-snap-type: x mandatory;
@@ -69,9 +75,15 @@
    ПЛАНШЕТЫ (ПОРТРЕТ) (Max-width: 992px)
 ========================================= */
 @media (max-width: 992px) {
+
   /* Типографика - уменьшаем заголовки */
-  .about-us-title, .page-title, .afisha-title,
-  .museum-title, .virtual-exhibitions-title, .poster-title, .title {
+  .about-us-title,
+  .page-title,
+  .afisha-title,
+  .museum-title,
+  .virtual-exhibitions-title,
+  .poster-title,
+  .title {
     font-size: 36px !important;
     line-height: 1.2;
     margin-bottom: 30px;
@@ -98,7 +110,8 @@
   }
 
   /* Футер */
-  .footer, .footer-container {
+  .footer,
+  .footer-container {
     width: 100%;
     box-sizing: border-box;
     padding: 0 20px;
@@ -137,11 +150,13 @@
 
   /* --- HEADER --- */
   .header-nav {
-    display: none; /* Скрываем основное меню, оставляем иконки/бургер */
+    display: none;
+    /* Скрываем основное меню, оставляем иконки/бургер */
   }
 
   .buy-ticket-pill {
-    display: none; /* Полностью скрываем кнопку покупки на малых экранах для освобождения места */
+    display: none;
+    /* Полностью скрываем кнопку покупки на малых экранах для освобождения места */
   }
 
   .list-icon {
@@ -163,7 +178,12 @@
     min-height: 200px;
   }
 
-  .hero-button-left, .hero-button-right {
+  .hero-background {
+    background-position: center center;
+  }
+
+  .hero-button-left,
+  .hero-button-right {
     width: 44px;
     height: 44px;
   }
@@ -297,14 +317,17 @@
     font-size: 10px;
   }
 
-  .calendar-section, .tickets-section, .booking-panel {
+  .calendar-section,
+  .tickets-section,
+  .booking-panel {
     padding: 20px;
     border-radius: 20px;
   }
 
   /* --- FOOTER --- */
   .footer-nav-grid {
-    grid-template-columns: 1fr; /* Одна колонка для ссылок */
+    grid-template-columns: 1fr;
+    /* Одна колонка для ссылок */
     gap: 30px;
   }
 
@@ -330,9 +353,15 @@
    МАЛЕНЬКИЕ МОБИЛКИ (Max-width: 480px)
 ========================================= */
 @media (max-width: 480px) {
+
   /* Заголовки */
-  .about-us-title, .page-title, .afisha-title,
-  .museum-title, .virtual-exhibitions-title, .poster-title, .title {
+  .about-us-title,
+  .page-title,
+  .afisha-title,
+  .museum-title,
+  .virtual-exhibitions-title,
+  .poster-title,
+  .title {
     font-size: 28px !important;
   }
 
@@ -354,7 +383,8 @@
 
   /* Билеты (Order page) */
   .tickets-header {
-    display: none; /* Убираем заголовки таблицы */
+    display: none;
+    /* Убираем заголовки таблицы */
   }
 
   .ticket-row {
