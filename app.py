@@ -88,7 +88,7 @@ def order(museum_id=None):
     sessions = db.get_active_sessions(event_id, today, week_later) or []
     
     event_category = museum['category'] if museum else 'museums'
-    ticket_cat_type = 'poster' if event_category == 'poster' else 'museum'
+    ticket_cat_type = 'museum'
     
     ticket_categories = db.get_ticket_categories_by_type(ticket_cat_type) or []
 
