@@ -36,30 +36,48 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchResults = document.getElementById('searchResults');
     
     if (searchIcon && searchModal) {
+        let savedScrollY = 0;
+
+        function closeSearchModal() {
+            searchModal.classList.remove('active');
+            document.body.classList.remove('search-modal-open');
+            document.body.style.top = '';
+            window.scrollTo(0, savedScrollY);
+            searchInput.value = '';
+            searchResults.innerHTML = '';
+        }
+
         // Открытие поиска
         searchIcon.addEventListener('click', () => {
+            savedScrollY = window.scrollY;
+            document.body.classList.add('search-modal-open');
+            document.body.style.top = `-${savedScrollY}px`;
             searchModal.classList.add('active');
             setTimeout(() => searchInput.focus(), 100);
         });
         
         // Закрытие по крестику
-        searchClose.addEventListener('click', () => {
-            searchModal.classList.remove('active');
-        });
+        searchClose.addEventListener('click', closeSearchModal);
         
         // Закрытие при клике по фону
         searchModal.addEventListener('click', (e) => {
             if (e.target === searchModal) {
-                searchModal.classList.remove('active');
+                closeSearchModal();
             }
         });
         
         // Закрытие по Escape
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && searchModal.classList.contains('active')) {
-                searchModal.classList.remove('active');
+                closeSearchModal();
             }
         });
+
+        // Принудительный скролл результатов колёсиком
+        searchResults.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            searchResults.scrollBy({ top: e.deltaY, behavior: 'smooth' });
+        }, { passive: false });
         
         let debounceTimer;
         searchInput.addEventListener('input', (e) => {

@@ -248,6 +248,12 @@ body {
 /* ==========================================================================
    Search Modal
    ========================================================================== */
+body.search-modal-open {
+    position: fixed;
+    width: 100%;
+    overflow: hidden;
+}
+
 .search-modal {
     position: fixed;
     top: 0;
@@ -264,6 +270,7 @@ body {
     visibility: hidden;
     transition: all 0.3s ease;
     backdrop-filter: blur(8px);
+    overflow: hidden;
 }
 
 .search-modal.active {
@@ -281,6 +288,7 @@ body {
     box-shadow: 0 15px 40px rgba(0,0,0,0.08);
     transform: translateY(-20px);
     transition: transform 0.3s ease;
+    overflow: hidden;
 }
 
 .search-modal.active .search-modal-content {
@@ -323,9 +331,11 @@ body {
     margin-top: 20px;
     max-height: 400px;
     overflow-y: auto;
+    overscroll-behavior: contain;
     display: flex;
     flex-direction: column;
     gap: 15px;
+    padding-right: 10px;
 }
 
 /* Custom scrollbar for search results */
