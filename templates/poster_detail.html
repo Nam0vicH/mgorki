@@ -14,6 +14,12 @@
 
         <!-- Контейнер с текстом -->
         <div class="poster-detail-content">
+            <!-- Теги (Цена и Возраст) -->
+            <div class="tags">
+                <span class="tag">6+</span>
+                <span class="tag">300 ₽</span>
+            </div>
+
             <!-- Заголовок -->
             <h1 class="excursion-title" style="margin-top: 15px;">
                 {{ poster.title_card }}
@@ -35,6 +41,9 @@
                 {% if poster.location_of_the_event %}
                 <li>Место проведения: {{ poster.location_of_the_event }}</li>
                 {% endif %}
+                <li>Продолжительность: 60 минут</li>
+                <li>Возрастное ограничение: 6+</li>
+                <li>Стоимость: 300 ₽</li>
             </ul>
 
             <!-- Кнопка заказа -->
